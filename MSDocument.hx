@@ -53,10 +53,11 @@ public function removePage(p:MSPage):Void;
 //out of official api
 //undocumented
 public  function fileURL():MSDocument.SketchFile;
-
+public function saveDocument(t:Dynamic):Void; /// don't know which param
 public function displayName():String;
 public function setCurrentPage(p:MSPage):Void;
 public function currentPage():MSPage;
+
 }
 // surely some other properties //todo
 extern class SketchFile{
