@@ -6,7 +6,7 @@ class BomberCommands{
 
 
   // should use macros for that 
-  static public function alert(msg:String, title:String) {
+  static public function alert(msg:String, ?title:String) {
     if (title == null)  title = "Whoops" ;
     //var app = [NSApplication sharedApplication];
     var app = NSApplication.sharedApplication();
