@@ -42,11 +42,23 @@ public function setIsSelected(t:Bool):Void;
 public function absoluteRect():GKRect;
 //Returns a GKRect object that returns the bounds of this layer in absolute coordinates; it takes into account the layer's rotation and that of any of its parents.
 
-public function duplicate():Void;
+public function duplicate():MSLayer;
 //Duplicates the layer and insert the copy above itself
 
 
 //undocumented 
+public function layers():SketchArray<MSLayer>;
+
+/*
+// not working
+public function setFixedRadius(r:Int):Void;
+public function fixedRadius():Int;
+*/
+
+
+
+
+
 public function isMemberOfClass(c:Class<Dynamic>):Bool;
 
 
