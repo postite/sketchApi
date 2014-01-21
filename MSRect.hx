@@ -2,8 +2,10 @@ extern class MSRect{
 
 //Represents a size and position of a layer on the screen. See MSLayer for more information
 
-public function x(?v:Float):Float; 
+public function x():Float; 
 public function  y():Float;
+public function setX(x:Float):Void;
+public function setY(x:Float):Void;
 public function  width():Float;
 public function  height():Float;
 //Base attributes. All floats;
@@ -47,7 +49,8 @@ public function left():Int;
 public function setLeft(px:Int):Void;
 public function setTop(px:Int):Void;
 public function top():Int;
-
+public function setHeight(v:Float):Void;
+public function setWidth(v:Float):Void;
 
 //perso
 public inline function toString():String{
