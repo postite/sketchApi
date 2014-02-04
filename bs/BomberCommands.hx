@@ -1,5 +1,5 @@
 package bs;
-
+import ns.*;
 
 class BomberCommands{
 
@@ -20,7 +20,7 @@ class BomberCommands{
   static public function create_folder(path:String) {
     //var file_manager = [NSFileManager defaultManager];
     var file_manager = NSFileManager.defaultManager();
-   try {file_manager.createDirectoryAtPath(path,true);}
+   try {file_manager.createDirectoryAtPath(path,false);}
    catch(msg:Dynamic){
    	untyped log("error creating folder"+path +"--" +msg);
    }
