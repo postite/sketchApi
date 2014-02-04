@@ -58,5 +58,44 @@ public inline function toString():String{
 	return 'x:$x(),y:$y(),width:$width(),height:$height()';
 }
 }
+/*
+@interface _MSRect : MSModelObject
+{
+    BOOL _constrainProportions;
+    double _height;
+    double _width;
+    double _x;
+    double _y;
+}
 
+@property(nonatomic) double y; // @synthesize y=_y;
+@property(nonatomic) double x; // @synthesize x=_x;
+@property(nonatomic) double width; // @synthesize width=_width;
+@property(nonatomic) double height; // @synthesize height=_height;
+@property(nonatomic) BOOL constrainProportions; // @synthesize constrainProportions=_constrainProportions;
+- (void)copyPropertiesToObjectCopy:(id)arg1;
+- (void)setUndoManagerOnChildren:(id)arg1;
+- (void)setAsParentOnChildren;
+- (void)decodePropertiesCompatibleWithCoder:(id)arg1;
+- (void)decodePropertiesManuallyWithCoder:(id)arg1;
+- (void)decodePropertiesWithCoder:(id)arg1;
+- (void)encodePropertiesCompatibleWithCoder:(id)arg1;
+- (void)encodePropertiesManuallyWithCoder:(id)arg1;
+- (void)encodePropertiesWithCoder:(id)arg1;
+- (void)fillInEmptyObjects;
+- (BOOL)hasDefaultValues;
+- (void)initEmptyObject;
+- (void)setPrimitiveY:(double)arg1;
+- (double)primitiveY;
+- (void)setPrimitiveX:(double)arg1;
+- (double)primitiveX;
+- (void)setPrimitiveWidth:(double)arg1;
+- (double)primitiveWidth;
+- (void)setPrimitiveHeight:(double)arg1;
+- (double)primitiveHeight;
+- (void)setPrimitiveConstrainProportions:(BOOL)arg1;
+- (BOOL)primitiveConstrainProportions;
+- (void)enumerateProperties:(CDUnknownBlockType)arg1;
+
+@end*/
 

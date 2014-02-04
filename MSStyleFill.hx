@@ -23,3 +23,43 @@ public function color():NSColor;
 public function setColor(c:NSColor):Void;
 
 }
+
+/*
+@interface _MSStyleFill : MSStyleBasicFill
+{
+    double _noiseIntensity;
+    long long _patternFillType;
+    NSImage *_patternImage;
+    double _patternTileScale;
+}
+
+@property(nonatomic) double patternTileScale; // @synthesize patternTileScale=_patternTileScale;
+@property(retain, nonatomic) NSImage *patternImage; // @synthesize patternImage=_patternImage;
+@property(nonatomic) long long patternFillType; // @synthesize patternFillType=_patternFillType;
+@property(nonatomic) double noiseIntensity; // @synthesize noiseIntensity=_noiseIntensity;
+- (void).cxx_destruct;
+- (void)copyPropertiesToObjectCopy:(id)arg1;
+- (void)setUndoManagerOnChildren:(id)arg1;
+- (void)setAsParentOnChildren;
+- (void)decodePropertiesCompatibleWithCoder:(id)arg1;
+- (void)decodePropertiesManuallyWithCoder:(id)arg1;
+- (void)decodePropertiesWithCoder:(id)arg1;
+- (void)encodePropertiesCompatibleWithCoder:(id)arg1;
+- (void)encodePropertiesManuallyWithCoder:(id)arg1;
+- (void)encodePropertiesWithCoder:(id)arg1;
+- (void)fillInEmptyObjects;
+- (BOOL)hasDefaultValues;
+- (void)initEmptyObject;
+- (void)setPrimitivePatternTileScale:(double)arg1;
+- (double)primitivePatternTileScale;
+- (void)setPrimitivePatternImage:(id)arg1;
+- (id)primitivePatternImage;
+- (void)setPrimitivePatternFillType:(long long)arg1;
+- (long long)primitivePatternFillType;
+- (void)setPrimitiveNoiseIntensity:(double)arg1;
+- (double)primitiveNoiseIntensity;
+- (void)enumerateProperties:(CDUnknownBlockType)arg1;
+
+@end
+
+*/
