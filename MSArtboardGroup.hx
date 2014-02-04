@@ -1,4 +1,5 @@
 extern class MSArtboardGroup{
+extern class MSArtboardGroup extends MSLayerGroup{
 //Since Sketch 2.2, an Artboard is just special kind of layer. MSSliceLayer has - like MSLayer - a Frame property that is an MSRect which determines its position in the canvas.
 
 public function layers():SketchArray<MSLayer>;
