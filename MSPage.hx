@@ -14,7 +14,7 @@ public function slices():SketchArray<MSSliceLayer>;
 public function artboards():SketchArray<MSArtboardGroup>;
 //Returns an array of all artboards on the page.
 
-public function duplicate():MSPage;  //SketchBug ? return but doesn't insert
+override public function duplicate():MSPage;  //SketchBug ? return but doesn't insert
 //Duplicates the Page, inserts it just below this page. Returns the new page. Available as of beta 184 / version 2.2.5
 
 public function horizontalRulerData():MSRulerData;
@@ -24,5 +24,53 @@ public function horizontalRulerData():MSRulerData;
 // undocumented 
 public function currentArtboard():MSArtboardGroup;
 public function setCurrentArtboard(art:MSArtboardGroup):Void;
-public function name():String;
+override public function name():String;
+
+public function addSlice(s:Dynamic):Void;
 }
+
+/*
+@interface _MSPage : MSLayerGroup
+{
+    MSBaseGrid *_grid;
+    MSRulerData *_horizontalRulerData;
+    MSLayerContainer *_sliceContainer;
+    MSRulerData *_verticalRulerData;
+    double _zoomValue;
+    struct CGPoint _scrollOrigin;
+}
+
+@property(nonatomic) double zoomValue; // @synthesize zoomValue=_zoomValue;
+@property(retain, nonatomic) MSRulerData *verticalRulerData; // @synthesize verticalRulerData=_verticalRulerData;
+@property(retain, nonatomic) MSLayerContainer *sliceContainer; // @synthesize sliceContainer=_sliceContainer;
+@property(nonatomic) struct CGPoint scrollOrigin; // @synthesize scrollOrigin=_scrollOrigin;
+@property(retain, nonatomic) MSRulerData *horizontalRulerData; // @synthesize horizontalRulerData=_horizontalRulerData;
+@property(copy, nonatomic) MSBaseGrid *grid; // @synthesize grid=_grid;
+- (void).cxx_destruct;
+- (void)copyPropertiesToObjectCopy:(id)arg1;
+- (void)setUndoManagerOnChildren:(id)arg1;
+- (void)setAsParentOnChildren;
+- (void)decodePropertiesCompatibleWithCoder:(id)arg1;
+- (void)decodePropertiesManuallyWithCoder:(id)arg1;
+- (void)decodePropertiesWithCoder:(id)arg1;
+- (void)encodePropertiesCompatibleWithCoder:(id)arg1;
+- (void)encodePropertiesManuallyWithCoder:(id)arg1;
+- (void)encodePropertiesWithCoder:(id)arg1;
+- (void)fillInEmptyObjects;
+- (BOOL)hasDefaultValues;
+- (void)initEmptyObject;
+- (void)setPrimitiveZoomValue:(double)arg1;
+- (double)primitiveZoomValue;
+- (void)setPrimitiveVerticalRulerData:(id)arg1;
+- (id)primitiveVerticalRulerData;
+- (void)setPrimitiveSliceContainer:(id)arg1;
+- (id)primitiveSliceContainer;
+- (void)setPrimitiveScrollOrigin:(struct CGPoint)arg1;
+- (struct CGPoint)primitiveScrollOrigin;
+- (void)setPrimitiveHorizontalRulerData:(id)arg1;
+- (id)primitiveHorizontalRulerData;
+- (void)setPrimitiveGrid:(id)arg1;
+- (id)primitiveGrid;
+- (void)enumerateProperties:(CDUnknownBlockType)arg1;
+
+@end*/
