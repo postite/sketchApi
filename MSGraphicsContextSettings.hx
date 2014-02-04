@@ -33,3 +33,35 @@ public function blendMode():Int;
 // 21: Destination Out;
 // 22: Destination Atop;
 }
+
+/*
+
+@interface _MSGraphicsContextSettings : MSModelObject
+{
+    long long _blendMode;
+    double _opacity;
+}
+
+@property(nonatomic) double opacity; // @synthesize opacity=_opacity;
+@property(nonatomic) long long blendMode; // @synthesize blendMode=_blendMode;
+- (void)copyPropertiesToObjectCopy:(id)arg1;
+- (void)setUndoManagerOnChildren:(id)arg1;
+- (void)setAsParentOnChildren;
+- (void)decodePropertiesCompatibleWithCoder:(id)arg1;
+- (void)decodePropertiesManuallyWithCoder:(id)arg1;
+- (void)decodePropertiesWithCoder:(id)arg1;
+- (void)encodePropertiesCompatibleWithCoder:(id)arg1;
+- (void)encodePropertiesManuallyWithCoder:(id)arg1;
+- (void)encodePropertiesWithCoder:(id)arg1;
+- (void)fillInEmptyObjects;
+- (BOOL)hasDefaultValues;
+- (void)initEmptyObject;
+- (void)setPrimitiveOpacity:(double)arg1;
+- (double)primitiveOpacity;
+- (void)setPrimitiveBlendMode:(long long)arg1;
+- (long long)primitiveBlendMode;
+- (void)enumerateProperties:(CDUnknownBlockType)arg1;
+
+@end
+
+*/
