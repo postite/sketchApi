@@ -1,5 +1,6 @@
 import MSLayer;
 extern class  MSLayerGroup{
+extern class  MSLayerGroup extends MSLayer{
 
 public function layers():SketchArray<MSLayer>;
 //Returns an array of all layers in the group - not including any of their children. In this way you can see that a document is basically a tree structure of layers & groups.
