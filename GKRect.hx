@@ -1,19 +1,22 @@
-typedef Size={
+typedef CGSize={
 	width:Float,
 	height:Float
 }
-typedef Origin={
-	x:Float,
-	y:Float
+typedef Origin=CGPoint
+
+typedef CGPoint={
+     x:Float,
+     y:Float
 }
+typedef CGRect=NSRect
 
 typedef NSRect={
-	size:Size,
+	size:CGSize,
 	origine:Origin,
 }
 extern class GKRect{
 
-public function size():Size;
+public function size():CGSize;
 public function origin():Origin;
 public function x():Float; //=origin.x
 public function y():Float; //=origin.y
