@@ -4,7 +4,7 @@ import MSLayer;
 import MSRect;
 class Actions{
 
-
+// stolen from https://github.com/bomberstudios/sketch-commands
 var spacing:Int;
 var selection:SketchArray<MSLayer>;
 var hxSelection:Array<MSLayer>;
