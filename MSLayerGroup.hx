@@ -1,8 +1,7 @@
 import MSLayer;
-extern class  MSLayerGroup{
 extern class  MSLayerGroup extends MSLayer{
 
-public function layers():SketchArray<MSLayer>;
+override public function layers():SketchArray<MSLayer>;
 //Returns an array of all layers in the group - not including any of their children. In this way you can see that a document is basically a tree structure of layers & groups.
 
 public function allLayers():SketchArray<MSLayer>;
@@ -22,3 +21,34 @@ public function addLayerOfType():Void;
 
 
 }
+
+/*
+@interface _MSLayerGroup : MSStyledLayer
+{
+    BOOL _hasClickThrough;
+    MSLayerContainer *_layerContainer;
+}
+
+@property(retain, nonatomic) MSLayerContainer *layerContainer; // @synthesize layerContainer=_layerContainer;
+@property(nonatomic) BOOL hasClickThrough; // @synthesize hasClickThrough=_hasClickThrough;
+- (void).cxx_destruct;
+- (void)copyPropertiesToObjectCopy:(id)arg1;
+- (void)setUndoManagerOnChildren:(id)arg1;
+- (void)setAsParentOnChildren;
+- (void)decodePropertiesCompatibleWithCoder:(id)arg1;
+- (void)decodePropertiesManuallyWithCoder:(id)arg1;
+- (void)decodePropertiesWithCoder:(id)arg1;
+- (void)encodePropertiesCompatibleWithCoder:(id)arg1;
+- (void)encodePropertiesManuallyWithCoder:(id)arg1;
+- (void)encodePropertiesWithCoder:(id)arg1;
+- (void)fillInEmptyObjects;
+- (BOOL)hasDefaultValues;
+- (void)initEmptyObject;
+- (void)setPrimitiveLayerContainer:(id)arg1;
+- (id)primitiveLayerContainer;
+- (void)setPrimitiveHasClickThrough:(BOOL)arg1;
+- (BOOL)primitiveHasClickThrough;
+- (void)enumerateProperties:(CDUnknownBlockType)arg1;
+
+@end
+*/
