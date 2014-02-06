@@ -1,12 +1,12 @@
 package exp;
-
+import Global.*;
 class ExportText extends ExportLayer implements Exportable
 {
 
 
-	public function new(layer:MSLayerGroup)
+	public function new(layer:MSTextLayer)
 	{
-		trace( "hello text");
-		super(layer);
+		_trace( "hello text");
+		super(cast layer);
 	}
 }

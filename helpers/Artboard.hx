@@ -37,6 +37,7 @@ class Artboard{
   private static function genExportable(layerGroup:MSLayerGroup):Exportable{
     log("genExportable");
     return exp.ExportFactory.create(layerGroup);
+    
   }
 
 
