@@ -8,7 +8,8 @@ extern class NSColor{
 	public function green():Float;
 	public function blue():Float;
 
-	public function set():Void; //// ??????
+	public function set():Void;
+	public function setFill():Void;
 	
 }
 

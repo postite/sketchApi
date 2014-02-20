@@ -19,8 +19,9 @@ public function isEnabled():Bool;
 
 //undoc
 public function setFillType(v:Int):Void;
-public function color():NSColor;
-public function setColor(c:NSColor):Void;
+public function color():MSColor;
+public function setColor(col:MSColor):Void;
+public function setFill(col:MSColor):Void;
 
 }
 

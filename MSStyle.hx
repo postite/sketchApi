@@ -14,7 +14,7 @@ extern class MSStyle{
 //Represents all style attributes on a layer. Whatever kind of layer you have, each has an valid style object. Some layers will ignore unsupported attributes though (such as a text layer only supports one border even if style objets has more than one)
 
  public function borders():MSStylePartCollection;
- public function fills():MSStylePartCollection;
+ public function fills():SketchArray<MSStyleFill>;
  public function shadows():MSStylePartCollection;
  public function innerShadows():MSStylePartCollection;
 //Each returns an MSStylePartCollection that contains an array of each represented object. See MSStyleBorder, MSStyleFill, MSStyleShadow and MSStyleInnerShadow for details.

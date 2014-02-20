@@ -42,6 +42,11 @@ class Layer{
 		var  klass = l._class();
 		return  klass== MSLayerGroup;
 	}
+	public static function isText(l:MSLayer):Bool
+	{
+		var  klass = l._class();
+		return  klass== MSTextLayer;
+	}
 
 	public static function export(layer:MSLayer,path:String, factor:Float):String{
     var r:EReg=~/\/+$/;
