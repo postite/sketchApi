@@ -1,10 +1,10 @@
 import MSStyle.MSGradient;
 import MSStyle.NSImage;
-extern class MSStyleFill{
+extern class MSStyleFill extends MSStyleBasicFill{
 public function fillType():Int;
 //A color fill (0), gradient (1) or pattern (4). Other values make no sense and can lead to unpredictable behaviour
 
-public function gradient():MSGradient;
+override public function gradient():MSGradient;
 //An MSGradient object that will only be used if the fillType is set to a gradient.
 
 public function patternImage():NSImage;
@@ -19,9 +19,10 @@ public function isEnabled():Bool;
 
 //undoc
 public function setFillType(v:Int):Void;
-public function color():MSColor;
-public function setColor(col:MSColor):Void;
-public function setFill(col:MSColor):Void;
+override public function color():MSColor;
+override public function setColor(col:MSColor):Void;
+
+
 
 }
 

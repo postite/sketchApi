@@ -17,7 +17,7 @@ extern class MSColor{
 	public static function screenColorSpace():Dynamic;
 	
 	public function hexValue():String;
-	
+	public function alpha():Float; //0>1
 	
 	
 }
