@@ -1,4 +1,4 @@
-typedef Color=Dynamic //todo
+
 //@see http://www.gnustep.org/resources/OpenStepSpec/ApplicationKit/Classes/NSText.html
 extern class MSTextLayer extends MSLayer{
 
@@ -6,7 +6,7 @@ extern class MSTextLayer extends MSLayer{
 
 public function fontSize():Int;
 public function fontPostscriptName():String;
-public function textColor():Color;
+//public function textColor():MSColor;
 public function textAlignment():Dynamic;
 public function characterSpacing():Int;
 public function lineSpacing():Int;

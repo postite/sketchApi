@@ -13,10 +13,12 @@ class Artboard{
  		   var number = 0;
       	for( layer in a.layers())
       		if (layer.isExportable())number++;
-    	
-      	
       	return number;
    
+ }
+ public static function isGroup(a:MSArtboardGroup):Bool
+ {
+   return true;
  }
 
   //filtre et retourne les groupes dans l'artboard
@@ -47,15 +49,25 @@ class Artboard{
 	public static function hideOtherLayers(a:MSArtboardGroup,currentLayer:MSLayer)
 	{
    
-	
+	 var parents:Array<MSLayer>=[];
+   var node:MSLayer=currentLayer.parentGroup();
+   while (node!=a){
+        parents.push(node);
+        node= node.parentGroup();
+      }
 		for ( layer in a.layers()){
 			
-			if (currentLayer!=layer) 
+			if (currentLayer!=layer )
+     
 				if (layer.isVisible) try untyped(layer).isVisible=false catch(err:Dynamic)_trace( err);
-			
-      setHiddenLayers(a,layer);
+        setHiddenLayers(a,layer);
+
+      
 		}
-    
+    for (p in parents){ try untyped(p).isVisible=true catch(err:Dynamic)_trace( err);
+          // unsetHiddenLayers
+        }
+    parents=null;
 	}
   
   private  static function showHiddenLayers(a:MSArtboardGroup){

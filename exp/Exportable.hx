@@ -8,4 +8,5 @@ interface Exportable{
 	public var x(default,null):Float;
 	public var y(default,null):Float;
 	public var src:String;
+	public function toObj():Dynamic;
 }

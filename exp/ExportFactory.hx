@@ -14,6 +14,10 @@ class ExportFactory
 		// 	default:
 		// 		 new exp.ExportLayer(origLayer);
 		// }
+		if (klass == MSPage)
+			return untyped new exp.ExportContainer(cast origLayer);
+		if (klass== MSArtboardGroup)
+			return untyped new exp.ExportContainer(cast origLayer);
 		if(klass == MSTextLayer)
 			return untyped new exp.ExportText(cast origLayer);
 		if(klass== MSLayerGroup)

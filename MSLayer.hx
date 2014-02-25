@@ -72,7 +72,7 @@ public function isFlippedVertical():Bool;
 public function setIsFlippedVertical(t:Bool):Void;
 //Flips the layer horizontal or vertical
 
-public function parentGroup():Dynamic; //todo
+public function parentGroup():MSLayer; //todo
 //Returns the parent group of this layer. Note that this can return an MSPage or MSArtboardGroup as well
 public function isSelected():Bool;
 public function setIsSelected(t:Bool):Void;
@@ -127,7 +127,15 @@ function assignWithOriginalLinkedStyleIfNecessary():Dynamic;
 function minimumSize():CGSize;//(struct CGSize)
 function layerSizeDidChange():Dynamic;//(void)
 
+
+
+//mask stuff
 function isPartOfClippingMask():Bool;//(BOOL)
+function hasClippingMask():Bool;
+
+
+
+
 function clearPositionCachesIncludingLocalCaches(arg:Bool):Void;//(void)
 function clearPositionCaches():Void;//(void)
 function concatAncestorTransforms():Void;//(void)

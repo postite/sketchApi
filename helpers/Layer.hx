@@ -11,17 +11,18 @@ class Layer{
 		//var klass=null;
 		
 		var isGroup= layer.isGroup();
-		log(  isGroup );
+		//log(  isGroup );
 		var cleanName = layer.name().clean();
-		log( cleanName);
-		var _isExportable=cleanName.startsWith("-");
-		log( _isExportable);
+		//log( cleanName);
+		var _isExportable=!cleanName.startsWith("-");
+		var force=cleanName.startsWith("+");
+		//log( _isExportable);
 
 //     , isGroup = klass === MSLayerGroup
 //     , cleanName = _.str.clean([layer name])
 //     , isExportable = _.str.startsWith(cleanName, '-')
 
-   		return isGroup && _isExportable;
+   		return (isGroup && _isExportable) || force;
 // }
 	}
 	
@@ -53,16 +54,16 @@ class Layer{
     path = r.replace(path,'');
     var artboard = layer.parentArtboard();
     artboard.hideOtherLayers(layer);
-    path = path +  layer.name().clean()+ '.png';
-    _trace( path +"factor="+Std.string(factor));
-   // factor = factor || 1;
+    path = path +"/"+  layer.name().clean()+ '.png';
+    //_trace( path +"factor="+Std.string(factor));
+   
    	factor= (factor!=null)? factor :1;
-   	_trace("here");
+   	//_trace("here");
     var slice = layer.withFactor(factor);
-    _trace("here");
+    //_trace("here");
     doc.saveArtboardOrSlice(slice,path);
-    _trace("here");
-    //[doc saveArtboardOrSlice:slice toFile:path]
+    //_trace("here");
+    
     try artboard.showHiddenLayers() catch( msg:Dynamic)_trace(msg);
    	return path;
   }
@@ -71,15 +72,15 @@ class Layer{
     //var layerOrig = this.orig;
     var  copy = layer.duplicate();
     var  frame = copy.frame();
-    _trace("here");
+    //_trace("here");
     var rect=null;
     //var  rect = [copy rectByAccountingForStyleSize:[[copy absoluteRect] rect]];
-   try  rect =  copy.rectByAccountingForStyleSize(copy.absoluteRect().rect()) catch (msg:Dynamic)_trace(msg);
-    _trace("here");
+   try  rect = copy.rectByAccountingForStyleSize(copy.absoluteRect().rect()) catch (msg:Dynamic)_trace(msg);
+    //_trace("here");
     var slice = MSSlice.sliceWithRect(rect ,factor);
 	log(copy);
     try copy.removeFromParent() catch (msg:Dynamic) log(msg);
-    _trace("here");
+   // _trace("here");
     return slice;
   }
 }

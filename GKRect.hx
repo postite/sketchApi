@@ -28,7 +28,7 @@ public function rulerY():Float;
 
 //undocumented
 public function  rectWithRect(d:Dynamic):Dynamic;  /// ? //todo
-public function rect():NSRect; /// not sure
+public function  rect():NSRect; /// not sure
 public function  expandBy(v:Float):Void; //untested //in MSRect too ?
 public function  insetBy(v:Float):Void; //untested //in MSRect too ?
 public function  insetXBy(px:Float):Void; //untested //in MSRect too ?
