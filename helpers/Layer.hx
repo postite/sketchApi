@@ -3,6 +3,7 @@ using helpers.StringSketch;
 import Global.*;
 using helpers.Layer;
 using helpers.Artboard;
+
 class Layer{
 	public static var mapName:Map<Int,String>=new Map();
 	//public static var hiddenLayers:Map<Int,List<MSLayer>>= new Map();
@@ -49,9 +50,9 @@ class Layer{
 		return  klass== MSTextLayer;
 	}
 
-	public static function export(layer:MSLayer,path:String, factor:Float):String{
-    var r:EReg=~/\/+$/;
-    path = r.replace(path,'');
+	public static function export(layer:MSLayer,path:String,factor:Float):String{
+   	path=path.cleanPath();
+
     var artboard = layer.parentArtboard();
     artboard.hideOtherLayers(layer);
     path = path +"/"+  layer.name().clean()+ '.png';
@@ -66,7 +67,11 @@ class Layer{
     
     try artboard.showHiddenLayers() catch( msg:Dynamic)_trace(msg);
    	return path;
-  }
+  	}
+
+  	public static function exportFlat(layer:MSLayer,path:String,factor:Float):String{
+  	return export(layer,path,factor);
+  	}
 
    static function withFactor(layer:MSLayer,factor:Float):MSSlice{
     //var layerOrig = this.orig;

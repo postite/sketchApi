@@ -3,10 +3,12 @@ using helpers.Layer;
 import Global.*;
 using Lambda;
 import exp.Exportable;
+import exp.Behave;
+import haxe.EnumFlags;
 class Artboard{
 
   private static var hiddenLayers:Map<Int,List<MSLayer>>= new Map();
-
+  //private static var beaviours:Map<Int,EnumFlags<Behave>>=new Map();
 
   /// compte le nombre de layer exportables.
  public static function numberOfExportableGroups(a:MSArtboardGroup):Int{
@@ -38,6 +40,7 @@ class Artboard{
   //génere ExportableLayers
   private static function genExportable(layerGroup:MSLayerGroup):Exportable{
     log("genExportable");
+
     return exp.ExportFactory.create(layerGroup);
     
   }
@@ -46,7 +49,7 @@ class Artboard{
 
 
   //cache les autres layers
-	public static function hideOtherLayers(a:MSArtboardGroup,currentLayer:MSLayer)
+	public static function hideOtherLayers(a:MSArtboardGroup,currentLayer:MSLayer,withChilds:Bool=true)
 	{
    
 	 var parents:Array<MSLayer>=[];
@@ -56,12 +59,15 @@ class Artboard{
         node= node.parentGroup();
       }
 		for ( layer in a.layers()){
-			
 			if (currentLayer!=layer )
-     
+
+          //avec les enfants ( flat or Not)
+          if(withChilds){
 				if (layer.isVisible) try untyped(layer).isVisible=false catch(err:Dynamic)_trace( err);
         setHiddenLayers(a,layer);
-
+          }else{
+            
+          }
       
 		}
     for (p in parents){ try untyped(p).isVisible=true catch(err:Dynamic)_trace( err);

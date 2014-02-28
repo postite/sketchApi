@@ -27,9 +27,15 @@ class ExportText extends ExportLayer implements Exportable
 		_trace( "hello text");
 		super(cast layer);
 		name=name+'____text';
-			TP= cast {};
+
+			
+		
+	}
+	override public function export():Exportable{
+		var layer:MSTextLayer =cast orig;
+		TP= cast {};
 			TP.text=layer.stringValue();
-			TP.color=layer.style().fills().firstObject().color().hexValue();
+			
 			TP.fontSize=layer.fontSize();
  			TP.fontPostscriptName=""+layer.fontPostscriptName();
  			// textColor={
@@ -37,17 +43,29 @@ class ExportText extends ExportLayer implements Exportable
  			//  b=Math.round(layer.textColor().blue()*255);
  			//  g=Math.round(layer.textColor().green()*255)
  			//  };
- 			
-      		//alpha=layer.textColor().alpha().toFixed(1);
+ 			log("pif");
+ 			try{
+ 			TP.color=layer.style().fills().firstObject().color().hexValue();
       		TP.alpha=layer.style().fills().firstObject().color().alpha();
+      		}
+      		catch(msg:Dynamic){
+      			//no style applied 
+      			TP.color="000000";
+				TP.alpha=1;
+      			log("error"+msg);
+      		}
       		TP.textAlignment=Align(layer.textAlignment());
       		TP.characterSpacing=layer.characterSpacing();
       		TP.lineSpacing=layer.lineSpacing();
       		TP.toObj=toObject;
 		text=TP;
-	}
 
-	function toObject()
+		this.type=Text;
+		return super.export();
+	} 
+	
+
+	public function toObject()
 	{
 		//return {slip:"popo"};
 		return {
@@ -61,6 +79,7 @@ class ExportText extends ExportLayer implements Exportable
 			alpha:normalize(TP.alpha)
 			
 		}
+
 	}
 
 	function Align(code:Int):String

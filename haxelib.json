@@ -1,0 +1,11 @@
+{
+  "name": "SketchApi",
+  "url" : "https://github.com/postite/SketchApi/",
+  "license": "WTF",
+  "tags": ["js", "graphic tool","jsTalk","extern"],
+  "description": "sketch ( bohemiancoding sketchApp )scripting API and static helpers",
+  "version": "0.0.1",
+  "releasenote": "pre alpha, nothing guaranted",
+  "contributors": ["postite"],
+  "dependencies": {  }
+}

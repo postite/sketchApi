@@ -1,3 +1,4 @@
+@:native('MSShapeGroup')
 extern class MSShapeGroup extends MSLayer{
 
 public function setHasClippingMask(b:Bool):Void;
@@ -91,6 +92,55 @@ public function setHasClippingMask(b:Bool):Void;
 - (Class)rendererClass;
 - (unsigned long long)decodingConversionForProperty:(id)arg1;
 - (void)initLegacyWithCoder:(id)arg1;
+
+@end
+
+
+
+
+
+@interface _MSShapeGroup : MSLayerGroup
+{
+    BOOL _hasClippingMask;
+    MSArtisticStroke *_artisticStroke;
+    long long _clippingMaskMode;
+    unsigned long long _endDecorationType;
+    MSPathDecorationStyle *_pathStyle;
+    unsigned long long _startDecorationType;
+}
+
+@property(nonatomic) unsigned long long startDecorationType; // @synthesize startDecorationType=_startDecorationType;
+@property(retain, nonatomic) MSPathDecorationStyle *pathStyle; // @synthesize pathStyle=_pathStyle;
+@property(nonatomic) BOOL hasClippingMask; // @synthesize hasClippingMask=_hasClippingMask;
+@property(nonatomic) unsigned long long endDecorationType; // @synthesize endDecorationType=_endDecorationType;
+@property(nonatomic) long long clippingMaskMode; // @synthesize clippingMaskMode=_clippingMaskMode;
+@property(retain, nonatomic) MSArtisticStroke *artisticStroke; // @synthesize artisticStroke=_artisticStroke;
+- (void).cxx_destruct;
+- (void)copyPropertiesToObjectCopy:(id)arg1;
+- (void)setUndoManagerOnChildren:(id)arg1;
+- (void)setAsParentOnChildren;
+- (void)decodePropertiesCompatibleWithCoder:(id)arg1;
+- (void)decodePropertiesManuallyWithCoder:(id)arg1;
+- (void)decodePropertiesWithCoder:(id)arg1;
+- (void)encodePropertiesCompatibleWithCoder:(id)arg1;
+- (void)encodePropertiesManuallyWithCoder:(id)arg1;
+- (void)encodePropertiesWithCoder:(id)arg1;
+- (void)fillInEmptyObjects;
+- (BOOL)hasDefaultValues;
+- (void)initEmptyObject;
+- (void)setPrimitiveStartDecorationType:(unsigned long long)arg1;
+- (unsigned long long)primitiveStartDecorationType;
+- (void)setPrimitivePathStyle:(id)arg1;
+- (id)primitivePathStyle;
+- (void)setPrimitiveHasClippingMask:(BOOL)arg1;
+- (BOOL)primitiveHasClippingMask;
+- (void)setPrimitiveEndDecorationType:(unsigned long long)arg1;
+- (unsigned long long)primitiveEndDecorationType;
+- (void)setPrimitiveClippingMaskMode:(long long)arg1;
+- (long long)primitiveClippingMaskMode;
+- (void)setPrimitiveArtisticStroke:(id)arg1;
+- (id)primitiveArtisticStroke;
+- (void)enumerateProperties:(CDUnknownBlockType)arg1;
 
 @end
 
