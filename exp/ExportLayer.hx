@@ -22,7 +22,7 @@ class ExportLayer implements Exportable{
 	public var height(default,set):Float;
 	public function new(layer:MSLayerGroup){
 		
-		name=layer.name();
+		name=Std.string(layer.name()); // i don't get why i should Stringify this ( cause json cannot stringify NSString)
 		orig= layer;
 		this.type=Container;
 		
@@ -83,17 +83,17 @@ class ExportLayer implements Exportable{
 	{
 		return {
 			name:name,
-			x:x,
-			y:y,
-			width:width,
-			height:height,
-			src:src,
-			text:
-				(text!=null) ? text.toObj() :null
-			,
-			relx:relx,
-			rely:rely,
-			children:[]
+			 x:x,
+			 y:y,
+			 width:width,
+			 height:height,
+			 src:src,
+			 text:
+			 	(text!=null) ? text.toObj() :null
+			 ,
+			 relx:relx,
+			 rely:rely,
+			 children:[]
 		}
 	}
 }

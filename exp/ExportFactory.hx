@@ -27,7 +27,7 @@ class ExportFactory
 			export= new exp.ExportArtBoard(cast origLayer);
 		if(klass == MSTextLayer)
 			export= new exp.ExportText(cast origLayer);
-		if(klass == MSShapeGroup)
+		if(klass == MSShapeGroup || klass==MSBitmapLayer)
 			export= new exp.ExportImage(cast origLayer);
 		if(klass== MSLayerGroup)
 			export=  new exp.ExportContainer(cast origLayer);
