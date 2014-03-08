@@ -52,7 +52,7 @@ class Layer{
 
 	public static function export(layer:MSLayer,path:String,factor:Float):String{
    	path=path.cleanPath();
-
+   	
     var artboard = layer.parentArtboard();
     artboard.hideOtherLayers(layer);
     path = path +"/"+  layer.name().clean()+ '.png';

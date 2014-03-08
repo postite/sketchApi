@@ -55,30 +55,40 @@ class Artboard{
 	 var parents:Array<MSLayer>=[];
    var node:MSLayer=currentLayer.parentGroup();
    while (node!=a){
+        if( node.isVisible())
         parents.push(node);
         node= node.parentGroup();
       }
 		for ( layer in a.layers()){
-			if (currentLayer!=layer )
-
+			if (currentLayer!=layer ){
+          var layerParent=layer.parentGroup();
           //avec les enfants ( flat or Not)
           if(withChilds){
-				if (layer.isVisible) try untyped(layer).isVisible=false catch(err:Dynamic)_trace( err);
-        setHiddenLayers(a,layer);
+				      if ( layer.isVisible()){
+                _trace("________visible________"+layerParent.name()+"currentLayer"+layer.name() +"visible="+layer.isVisible());
+                 try{ 
+                  untyped(layer).setIsVisible(false);
+                  setHiddenLayers(a,layer);
+                 } catch(err:Dynamic){
+                  _trace("________________________"+ err);
+                }
+              
+              }
           }else{
             
           }
-      
+      }
 		}
-    for (p in parents){ try untyped(p).isVisible=true catch(err:Dynamic)_trace( err);
-          // unsetHiddenLayers
+     for (p in parents){ 
+      try p.setIsVisible(true) catch(err:Dynamic)_trace( err);
+    //       // unsetHiddenLayers
         }
     parents=null;
 	}
   
   private  static function showHiddenLayers(a:MSArtboardGroup){
      for (hidden in getHiddenLayers(a)){
-        hidden.isVisible=true;
+        hidden.setIsVisible(true);
      }
   }
 
