@@ -46,8 +46,8 @@ public function name():String; // not a realString ? doesnt work well with subfr
 public function setName(name:String):Void;
 
 //Returns true if the layer is visible - that is, not hidden
-public var isVisible:Bool;
-public function setisVisible(t:Bool):Void;
+public function isVisible():Bool;
+public function setIsVisible(t:Bool):Void;
 
 //Returns true if the user locked the layer
 public function isLocked():Bool;
