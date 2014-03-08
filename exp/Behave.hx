@@ -3,9 +3,9 @@ package exp;
 enum Behave{
 	Scale; //retina etc
 	Exportable; // + / !- visible 
-	Invisible;
 	Mask;// boundarys, regularMAsk ?
 	Bounded; // @bounds
 	Flat; // *
+	Visible;
 
 }

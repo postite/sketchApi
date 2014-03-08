@@ -19,6 +19,10 @@ class ExportFactory
 		// 		 new exp.ExportLayer(origLayer);
 		// }
 		var flags=behaviour(origLayer);
+		if(origLayer.isVisible()){
+			
+			flags.set(Behave.Visible);
+		}
 		var export:Exportable=null;
 		untyped log(klass );
 		if (klass == MSPage)

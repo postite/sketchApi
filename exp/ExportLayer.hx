@@ -20,10 +20,13 @@ class ExportLayer implements Exportable{
 	public var rely(default,set):Float;
 	public var width(default,set):Float;
 	public var height(default,set):Float;
+	public var visible:Bool;
 	public function new(layer:MSLayerGroup){
 		
 		name=Std.string(layer.name()); // i don't get why i should Stringify this ( cause json cannot stringify NSString)
 		orig= layer;
+
+
 		this.type=Container;
 		
 	}
@@ -36,8 +39,9 @@ class ExportLayer implements Exportable{
 	
 	public function export():Exportable{
 		
-		_trace( behaviour.has(Exportable)+orig.name());
 		if(orig!=null && behaviour.has(Exportable)){
+		visible =(behaviour.has(Behave.Visible))? true : false;
+		
 		x=orig.absoluteRect().rulerX();
 		y=orig.absoluteRect().rulerY();
 		width=orig.frame().width();
@@ -45,18 +49,21 @@ class ExportLayer implements Exportable{
 		relx=orig.frame().x();
 		rely=orig.frame().y();
 			try{
-				if( behaviour.has(Scale) )
+				if( behaviour.has(Scale))
 					_trace("-------------------scale"+extractScaleFactor(name));
 				if(behaviour.has(Mask)){
 					_trace("-------------------------has mask");
 				}
 				if (!behaviour.has(Flat)){
-				src=orig.export(doc.dir()+"exported",1);
+				src=orig.export(doc.dir()+"view/assets",1);
 				}else{
 				_trace("-------------------------has flat");
-				src=orig.exportFlat(doc.dir()+"exported",1);
+				src=orig.exportFlat(doc.dir()+"view/assets",1);
 				}
+				src=relativeSrc(src);
+
 			}
+		
 			catch(err:Dynamic){
 			log("Error="+err);
 			}
@@ -68,6 +75,12 @@ class ExportLayer implements Exportable{
 	inline function normalize(f:Float):Float{
 		return Math.round(f * 100) / 100;
 		//return untyped  (( f * 100 + 0.5)  >> 0) / 100;
+	}
+
+	function relativeSrc(absolutePath:String):String
+	{
+		var relative= StringTools.replace(absolutePath,doc.dir()+"view","");
+		return relative;
 	}
 
 	/// not sure
