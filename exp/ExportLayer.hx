@@ -20,7 +20,7 @@ class ExportLayer implements Exportable{
 	public var rely(default,set):Float;
 	public var width(default,set):Float;
 	public var height(default,set):Float;
-	public var visible:Bool;
+	public var visible:Bool=true;
 	public function new(layer:MSLayerGroup){
 		
 		name=Std.string(layer.name()); // i don't get why i should Stringify this ( cause json cannot stringify NSString)
@@ -49,6 +49,13 @@ class ExportLayer implements Exportable{
 		relx=orig.frame().x();
 		rely=orig.frame().y();
 			try{
+				if(behaviour.has(Svg)){
+					_trace( "--------------svg style--------");
+					src=orig.exportSvg(doc.dir()+"view/assets");
+					this.type=Svg;
+					src=relativeSrc(src);
+					return this;
+				}
 				if( behaviour.has(Scale))
 					_trace("-------------------scale"+extractScaleFactor(name));
 				if(behaviour.has(Mask)){
@@ -58,10 +65,11 @@ class ExportLayer implements Exportable{
 				src=orig.export(doc.dir()+"view/assets",1);
 				}else{
 				_trace("-------------------------has flat");
-				src=orig.exportFlat(doc.dir()+"view/assets",1);
+				src=orig.export(doc.dir()+"view/assets",1);
+				this.type=Image;
 				}
 				src=relativeSrc(src);
-
+				_trace("sr="+src);
 			}
 		
 			catch(err:Dynamic){
@@ -79,7 +87,7 @@ class ExportLayer implements Exportable{
 
 	function relativeSrc(absolutePath:String):String
 	{
-		var relative= StringTools.replace(absolutePath,doc.dir()+"view","");
+		var relative= StringTools.replace(absolutePath,doc.dir()+"view/","");
 		return relative;
 	}
 

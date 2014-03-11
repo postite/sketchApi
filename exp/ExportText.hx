@@ -59,7 +59,7 @@ class ExportText extends ExportLayer implements Exportable
       		TP.lineSpacing=layer.lineSpacing();
       		TP.toObj=toObject;
 		text=TP;
-
+		untyped log(layer.font());
 		this.type=Text;
 		return super.export();
 	} 
@@ -69,6 +69,7 @@ class ExportText extends ExportLayer implements Exportable
 	{
 		//return {slip:"popo"};
 		return {
+			
 			text:TP.text.toString(),
 			color:TP.color.toString(),
 			fontSize:TP.fontSize,

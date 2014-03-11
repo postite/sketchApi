@@ -52,9 +52,13 @@ class Layer{
 
 	public static function export(layer:MSLayer,path:String,factor:Float):String{
    	path=path.cleanPath();
-   	
+   	var invisible:Bool=false;
     var artboard = layer.parentArtboard();
     artboard.hideOtherLayers(layer);
+    if (!layer.isVisible()){
+    	invisible=true;
+    	layer.setIsVisible(true);
+    }
     path = path +"/"+  layer.name().clean()+ '.png';
     //_trace( path +"factor="+Std.string(factor));
    
@@ -64,11 +68,34 @@ class Layer{
     //_trace("here");
     doc.saveArtboardOrSlice(slice,path);
     //_trace("here");
-    
+    if( invisible)layer.setIsVisible(false);
     try artboard.showHiddenLayers() catch( msg:Dynamic)_trace(msg);
    	return path;
   	}
-
+  	public static function exportSvg(layer:MSLayer,path:String):String
+  	{
+  		var factor=null;
+  		path=path.cleanPath();
+   	var invisible:Bool=false;
+    var artboard = layer.parentArtboard();
+    artboard.hideOtherLayers(layer);
+    if (!layer.isVisible()){
+    	invisible=true;
+    	layer.setIsVisible(true);
+    }
+    path = path +"/"+  layer.name().clean()+ '.svg';
+    //_trace( path +"factor="+Std.string(factor));
+   
+   	factor= (factor!=null)? factor :1;
+   	//_trace("here");
+    var slice = layer.withFactor(factor);
+    //_trace("here");
+    doc.saveArtboardOrSlice(slice,path);
+    //_trace("here");
+    if( invisible)layer.setIsVisible(false);
+    try artboard.showHiddenLayers() catch( msg:Dynamic)_trace(msg);
+   	return path;
+  	}
   	public static function exportFlat(layer:MSLayer,path:String,factor:Float):String{
   	return export(layer,path,factor);
   	}

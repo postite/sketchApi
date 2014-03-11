@@ -4,5 +4,6 @@ enum ExportTypes{
 	ArtBoard;
 	Text;
 	Image;
+	Svg;
 	Container;
 }

@@ -62,6 +62,7 @@ class ExportFactory
 		 switch(beginWith(name)){
 		 
 		// case "#": flags.set(Behave.set);
+		 case '*':flags.set(Behave.Svg);flags.set(Exportable);flags.set(Flat);
 		 case '-': flags.unset(Exportable);
 		 case "+": flags.set(Exportable);
 		 case "_":flags.set(Flat);flags.set(Exportable);

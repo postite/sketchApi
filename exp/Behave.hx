@@ -7,5 +7,6 @@ enum Behave{
 	Bounded; // @bounds
 	Flat; // *
 	Visible;
+	Svg;
 
 }
