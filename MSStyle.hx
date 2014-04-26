@@ -17,6 +17,9 @@ extern class MSStyle{
  public function fills():SketchArray<MSStyleFill>;
  public function shadows():MSStylePartCollection;
  public function innerShadows():MSStylePartCollection;
+
+ 
+ public function hasTextStyle():Bool;
  
  
 //Each returns an MSStylePartCollection that contains an array of each represented object. See MSStyleBorder, MSStyleFill, MSStyleShadow and MSStyleInnerShadow for details.
