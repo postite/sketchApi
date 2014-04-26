@@ -25,21 +25,21 @@ private static var hiddenLayers:Map<Int,List<MSLayer>>= new Map();
 
   //filtre et retourne les groupes dans l'artboard
  public static function groups(a:MSArtboardGroup):Array<Exportable>{
-  log( "groups");
+  _trace( "groups");
  var hxLayers= a.layers().iterator().haxeArray();
  var grouped:List<MSLayerGroup>= cast  Lambda.filter(hxLayers,function(layer:MSLayer){
  		return layer.isGroup();
  	});
- log( "grouped="+grouped);
+ _trace( "grouped="+grouped);
   var exportables=grouped.map(genExportable).array();
-  log( "exportables"+exportables);
+  _trace( "exportables"+exportables);
   return exportables;
 	}
 
 
   //génere ExportableLayers
   private static function genExportable(layerGroup:MSLayerGroup):Exportable{
-    log("genExportable");
+    _trace("genExportable");
 
     return exp.ExportFactory.create(layerGroup);
     
