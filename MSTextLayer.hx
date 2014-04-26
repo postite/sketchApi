@@ -26,40 +26,12 @@ public function setFontPostscriptName(f:String):Void;
 }
 
 /*
-@interface _MSTextLayer : MSStyledLayer
-{
-    BOOL _automaticallyDrawOnUnderlyingPath;
-    NSTextStorage *_storage;
-    long long _textBehaviour;
-}
+--------- Sketch3 --------
+#import "_MSTextLayer.h"
 
-@property(nonatomic) long long textBehaviour; // @synthesize textBehaviour=_textBehaviour;
-@property(retain, nonatomic) NSTextStorage *storage; // @synthesize storage=_storage;
-@property(nonatomic) BOOL automaticallyDrawOnUnderlyingPath; // @synthesize automaticallyDrawOnUnderlyingPath=_automaticallyDrawOnUnderlyingPath;
-- (void).cxx_destruct;
-- (void)copyPropertiesToObjectCopy:(id)arg1;
-- (void)setUndoManagerOnChildren:(id)arg1;
-- (void)setAsParentOnChildren;
-- (void)decodePropertiesCompatibleWithCoder:(id)arg1;
-- (void)decodePropertiesManuallyWithCoder:(id)arg1;
-- (void)decodePropertiesWithCoder:(id)arg1;
-- (void)encodePropertiesCompatibleWithCoder:(id)arg1;
-- (void)encodePropertiesManuallyWithCoder:(id)arg1;
-- (void)encodePropertiesWithCoder:(id)arg1;
-- (void)fillInEmptyObjects;
-- (BOOL)hasDefaultValues;
-- (void)initEmptyObject;
-- (void)setPrimitiveTextBehaviour:(long long)arg1;
-- (long long)primitiveTextBehaviour;
-- (void)setPrimitiveStorage:(id)arg1;
-- (id)primitiveStorage;
-- (void)setPrimitiveAutomaticallyDrawOnUnderlyingPath:(BOOL)arg1;
-- (BOOL)primitiveAutomaticallyDrawOnUnderlyingPath;
-- (void)enumerateProperties:(CDUnknownBlockType)arg1;
+#import "NSTextStorageDelegate.h"
 
-@end
-
-
+@class BCTextBehaviour, MSColor, NSBezierPath, NSDictionary, NSLayoutManager, NSString, NSTextContainer, NSTextStorage, NSTextView;
 
 @interface MSTextLayer : _MSTextLayer <NSTextStorageDelegate>
 {
@@ -75,22 +47,22 @@ public function setFontPostscriptName(f:String):Void;
     NSTextView *_textView;
     id <MSTextLayerEditingDelegate> _editingDelegate;
     NSBezierPath *_lightweightFirstUnderlyingShapePath;
+    double _lightweightFontSize;
     BCTextBehaviour *_behaviour;
 }
 
 @property(retain, nonatomic) BCTextBehaviour *behaviour; // @synthesize behaviour=_behaviour;
+@property(nonatomic) double lightweightFontSize; // @synthesize lightweightFontSize=_lightweightFontSize;
 @property(retain, nonatomic) NSBezierPath *lightweightFirstUnderlyingShapePath; // @synthesize lightweightFirstUnderlyingShapePath=_lightweightFirstUnderlyingShapePath;
 @property(nonatomic) id <MSTextLayerEditingDelegate> editingDelegate; // @synthesize editingDelegate=_editingDelegate;
 @property(nonatomic) NSTextView *textView; // @synthesize textView=_textView;
-@property BOOL ignoreNextTextProcessingUpdate; // @synthesize ignoreNextTextProcessingUpdate=_ignoreNextTextProcessingUpdate;
-@property(readonly) long long heightBeforeResizing; // @synthesize heightBeforeResizing;
-@property(copy) NSTextStorage *storageBeforeDragging; // @synthesize storageBeforeDragging;
-@property struct CGRect previousRectCache; // @synthesize previousRectCache;
+@property(nonatomic) BOOL ignoreNextTextProcessingUpdate; // @synthesize ignoreNextTextProcessingUpdate=_ignoreNextTextProcessingUpdate;
+@property(readonly, nonatomic) long long heightBeforeResizing; // @synthesize heightBeforeResizing;
+@property(copy, nonatomic) NSTextStorage *storageBeforeDragging; // @synthesize storageBeforeDragging;
+@property(nonatomic) struct CGRect previousRectCache; // @synthesize previousRectCache;
 @property(retain, nonatomic) NSBezierPath *cachedBezierRepresentation; // @synthesize cachedBezierRepresentation;
 - (void).cxx_destruct;
 - (struct CGRect)calculateTextBounds:(struct CGRect)arg1 includeZoom:(BOOL)arg2;
-- (void)dealloc;
-- (void)encodeWithCoder:(id)arg1;
 - (BOOL)constrainProportions;
 - (id)usedFontNames;
 - (void)drawHoverWithZoom:(double)arg1;
@@ -108,10 +80,12 @@ public function setFontPostscriptName(f:String):Void;
 - (void)ignoreDelegateNotificationsInBlock:(CDUnknownBlockType)arg1;
 - (id)inspectorViewControllerNames;
 @property(copy, nonatomic) NSString *stringValue; // @dynamic stringValue;
+- (BOOL)isFrameEqualForSync:(id)arg1;
+- (BOOL)textStorageIsEqual:(id)arg1;
+- (void)syncTextStorageTo:(id)arg1;
 - (void)copyTextStorageTo:(id)arg1;
 - (void)prepareObjectCopy:(id)arg1;
-- (id)currentStyle;
-- (id)textStyles;
+- (void)layerStyleDidChange;
 - (BOOL)isEmpty;
 - (BOOL)shouldUseCachedBezierRepresentation;
 - (void)changeColor:(id)arg1;
@@ -131,7 +105,7 @@ public function setFontPostscriptName(f:String):Void;
 - (id)paragraphStyle;
 - (void)setKerning:(float)arg1;
 - (float)kerning;
-- (void)markLayerDirtyOfType:(unsigned long long)arg1 margins:(struct CGSize)arg2;
+- (struct CGRect)dirtyRectForBounds;
 - (void)markLayerDirtyOfType:(unsigned long long)arg1;
 - (void)recordRelativeRect;
 - (id)_bezierPathInBounds;
@@ -160,17 +134,29 @@ public function setFontPostscriptName(f:String):Void;
 - (void)adjustTextViewFrame;
 - (void)refreshForPropertyChanged:(id)arg1;
 - (void)textStorageDidProcessEditing:(id)arg1;
+- (void)syncTextStyleAttributes;
 - (id)createTextContainer;
 - (id)createLayoutManager;
 - (void)recreateTextObjects;
 - (void)setUpText;
 - (void)rectWidthDidChange:(id)arg1;
-- (void)layerSizeDidChange;
+- (void)layerSizeDidChangeFromCorner:(long long)arg1;
 - (void)setContainerSize:(struct CGSize)arg1;
 - (void)adjustContainerWidthTo:(double)arg1;
-- (void)setupBehaviour;
+- (void)setupBehaviour:(BOOL)arg1;
 - (void)setTextBehaviour:(long long)arg1;
 - (id)defaultName;
+- (id)stringByStrippingMarkers:(id)arg1 oldList:(id)arg2 index:(long long)arg3;
+- (id)stringByStrippingNewlinesSpacesAndTabs:(id)arg1;
+- (id)stripAttributedStringLineFromListMarkers:(id)arg1 oldList:(id)arg2 lineIndex:(long long)arg3;
+- (id)strippedLinesFromTextStorage:(id)arg1 oldList:(id)arg2;
+- (id)combineLines:(id)arg1 intoList:(id)arg2;
+- (id)normalTabStops;
+- (id)listTabStops;
+- (void)updateListFrom:(id)arg1 toList:(id)arg2;
+- (void)updateListStyle:(id)arg1;
+- (id)currentListStyle;
+- (void)setStyle:(id)arg1;
 - (void)initObjectWithCoder:(id)arg1;
 - (void)objectDidInit;
 - (void)initEmptyObject;
@@ -178,14 +164,18 @@ public function setFontPostscriptName(f:String):Void;
 - (id)initWithFrame:(struct CGRect)arg1;
 - (id)CSSAttributes;
 - (void)drawPreviewInRect:(struct CGRect)arg1 honourSelected:(BOOL)arg2;
+- (Class)rendererClass;
+- (BOOL)shouldRenderInTransparencyLayer;
+- (unsigned long long)decodingConversionForProperty:(id)arg1;
+- (void)migratePropertiesFromV30OrEarlierWithCoder:(id)arg1;
+- (void)migratePropertiesFromV34OrEarlierWithCoder:(id)arg1;
+- (void)initLegacyWithCoder:(id)arg1;
 - (id)addContentToElement:(id)arg1 attributes:(id)arg2 exporter:(id)arg3 action:(unsigned long long *)arg4;
-- (id)elementForRun:(struct _NSRange)arg1 charAttributes:(id)arg2 origin:(struct CGPoint)arg3 exporter:(id)arg4 text:(id)arg5;
+- (id)elementForSpan:(id)arg1 origin:(struct CGPoint)arg2 exporter:(id)arg3 text:(id)arg4;
+- (id)spanInfoForRun:(struct _NSRange)arg1 charAttributes:(id)arg2 text:(id)arg3;
 - (void)addSVGAttributes:(id)arg1 forCharacterAttributes:(id)arg2 forExporter:(id)arg3 origin:(struct CGPoint *)arg4;
 - (void)appendBaseTranslation:(id)arg1 exporter:(id)arg2;
 - (id)svgStyle;
-- (Class)rendererClass;
-- (unsigned long long)decodingConversionForProperty:(id)arg1;
-- (void)initLegacyWithCoder:(id)arg1;
 
 @end
 
