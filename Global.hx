@@ -22,7 +22,8 @@ public function new()
 
 	public static inline function _trace(m:Dynamic,?p:haxe.PosInfos)
 	{
-		untyped __js__("log")(p.className+ " "+p.lineNumber +"  "+ m);
+		untyped __js__("log")(p.className+ " "+p.lineNumber+""+m);
+		//log(m);
 	}
 
 	public static inline function log(m:Dynamic){
