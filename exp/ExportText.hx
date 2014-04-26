@@ -61,7 +61,7 @@ class ExportText extends ExportLayer implements Exportable
       		TP.characterSpacing=layer.characterSpacing();
       		TP.lineSpacing=layer.lineSpacing();
       		TP.toObj=toObject;
-		text=TP;
+			text=TP;
 		untyped log(layer.font());
 		}
 		catch( msg:Dynamic){
