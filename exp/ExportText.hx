@@ -43,7 +43,7 @@ class ExportText extends ExportLayer implements Exportable
  			//  b=Math.round(layer.textColor().blue()*255);
  			//  g=Math.round(layer.textColor().green()*255)
  			//  };
- 			log("pif");
+ 			_trace("pif");
  			try{
  			TP.color=layer.style().fills().firstObject().color().hexValue();
       		TP.alpha=layer.style().fills().firstObject().color().alpha();
@@ -52,7 +52,7 @@ class ExportText extends ExportLayer implements Exportable
       			//no style applied 
       			TP.color="000000";
 				TP.alpha=1;
-      			log("error"+msg);
+      			_trace("error"+msg);
       		}
       		TP.textAlignment=Align(layer.textAlignment());
       		TP.characterSpacing=layer.characterSpacing();

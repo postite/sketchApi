@@ -7,7 +7,7 @@ import exp.Behave;
 import haxe.EnumFlags;
 class Artboard{
 
-  private static var hiddenLayers:Map<Int,List<MSLayer>>= new Map();
+private static var hiddenLayers:Map<Int,List<MSLayer>>= new Map();
   //private static var beaviours:Map<Int,EnumFlags<Behave>>=new Map();
 
   /// compte le nombre de layer exportables.

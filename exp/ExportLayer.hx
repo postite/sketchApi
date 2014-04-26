@@ -51,7 +51,7 @@ class ExportLayer implements Exportable{
 			try{
 				if(behaviour.has(Svg)){
 					_trace( "--------------svg style--------");
-					src=orig.exportSvg(doc.dir()+"view/assets");
+					src=orig.exportSvg(doc.dir()+"view/images");
 					this.type=Svg;
 					src=relativeSrc(src);
 					return this;
@@ -62,10 +62,10 @@ class ExportLayer implements Exportable{
 					_trace("-------------------------has mask");
 				}
 				if (!behaviour.has(Flat)){
-				src=orig.export(doc.dir()+"view/assets",1);
+				src=orig.export(doc.dir()+"view/images",1);
 				}else{
 				_trace("-------------------------has flat");
-				src=orig.export(doc.dir()+"view/assets",1);
+				src=orig.export(doc.dir()+"view/images",1);
 				this.type=Image;
 				}
 				src=relativeSrc(src);

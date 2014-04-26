@@ -54,13 +54,14 @@ class Layer{
    	path=path.cleanPath();
    	var invisible:Bool=false;
     var artboard = layer.parentArtboard();
+    var page= layer.parentPage();
     artboard.hideOtherLayers(layer);
     if (!layer.isVisible()){
     	invisible=true;
     	layer.setIsVisible(true);
     }
-    path = path +"/"+  layer.name().clean()+ '.png';
-    //_trace( path +"factor="+Std.string(factor));
+    path = path +"/"+page.name()+"/"+artboard.name()+"/"+  layer.name().clean()+ '.png';
+    _trace( path +"factor="+Std.string(factor));
    
    	factor= (factor!=null)? factor :1;
    	//_trace("here");
@@ -78,12 +79,13 @@ class Layer{
   		path=path.cleanPath();
    	var invisible:Bool=false;
     var artboard = layer.parentArtboard();
+    var page= layer.parentPage();
     artboard.hideOtherLayers(layer);
     if (!layer.isVisible()){
     	invisible=true;
     	layer.setIsVisible(true);
     }
-    path = path +"/"+  layer.name().clean()+ '.svg';
+    path = path +"/"+page.name()+"/"+ artboard.name()+"/"+ layer.name().clean()+ '.svg';
     //_trace( path +"factor="+Std.string(factor));
    
    	factor= (factor!=null)? factor :1;
