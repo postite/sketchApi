@@ -45,8 +45,10 @@ class ExportText extends ExportLayer implements Exportable
  			//  };
  			_trace("pif");
  			try{
- 			TP.color=layer.style().fills().firstObject().color().hexValue();
-      		TP.alpha=layer.style().fills().firstObject().color().alpha();
+ 				_trace("try" );
+ 			//untyped log(layer.style().fills().colorFillForInserting().defaultName());
+ 			//TP.color=layer.style().fills().firstObject().color().hexValue();
+      		//TP.alpha=layer.style().fills().firstObject().color().alpha();
       		}
       		catch(msg:Dynamic){
       			//no style applied 
@@ -54,13 +56,19 @@ class ExportText extends ExportLayer implements Exportable
 				TP.alpha=1;
       			_trace("error"+msg);
       		}
+      		try{
       		TP.textAlignment=Align(layer.textAlignment());
       		TP.characterSpacing=layer.characterSpacing();
       		TP.lineSpacing=layer.lineSpacing();
       		TP.toObj=toObject;
 		text=TP;
 		untyped log(layer.font());
+		}
+		catch( msg:Dynamic){
+			_trace( "font problem"+msg);
+		}
 		this.type=Text;
+		_trace(" font stuff");
 		return super.export();
 	} 
 	
@@ -71,7 +79,7 @@ class ExportText extends ExportLayer implements Exportable
 		return {
 			
 			text:TP.text.toString(),
-			color:TP.color.toString(),
+			//color:TP.color.toString(),
 			fontSize:TP.fontSize,
 			fontPostscriptName:TP.fontPostscriptName,
 			textAlignment:TP.textAlignment,
