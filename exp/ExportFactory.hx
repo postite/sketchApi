@@ -24,7 +24,7 @@ class ExportFactory
 			flags.set(Behave.Visible);
 		}
 		var export:Exportable=null;
-		untyped log(klass );
+		_trace(klass );
 		if (klass == MSPage)
 			export= new exp.ExportPage(cast origLayer);
 		if (klass== MSArtboardGroup)
@@ -35,11 +35,12 @@ class ExportFactory
 			export= new exp.ExportImage(cast origLayer);
 		if(klass== MSLayerGroup)
 			export=  new exp.ExportContainer(cast origLayer);
-
+		if(klass==MSSliceLayer)export=new exp.ExportSlice(cast origLayer);
 			//else
 		//export=new exp.ExportLayer(cast origLayer);
+		_trace( "all types passed" );
 		export.behaviour=flags;
-
+		_trace( "behaviour" );
 		return export;
 		//return new exp.ExportLayer(cast origLayer);
 	}
@@ -92,7 +93,7 @@ class ExportFactory
 			_trace("endsWith *n");
 			flags.set(Behave.Scale);
 		}
-		 
+		 _trace( "end");
 		 return flags;
 	}
 	public static function beginWith(phrase:String):String
