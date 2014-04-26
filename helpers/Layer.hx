@@ -8,7 +8,7 @@ class Layer{
 	public static var mapName:Map<Int,String>=new Map();
 	//public static var hiddenLayers:Map<Int,List<MSLayer>>= new Map();
 	public static function isExportable(layer:MSLayer):Bool{
-		log( layer);
+		_trace( layer);
 		//var klass=null;
 		
 		var isGroup= layer.isGroup();
@@ -106,13 +106,13 @@ class Layer{
     //var layerOrig = this.orig;
     var  copy = layer.duplicate();
     var  frame = copy.frame();
-    //_trace("here");
+    _trace("here");
     var rect=null;
     //var  rect = [copy rectByAccountingForStyleSize:[[copy absoluteRect] rect]];
    try  rect = copy.rectByAccountingForStyleSize(copy.absoluteRect().rect()) catch (msg:Dynamic)_trace(msg);
     //_trace("here");
     var slice = MSSlice.sliceWithRect(rect ,factor);
-	log(copy);
+	_trace(copy);
     try copy.removeFromParent() catch (msg:Dynamic) log(msg);
    // _trace("here");
     return slice;
