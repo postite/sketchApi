@@ -45,16 +45,16 @@ class ExportText extends ExportLayer implements Exportable
  			//  };
  			_trace("pif");
  			try{
+ 				//if text has layer fill over textProperties
  				_trace("try" );
- 			//untyped log(layer.style().fills().colorFillForInserting().defaultName());
- 			//TP.color=layer.style().fills().firstObject().color().hexValue();
-      		//TP.alpha=layer.style().fills().firstObject().color().alpha();
+ 			TP.color=layer.style().fills().firstObject().color().hexValue();
+ 			TP.alpha=layer.style().fills().firstObject().color().alpha();
       		}
       		catch(msg:Dynamic){
+      			TP.color=layer.textColor().hexValue();
+      			TP.alpha=layer.textColor().alpha();
       			//no style applied 
-      			TP.color="000000";
-				TP.alpha=1;
-      			_trace("error"+msg);
+      			
       		}
       		try{
       		TP.textAlignment=Align(layer.textAlignment());
@@ -79,7 +79,7 @@ class ExportText extends ExportLayer implements Exportable
 		return {
 			
 			text:TP.text.toString(),
-			//color:TP.color.toString(),
+			color:TP.color.toString(),
 			fontSize:TP.fontSize,
 			fontPostscriptName:TP.fontPostscriptName,
 			textAlignment:TP.textAlignment,
