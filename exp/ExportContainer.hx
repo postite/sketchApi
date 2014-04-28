@@ -26,5 +26,53 @@ class ExportContainer extends ExportLayer implements Exportable
 		}
 		
 	}
+	override function export():Exportable
+	{
+		
+	if(orig!=null && behaviour.has(Exportable)){
+		visible =(behaviour.has(Behave.Visible))? true : false;
+		
+		x=orig.absoluteRect().rulerX();
+		y=orig.absoluteRect().rulerY();
+		width=orig.frame().width();
+		height=orig.frame().height();
+		relx=orig.frame().x();
+		rely=orig.frame().y();
+			// try{
+			// 	if(behaviour.has(Svg)){
+			// 		_trace( "--------------svg style--------");
+			// 		src=orig.exportSvg(doc.dir()+"view/images");
+			// 		this.type=Svg;
+			// 		src=relativeSrc(src);
+			// 		return this;
+			// 	}
+			// 	if( behaviour.has(Scale))
+			// 		_trace("-------------------scale"+extractScaleFactor(name));
+			// 	if(behaviour.has(Mask)){
+			// 		_trace("-------------------------has mask");
+			// 	}
+			// 	if (!behaviour.has(Flat)){
+			// 		if (behaviour.has(Skip)) //just testing
+			// 		src=orig.export(doc.dir()+"view/imuges",1);
+			// 		else
+			// 		src=orig.export(doc.dir()+"view/images",1);
+
+			// 	}else{
+			// 	_trace("-------------------------has flat");
+			// 	src=orig.export(doc.dir()+"view/images",1);
+			// 	this.type=Image;
+			// 	}
+			// 	src=relativeSrc(src);
+			// 	_trace("sr="+src);
+			// }
+		
+			// catch(err:Dynamic){
+			// log("Error="+err);
+			// }
+			src=null;
+		return cast this;
+		}
+		return null;
+	}
 	
 }
