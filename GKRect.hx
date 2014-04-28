@@ -12,7 +12,7 @@ typedef CGRect=NSRect
 
 typedef NSRect={
 	size:CGSize,
-	origine:Origin,
+	origin:Origin,
 }
 extern class GKRect{
 
