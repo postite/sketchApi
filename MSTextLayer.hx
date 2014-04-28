@@ -12,6 +12,9 @@ public function fontPostscriptName():String;
 public function textAlignment():Dynamic;
 public function characterSpacing():Int;
 public function lineSpacing():Int;
+
+
+
 public function textColor():MSColor;
 
 //undocumented
