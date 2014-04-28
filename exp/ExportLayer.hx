@@ -11,7 +11,7 @@ class ExportLayer implements Exportable{
 	public var behaviour:EnumFlags<Behave>;
 	public var type:ExportTypes;
 	public var orig(default,null):MSLayer;
-	public var name:String;
+	public var name:String="no name";
 	public var x(default,set):Float;
 	public var y(default,set):Float;
 	public var src:Null<String>;
@@ -21,9 +21,12 @@ class ExportLayer implements Exportable{
 	public var width(default,set):Float;
 	public var height(default,set):Float;
 	public var visible:Bool=true;
+	public var format:String="png";
 	public function new(layer:MSLayerGroup){
 		
 		name=Std.string(layer.name()); // i don't get why i should Stringify this ( cause json cannot stringify NSString)
+		
+		
 		orig= layer;
 
 
@@ -38,7 +41,7 @@ class ExportLayer implements Exportable{
 	function set_height(f:Float):Float return height=normalize(f);
 	
 	public function export():Exportable{
-		
+		_trace( "export");
 		if(orig!=null && behaviour.has(Exportable)){
 		visible =(behaviour.has(Behave.Visible))? true : false;
 		
@@ -53,6 +56,7 @@ class ExportLayer implements Exportable{
 					_trace( "--------------svg style--------");
 					src=orig.exportSvg(doc.dir()+"view/images");
 					this.type=Svg;
+					format="svg";
 					src=relativeSrc(src);
 					return this;
 				}
@@ -62,7 +66,11 @@ class ExportLayer implements Exportable{
 					_trace("-------------------------has mask");
 				}
 				if (!behaviour.has(Flat)){
-				src=orig.export(doc.dir()+"view/images",1);
+					if (behaviour.has(Skip)) //just testing
+					src=orig.export(doc.dir()+"view/imuges",1);
+					else
+					src=orig.export(doc.dir()+"view/images",1);
+
 				}else{
 				_trace("-------------------------has flat");
 				src=orig.export(doc.dir()+"view/images",1);
@@ -109,6 +117,7 @@ class ExportLayer implements Exportable{
 			 width:width,
 			 height:height,
 			 src:src,
+			 imageType:format,
 			 text:
 			 	(text!=null) ? text.toObj() :null
 			 ,
