@@ -35,10 +35,10 @@ public inline function askForUserInput(msg:String,?ofType:Int=0,?initialValue:Dy
 } //TODo no comprendo !
 
 //Asks for user input and returns the value they chosen. The first argument is the label for the dialog panel, the second argument can be used to provide a default value. See User Input Examples for an example.
-@:overload(function(bounds:MSSliceLayer,path:String):Dynamic{})
+@:overload(function(bounds:MSSliceLayer,path:String):Void{})
 @:overload(function(bounds:MSArtboardGroup,path:String):Dynamic{})
 public inline function saveArtboardOrSlice(bounds:MSSlice,path:String):Void{
-	untyped this.saveArtboardOrSlice_toFile(bounds,path);
+	return untyped this.saveArtboardOrSlice_toFile(bounds,path);
 }
 //Saves an area of the canvas to an image file. The first argument is a GKRect, MSSliceLayer or MSArtboardGroup and the image gets written to the file specified in the second argument. The file format is derived from the extension. See Exporting Areas for an example
 
@@ -67,12 +67,13 @@ function documentData():MSDocumentData;
 
 //slice stuff
 
-inline function dataForSlice(slice:MSSlice,ofType:Dynamic):Dynamic //(id)arg1 ofType:(id)arg2 ->(id)
+inline function dataForSlice(slice:MSSliceLayer,ofType:Dynamic):Dynamic //(id)arg1 ofType:(id)arg2 ->(id)
 	{
-		return untyped __js__( 'doc.dataForSlice_ofType')(slice,ofType);
+        return untyped __js__( 'doc.dataForSlice_ofType')(slice,ofType);
+		
 		//return null;
 	}
-inline function saveSlice(slice:MSSlice,toFile:String):Void //arg1 toFile:(id)arg2 ->(void)
+inline function saveSlice(slice:MSSliceLayer,toFile:String):Void //arg1 toFile:(id)arg2 ->(void)
 	{
 		return untyped __js__( 'doc.saveSlice_toFile')(slice,toFile);
 		//return null;
