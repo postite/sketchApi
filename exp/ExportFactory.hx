@@ -7,9 +7,10 @@ import exp.Behave;
 
 class ExportFactory
 {
-	
+	public static var one=false;
+	//bon faut faire le ménage la dedans!
 	public static function create(origLayer:MSLayer):Exportable{
-		_trace("create");
+		_trace("factory--------------createExport "+origLayer.name()+"-------------");
 		var klass= origLayer._class();
 		// return switch origLayer{
 		// 	case MSTextLayer:
@@ -18,31 +19,95 @@ class ExportFactory
 		// 	default:
 		// 		 new exp.ExportLayer(origLayer);
 		// }
+
+
 		var flags=behaviour(origLayer);
+		var export:Exportable=null;
+		if (flags.has(Behave.Exportable)){
+
+
 		if(origLayer.isVisible()){
 			
 			flags.set(Behave.Visible);
 		}
-		var export:Exportable=null;
-		_trace(klass );
-		if (klass == MSPage)
-			export= new exp.ExportPage(cast origLayer);
-		if (klass== MSArtboardGroup)
-			export= new exp.ExportArtBoard(cast origLayer);
-		if(klass == MSTextLayer)
-			export= new exp.ExportText(cast origLayer);
-		if(klass == MSShapeGroup || klass==MSBitmapLayer)
-			export= new exp.ExportImage(cast origLayer);
-		if(klass== MSLayerGroup)
-			export=  new exp.ExportContainer(cast origLayer);
-		if(klass==MSSliceLayer)export=new exp.ExportSlice(cast origLayer);
-			//else
-		//export=new exp.ExportLayer(cast origLayer);
-		_trace( "all types passed" );
+		if(origLayer.isLayerExportable()&& !origLayer.isArtBoard()){
+			_trace("isLayerExportable "+ origLayer.name());
+			flags.set(Sliced);flags.set(Flat);
+		}
+		if(origLayer.isGroup() && origLayer.layers().length>0){
+		var lastLayerOf=origLayer.layers().firstObject();
+		_trace("lastLayerOf=");
+		log( lastLayerOf._class() );
+
+		if(lastLayerOf._class()==MSSliceLayer){
+		_trace( "isSliced");
+		flags.set(Sliced);flags.set(Flat);
+
+
+
+		export= new exp.ExportSlice(cast lastLayerOf);
+			flags.set(Flat);
+			export.behaviour=flags;
+			return export;
+		}
+		}
+
+		
+
+		if(klass==MSSliceLayer){
+		export=new exp.ExportSlice(cast origLayer);
+		flags.has(Behave.Sliced);
 		export.behaviour=flags;
-		_trace( "behaviour" );
 		return export;
-		//return new exp.ExportLayer(cast origLayer);
+		}
+		if(flags.has(Behave.Sliced)){
+			_trace( "behave Sliced");
+			export= new exp.ExportSlice(cast origLayer);
+			flags.set(Flat);
+			export.behaviour=flags;
+			return export;
+		}
+
+		
+		_trace(klass );
+		if (klass == MSPage){
+			export= new exp.ExportPage(cast origLayer);
+			export.behaviour=flags;
+			return export;
+		}
+		if (klass== MSArtboardGroup){
+			export= new exp.ExportArtBoard(cast origLayer);
+			export.behaviour=flags;
+			return export;
+		}
+		if(klass == MSTextLayer){
+			export= new exp.ExportText(cast origLayer);
+			export.behaviour=flags;
+			return export;
+		}
+		if(klass == MSShapeGroup || klass==MSBitmapLayer){
+			export= new exp.ExportImage(cast origLayer);
+			export.behaviour=flags;
+			return export;
+		}
+		
+
+		
+
+		if(klass== MSLayerGroup  && !flags.has(Behave.Flat)){
+			export=  new exp.ExportContainer(cast origLayer);
+			onelog("ExportContainer");
+			export.behaviour=flags;
+			return export;
+		}
+
+		_trace("hact as regular layer");
+		
+		export= new exp.ExportImage(cast origLayer);
+		export.behaviour=flags;
+		return export;
+		}
+		return null;
 	}
 
 
@@ -51,6 +116,7 @@ class ExportFactory
 		
 		var name:String= orig.name();
 		var behaviour=extract(name);
+
 		return behaviour;
 	}
 
@@ -64,11 +130,12 @@ class ExportFactory
 		 
 		// case "#": flags.set(Behave.set);
 		 case '*':flags.set(Behave.Svg);flags.set(Exportable);flags.set(Flat);
-		 case '-': flags.unset(Exportable);
+		 
 		 case "+": flags.set(Exportable);
 		 case "_":flags.set(Flat);flags.set(Exportable);
+		 case "°":flags.set(Skip);flags.set(Exportable);
 		 //case "_":flags.set(Flat);
-
+		 case '-': flags.unset(Exportable);
 		 case _:flags.set(Behave.Exportable);
 
 		 //default:  false;
@@ -86,14 +153,14 @@ class ExportFactory
 		 // }
 
 		 if (name.startsWith("m")){
-		 	_trace("startwith mask");
+		 	//_trace("startwith mask");
 		 flags.set(Behave.Mask);
 		}
 		if( name.endsWith("*2")){
-			_trace("endsWith *n");
+			//_trace("endsWith *n");
 			flags.set(Behave.Scale);
 		}
-		 _trace( "end");
+		// _trace( "end");
 		 return flags;
 	}
 	public static function beginWith(phrase:String):String
