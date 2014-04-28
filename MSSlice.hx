@@ -1,12 +1,17 @@
 @:publicFields
-extern class MSSlice
+extern class MSSlice 
 {
-	function new(){}
+	
 
 	
 	inline static function sliceWithRect(rect:GKRect.CGRect,scale:Float):Dynamic
 	{
 		return untyped MSSlice.sliceWithRect_scale(rect,scale);
+	}
+
+	inline static function sliceWithName(name:String,rect:GKRect.CGRect):Dynamic
+	{
+		return untyped MSSlice.sliceWithName_rect(name,rect);
 	}
 }
 
