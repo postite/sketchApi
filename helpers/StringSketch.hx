@@ -11,8 +11,9 @@ return throw 'not yet implemented';
   }
   public static function capitalize (str:String):String{
     // str = str == null ? '' : String(str)
-    // return str.charAt(0).toUpperCase() + str.slice(1)
-return throw 'not yet implemented'; 
+    
+     return str.charAt(0).toUpperCase() + str.substr(1);
+//return throw 'not yet implemented'; 
   }
   public static function classify(str:String):String{
     // return _.str.titleize(String(str).replace(/[\W_]/g, ' ')).replace(/\s/g, '')
