@@ -80,9 +80,15 @@ public function setIsSelected(t:Bool):Void;
 public function absoluteRect():GKRect;
 //Returns a GKRect object that returns the bounds of this layer in absolute coordinates; it takes into account the layer's rotation and that of any of its parents.
 
+//new in 3 
+public function relativeRect():CGRect; //untested
 public function duplicate():MSLayer;
 //Duplicates the layer and insert the copy above itself
 
+
+//exportstuff //nottested
+function isLayerExportable():Bool;
+function shouldIncludeLayerInSlice(arg1:Dynamic):Bool;
 
 //undocumented 
 public function path():Path;
@@ -115,6 +121,8 @@ function CSSAttributes():Dynamic; //quoted
 
 function children():SketchArray<Dynamic>;//(id)
 function ancestors():SketchArray<Dynamic>;//(id)
+
+
 function multiplyBy(v:Float):Void;//(void)
 //exists but no comprendo
 function svgStyle():MSStyle;
@@ -158,7 +166,7 @@ function closestClippingLayer():Dynamic;//(id)
 function inspectorViewControllers():Dynamic;//(id)
 function inspectorViewControllerNames():Dynamic;//(id)
 function parentArtboard():MSArtboardGroup;//(id)
-function parentRoot():Dynamic;//(id)
+function parentRoot():Dynamic;//(id) //Artboard
 function currentPage():MSPage;//(id)
 function parentPage():MSPage;//(id)
 function changeColor(v:Dynamic):Void;
@@ -166,6 +174,18 @@ function changeColor(v:Dynamic):Void;
 
 
 /*
+//     SKETCH3
+//
+//     class-dump is Copyright (C) 1997-1998, 2000-2001, 2004-2013 by Steve Nygard.
+//
+
+#import "_MSLayer.h"
+
+#import "NSCoding.h"
+#import "NSCopying.h"
+
+@class GKRect, MSAbsoluteRect, NSAffineTransform, NSArray, NSBitmapImageRep;
+
 @interface MSLayer : _MSLayer <NSCoding, NSCopying>
 {
     long long skipDrawingSelectionCounter;
@@ -180,10 +200,14 @@ function changeColor(v:Dynamic):Void;
     NSArray *_cachedAncestorTransforms;
     id _undoRefreshTimer;
     struct CGRect _lightweightAbsoluteRect;
+    struct CGRect _cachedDirtyRectForBounds;
 }
 
 + (void)hideSelectionDisabledInBlock:(CDUnknownBlockType)arg1;
++ (void)makeLayerNamesUnique:(id)arg1 withTest:(CDUnknownBlockType)arg2;
++ (void)makeLayerNamesUnique:(id)arg1;
 + (id)layersSeparatedByGroups:(id)arg1;
+@property(nonatomic) struct CGRect cachedDirtyRectForBounds; // @synthesize cachedDirtyRectForBounds=_cachedDirtyRectForBounds;
 @property(retain, nonatomic) id undoRefreshTimer; // @synthesize undoRefreshTimer=_undoRefreshTimer;
 @property(retain, nonatomic) NSArray *cachedAncestorTransforms; // @synthesize cachedAncestorTransforms=_cachedAncestorTransforms;
 @property(retain, nonatomic) NSAffineTransform *cachedTransform; // @synthesize cachedTransform=_cachedTransform;
@@ -194,23 +218,31 @@ function changeColor(v:Dynamic):Void;
 @property(nonatomic) BOOL isAlreadyCaching; // @synthesize isAlreadyCaching=_isAlreadyCaching;
 @property(nonatomic) BOOL isHovering; // @synthesize isHovering=_isHovering;
 - (void).cxx_destruct;
+- (void)groupDidRemoveThisLayer:(id)arg1;
+- (void)groupDidAddThisLayer:(id)arg1;
+- (BOOL)canRotate;
+- (BOOL)isFrameEqualForSync:(id)arg1;
+- (BOOL)containsSymbols;
+- (BOOL)parentOrSelfIsSymbol;
+- #(BOOL)isLayerExportable;
+- (BOOL)isValidChild:(id)arg1;
 - (void)assignWithOriginalLinkedStyleIfNecessary;
 - (id)layerWithId:(id)arg1;
+- (BOOL)shouldRenderInTransparencyLayer;
 - (BOOL)shouldForceRendering;
 @property(copy, nonatomic) GKRect *frameInArtboard; // @dynamic frameInArtboard;
 - (BOOL)calculateHasBlendedLayer;
 - (id)currentHandlerKey;
-- (BOOL)firstFillSupportsBlending;
 - (BOOL)shouldBeSelectedInLayerList;
+- (BOOL)canBeSelectedOnCanvas;
 - (void)setValue:(id)arg1 forUndefinedKey:(id)arg2;
 - (void)setNilValueForKey:(id)arg1;
 - (BOOL)canBeTransformed;
-- (id)alternativePathForShadowWithRadius:(double)arg1;
 - (void)setRotation:(double)arg1;
 - (void)setIsFlippedVertical:(BOOL)arg1;
 - (void)setIsFlippedHorizontal:(BOOL)arg1;
 - (struct CGSize)minimumSize;
-- (void)layerSizeDidChange;
+- (void)layerSizeDidChangeFromCorner:(long long)arg1;
 - (void)multiplyBy:(double)arg1;
 - (BOOL)isPartOfClippingMask;
 - (void)clearPositionCachesIncludingLocalCaches:(BOOL)arg1;
@@ -239,8 +271,6 @@ function changeColor(v:Dynamic):Void;
 - (BOOL)shouldDrawArtisticStrokeForPath:(id)arg1;
 - (BOOL)hasClippingMask;
 - (BOOL)handleDoubleClick;
-- (id)undoManager;
-- (void)addToGroupAfterMoveToOrFromArtboards:(id)arg1;
 - (void)removeFromParent;
 - (void)handleLightweightObjectChangeForKey:(id)arg1 sender:(id)arg2;
 - (BOOL)isUndoingModelObjectChange;
@@ -248,7 +278,6 @@ function changeColor(v:Dynamic):Void;
 - (void)propertyDidChange:(id)arg1;
 - (void)rectDidChange;
 - (void)rectWillChange;
-- (id)documentData;
 - (void)moveInLayerTreeInBlock:(CDUnknownBlockType)arg1;
 - (void)changeColor:(id)arg1;
 - (BOOL)closePath;
@@ -289,61 +318,56 @@ function changeColor(v:Dynamic):Void;
 - (id)valueForUndefinedKey:(id)arg1;
 @property(nonatomic) double proportions; // @dynamic proportions;
 @property(nonatomic) BOOL constrainProportions; // @dynamic constrainProportions;
-- (id)bezierPathForHoverWithZoom:(double)arg1;
+- (id)bezierPathForHover;
 - (id)colorForHover;
 - (void)drawHoverWithZoom:(double)arg1;
 - (unsigned long long)selectionCornerMask;
 - (BOOL)canOneClickEditLayer;
 - (BOOL)shouldDrawSelection;
-- (BOOL)shouldOwnStyle;
-- (id)frameForTransforms;
+- (struct CGRect)frameForTransforms;
 - (void)recordFrame;
-@property(readonly, nonatomic) id <MSBasicDelegate> delegate; // @dynamic delegate;
-- (id)parentContainer;
-- (id)parentGroup;
-- (void)dealloc;
 - (double)zoomValue;
 - (id)renderBitmapEffects:(id)arg1;
 - (BOOL)hasActiveBackgroundBlur;
 - (BOOL)hasBitmapStylesEnabled;
-- (void)cacheDataForLightweightCopy:(id)arg1;
-- (long long)counterSuffixOnLayerName;
-- (id)nameByReplacingCounterSuffixBy:(long long)arg1;
-- (void)adjustNameOfCopy:(id)arg1;
 - (void)prepareObjectCopy:(id)arg1;
-- (id)undoNameForProperty:(id)arg1;
 - (id)duplicate;
-- (id)layersSharingStyle:(id)arg1;
+#- (id)layersSharingStyle:(id)arg1;
+- (id)findUniqueName;
+- (id)layersNamedAlikeWithTest:(CDUnknownBlockType)arg1;
+- (void)makeNameUniqueWithTest:(CDUnknownBlockType)arg1;
+- (void)makeNameUnique;
 - (id)defaultName;
 - (void)setFrame:(id)arg1;
-- (id)defaultStyle;
-- (void)initObjectWithCoder:(id)arg1;
-- (id)initWithCoder:(id)arg1;
+- (id)objectIDsForSelfAncestorsAndChildren;
+#- (id)defaultStyle;
 - (id)initWithFrame:(struct CGRect)arg1;
 - (void)objectDidInit;
 - (void)initEmptyObject;
-- (id)CSSAttributes;
-- (id)CSSRotation;
-- (id)CSSAttributeString;
+#- (id)CSSAttributes;
+#- (id)CSSRotation;
+#- (id)CSSAttributeString;
 - (BOOL)isExpandedInLayerList;
 - (id)previewFillColor:(BOOL)arg1;
 - (id)previewBorderColor:(BOOL)arg1;
 - (void)drawPreviewInRect:(struct CGRect)arg1 honourSelected:(BOOL)arg2;
-- (void)writeBitmapImageToFile:(id)arg1;
-- (void)writeSVGToElement:(id)arg1 withExporter:(id)arg2;
+#- (void)writeBitmapImageToFile:(id)arg1;
+- (Class)rendererClass;
+- (void)migratePropertiesFromV33OrEarlierWithCoder:(id)arg1;
+- (unsigned long long)decodingConversionForProperty:(id)arg1;
+- (void)initLegacyWithCoder:(id)arg1;
+#- (void)writeSVGToElement:(id)arg1 withExporter:(id)arg2;
 - (void)appendBaseTranslation:(id)arg1 exporter:(id)arg2;
-- (id)relativeRectWithExporter:(id)arg1;
+#- (id)relativeRectWithExporter:(id)arg1;
 - (struct CGPoint)layerOffsetWithExporter:(id)arg1;
-- (void)addSVGAttributes:(id)arg1 forExporter:(id)arg2;
-- (id)svgStyle;
+#- (void)addSVGAttributes:(id)arg1 forExporter:(id)arg2;
+#- (id)svgStyle;
 - (void)addGradientsToDocument:(id)arg1;
 - (void)addChildrenToElement:(id)arg1 exporter:(id)arg2;
 - (id)addContentToElement:(id)arg1 attributes:(id)arg2 exporter:(id)arg3 action:(unsigned long long *)arg4;
-- (BOOL)shouldIncludeLayerInSlice:(id)arg1;
-- (BOOL)intersectsSlice:(id)arg1;
-- (Class)rendererClass;
-- (unsigned long long)decodingConversionForProperty:(id)arg1;
-- (void)initLegacyWithCoder:(id)arg1;
+#- (BOOL)shouldIncludeLayerInSlice:(id)arg1;
+#- (BOOL)intersectsSlice:(id)arg1;
 
+@end
 
 */
