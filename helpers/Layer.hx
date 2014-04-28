@@ -7,6 +7,8 @@ using helpers.Artboard;
 class Layer{
 	public static var mapName:Map<Int,String>=new Map();
 	//public static var hiddenLayers:Map<Int,List<MSLayer>>= new Map();
+
+  /// should be removed
 	public static function isExportable(layer:MSLayer):Bool{
 		_trace( layer);
 		//var klass=null;
@@ -38,6 +40,10 @@ class Layer{
 	{
 		return untyped __js__("layer.class()");
 	}
+  public static function isArtBoard(l:MSLayer):Bool{
+    var  klass = l._class();
+    return  klass== MSArtboardGroup;
+  }
 
 	public static function isGroup(l:MSLayer):Bool
 	{
@@ -49,9 +55,9 @@ class Layer{
 		var  klass = l._class();
 		return  klass== MSTextLayer;
 	}
-
+  
 	public static function export(layer:MSLayer,path:String,factor:Float):String{
-   	path=path.cleanPath();
+   	
    	var invisible:Bool=false;
     var artboard = layer.parentArtboard();
     var page= layer.parentPage();
@@ -67,7 +73,7 @@ class Layer{
    	//_trace("here");
     var slice = layer.withFactor(factor);
     //_trace("here");
-    doc.saveArtboardOrSlice(slice,path);
+   doc.saveArtboardOrSlice(slice,path) ;
     //_trace("here");
     if( invisible)layer.setIsVisible(false);
     try artboard.showHiddenLayers() catch( msg:Dynamic)_trace(msg);
@@ -102,7 +108,7 @@ class Layer{
   	return export(layer,path,factor);
   	}
 
-   static function withFactor(layer:MSLayer,factor:Float):MSSlice{
+   public static function withFactor(layer:MSLayer,factor:Float):MSSlice{
     //var layerOrig = this.orig;
     var  copy = layer.duplicate();
     var  frame = copy.frame();
