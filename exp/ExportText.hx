@@ -45,8 +45,9 @@ class ExportText extends ExportLayer implements Exportable
  			//  };
  			_trace("pif");
  			try{
- 				//if text has layer fill over textProperties
- 				_trace("try" );
+ 				//if text has layer fill over textProperties 
+ 				// there is a bug when fill exists but not checked > fill override native textColor
+ 			_trace("try" );
  			TP.color=layer.style().fills().firstObject().color().hexValue();
  			TP.alpha=layer.style().fills().firstObject().color().alpha();
       		}
