@@ -40,54 +40,15 @@ function setPrimitiveBackgroundColor(v:Dynamic):Void;//(id)arg1;//(void)
 function primitiveBackgroundColor():Dynamic;//(id)
 //function enumerateProperties():(CDUnknownBlockType)arg1;//(void)
 
+//sketch3 tested
+ function exportOptions():MSExportOptions;
+/// sketch 3 untested
+function hasBackgroundColor():Bool;
+function backgroundColor():MSColor;
 }
 
 
 /*
-
-@interface _MSSliceLayer : MSLayer
-{
-    BOOL _includeRetinaVersion;
-    BOOL _shouldTrim;
-    NSColor *_backgroundColor;
-    long long _currentResolution;
-    MSArray *_includedLayerIds;
-    unsigned long long _options;
-}
-
-@property(nonatomic) BOOL shouldTrim; // @synthesize shouldTrim=_shouldTrim;
-@property(nonatomic) unsigned long long options; // @synthesize options=_options;
-@property(retain, nonatomic) MSArray *includedLayerIds; // @synthesize includedLayerIds=_includedLayerIds;
-@property(nonatomic) BOOL includeRetinaVersion; // @synthesize includeRetinaVersion=_includeRetinaVersion;
-@property(nonatomic) long long currentResolution; // @synthesize currentResolution=_currentResolution;
-@property(copy, nonatomic) NSColor *backgroundColor; // @synthesize backgroundColor=_backgroundColor;
-- (void).cxx_destruct;
-- (void)copyPropertiesToObjectCopy:(id)arg1;
-- (void)setUndoManagerOnChildren:(id)arg1;
-- (void)setAsParentOnChildren;
-- (void)decodePropertiesCompatibleWithCoder:(id)arg1;
-- (void)decodePropertiesManuallyWithCoder:(id)arg1;
-- (void)decodePropertiesWithCoder:(id)arg1;
-- (void)encodePropertiesCompatibleWithCoder:(id)arg1;
-- (void)encodePropertiesManuallyWithCoder:(id)arg1;
-- (void)encodePropertiesWithCoder:(id)arg1;
-- (void)fillInEmptyObjects;
-- (BOOL)hasDefaultValues;
-- (void)initEmptyObject;
-- (void)setPrimitiveShouldTrim:(BOOL)arg1;
-- (BOOL)primitiveShouldTrim;
-- (void)setPrimitiveOptions:(unsigned long long)arg1;
-- (unsigned long long)primitiveOptions;
-- (void)setPrimitiveIncludedLayerIds:(id)arg1;
-- (id)primitiveIncludedLayerIds;
-- (void)setPrimitiveIncludeRetinaVersion:(BOOL)arg1;
-- (BOOL)primitiveIncludeRetinaVersion;
-- (void)setPrimitiveCurrentResolution:(long long)arg1;
-- (long long)primitiveCurrentResolution;
-- (void)setPrimitiveBackgroundColor:(id)arg1;
-- (id)primitiveBackgroundColor;
-- (void)enumerateProperties:(CDUnknownBlockType)arg1;
-
-@end
+/
 
 */
