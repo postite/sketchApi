@@ -8,5 +8,7 @@ enum Behave{
 	Flat; // *
 	Visible;
 	Svg;
+	Skip;// skip parent but get childs
+	Sliced;
 
 }
