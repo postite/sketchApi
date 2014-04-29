@@ -53,7 +53,7 @@ class Slice{
     	invisible=true;
     	layer.setIsVisible(true);
     }
-    path = path +"/"+page.name()+"/"+artboard.name()+"/slices/"+  layer.name().clean()+ '.'+Std.string(options.format).toLowerCase();
+    path = path +"/"+page.name()+"/"+artboard.name()+"/"+  layer.name().clean()+ '.'+Std.string(options.format).toLowerCase();
     _trace( path +"factor="+Std.string(factor));
    	
    	//var factor= (options.scale!=null)? options.scale :1;
