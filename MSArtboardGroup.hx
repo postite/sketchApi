@@ -10,6 +10,9 @@ extern class MSArtboardGroup extends MSLayerGroup{
 //[doc saveArtboardOrSlice:artboard toFile:"~/desktop/test.png"];
 public function horizontalRulerData():MSRulerData;
 public function verticalRulerData():MSRulerData;
+public function grid():MSBaseGrid;
+public function setgrid(d:MSBaseGrid):Void;
+
 //Both return the MSRulerData object used to store rulers for their respective axes. Note that this data is only used on the artboard itself.
 
 //override 
