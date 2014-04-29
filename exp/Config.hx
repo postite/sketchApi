@@ -41,9 +41,9 @@ class Config
 	public function check():Void
 	{
 		_trace( "check");
-		var settings:Conf=doc.loadJson(doc.dir()+"/pop.json");
+		var settings:Conf=doc.loadJson(doc.dir()+"/settings_"+doc.displayName()+".json");
 		if(settings!=null){
-		'settings OK'.alert("cool");
+		//'no settings'.alert("pas cool");
 		data=settings;
 		}else{
 		create();
@@ -56,7 +56,7 @@ class Config
 		var settings=haxe.Json.stringify(defaults);
 
 		//settings=haxe.format.JsonPrinter.print(defaults);
-	doc.createText(settings,doc.dir()+"/pop.json");
+	doc.createText(settings,doc.dir()+"/settings_"+doc.displayName()+".json");
 		//doc.askForUserInput("hello",0,"pitatatatatatattatata\niudiuiduisqudiusidu\nhsjhdjhsjdhq");
 	"settings created in dir".alert("cool");
 	check();
