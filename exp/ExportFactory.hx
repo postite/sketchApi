@@ -4,10 +4,14 @@ using helpers.StringSketch;
 import Global.*;
 import haxe.EnumFlags;
 import exp.Behave;
+using helpers.UI;
+
+
 
 class ExportFactory
 {
 	public static var one=false;
+	public static var config:Config.Conf=Config.defaults;
 	//bon faut faire le ménage la dedans!
 	public static function create(origLayer:MSLayer):Exportable{
 		_trace("factory--------------createExport "+origLayer.name()+"-------------");
@@ -20,6 +24,7 @@ class ExportFactory
 		// 		 new exp.ExportLayer(origLayer);
 		// }
 
+		//Std.string(config).alert("config");
 
 		var flags=behaviour(origLayer);
 		var export:Exportable=null;

@@ -3,6 +3,7 @@ import Global.*;
 using helpers.Artboard;
 using helpers.StringSketch;
 using helpers.Layer;
+import exp.Config.Conf;
 
 typedef SliceOptions={
 	scale:Float,
@@ -28,7 +29,7 @@ class Slice{
 	//return path
 	//supports only one export size for now
 	//TODO add suffix
-	public static function export(slice:MSSliceLayer,orig:MSLayer,path:String,factor:Float):String{
+	public static function export(slice:MSSliceLayer,orig:MSLayer,path:String,factor:Float,config:Conf):String{
 		//extract properties
 
 	
@@ -56,7 +57,11 @@ class Slice{
     _trace( path +"factor="+Std.string(factor));
    	
    	//var factor= (options.scale!=null)? options.scale :1;
+   	if (config.forceSlices)
    	var factor=options.scale ;
+    else
+    factor=config.scale;
+   	
    	//_trace("here");
     var exportslice = slice.withFactor(factor);
     //_trace("here");

@@ -22,13 +22,13 @@ class ExportLayer implements Exportable{
 	public var height(default,set):Float;
 	public var visible:Bool=true;
 	public var format:String="png";
+	var config:exp.Config.Conf;
 	public function new(layer:MSLayerGroup){
+		config=exp.ExportFactory.config;
 		
 		name=Std.string(layer.name()); // i don't get why i should Stringify this ( cause json cannot stringify NSString)
-		
-		
-		orig= layer;
 
+		orig= layer;
 
 		this.type=Container;
 		
@@ -54,7 +54,7 @@ class ExportLayer implements Exportable{
 			try{
 				if(behaviour.has(Svg)){
 					_trace( "--------------svg style--------");
-					src=orig.exportSvg(doc.dir()+"view/images");
+					src=orig.exportSvg(doc.dir()+"view/images",config);
 					this.type=Svg;
 					format="svg";
 					src=relativeSrc(src);
@@ -67,13 +67,13 @@ class ExportLayer implements Exportable{
 				}
 				if (!behaviour.has(Flat)){
 					if (behaviour.has(Skip)) //just testing
-					src=orig.export(doc.dir()+"view/imuges",1);
+					src=orig.export(doc.dir()+"view/imuges",1,config);
 					else
-					src=orig.export(doc.dir()+"view/images",1);
+					src=orig.export(doc.dir()+"view/images",1,config);
 
 				}else{
 				_trace("-------------------------has flat");
-				src=orig.export(doc.dir()+"view/images",1);
+				src=orig.export(doc.dir()+"view/images",1,config);
 				this.type=Image;
 				}
 				src=relativeSrc(src);

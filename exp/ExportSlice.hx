@@ -77,7 +77,7 @@ public static var one:Bool=false;
 		this.type=Image;
 		//this.format=Type.createEnum (Format,Std.String(slice.exportOptions().sizes().firstObject().format().capitalize()));
 		this.format=Std.string(slice.exportOptions().sizes().firstObject().format());
-		src=slice.export(layer,doc.dir()+"view/images",sizes.firstObject().scale());
+		src=slice.export(layer,doc.dir()+"view/images",sizes.firstObject().scale(),config);
 		src=relativeSrc(src);
 
 		return cast this;

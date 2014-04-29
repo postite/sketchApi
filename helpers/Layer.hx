@@ -3,7 +3,7 @@ using helpers.StringSketch;
 import Global.*;
 using helpers.Layer;
 using helpers.Artboard;
-
+import exp.Config.Conf;
 class Layer{
 	public static var mapName:Map<Int,String>=new Map();
 	//public static var hiddenLayers:Map<Int,List<MSLayer>>= new Map();
@@ -56,7 +56,7 @@ class Layer{
 		return  klass== MSTextLayer;
 	}
   
-	public static function export(layer:MSLayer,path:String,factor:Float):String{
+	public static function export(layer:MSLayer,path:String,factor:Float,config:Conf):String{
    	
    	var invisible:Bool=false;
     var artboard = layer.parentArtboard();
@@ -69,17 +69,19 @@ class Layer{
     path = path +"/"+page.name()+"/"+artboard.name()+"/"+  layer.name().clean()+ '.png';
     _trace( path +"factor="+Std.string(factor));
    
-   	factor= (factor!=null)? factor :1;
+   
+    factor=config.scale;
+
    	//_trace("here");
     var slice = layer.withFactor(factor);
     //_trace("here");
-   doc.saveArtboardOrSlice(slice,path) ;
+    doc.saveArtboardOrSlice(slice,path) ;
     //_trace("here");
     if( invisible)layer.setIsVisible(false);
     try artboard.showHiddenLayers() catch( msg:Dynamic)_trace(msg);
    	return path;
   	}
-  	public static function exportSvg(layer:MSLayer,path:String):String
+  	public static function exportSvg(layer:MSLayer,path:String,config:Conf):String
   	{
   		var factor=null;
   		path=path.cleanPath();
@@ -93,8 +95,8 @@ class Layer{
     }
     path = path +"/"+page.name()+"/"+ artboard.name()+"/"+ layer.name().clean()+ '.svg';
     //_trace( path +"factor="+Std.string(factor));
-   
-   	factor= (factor!=null)? factor :1;
+    
+    factor=config.scale;
    	//_trace("here");
     var slice = layer.withFactor(factor);
     //_trace("here");
@@ -104,8 +106,8 @@ class Layer{
     try artboard.showHiddenLayers() catch( msg:Dynamic)_trace(msg);
    	return path;
   	}
-  	public static function exportFlat(layer:MSLayer,path:String,factor:Float):String{
-  	return export(layer,path,factor);
+  	public static function exportFlat(layer:MSLayer,path:String,factor:Float,config:Conf):String{
+  	return export(layer,path,factor,config);
   	}
 
    public static function withFactor(layer:MSLayer,factor:Float):MSSlice{
