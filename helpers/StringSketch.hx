@@ -28,7 +28,7 @@ return throw 'not yet implemented';
   	 var r = ~/\s+/g; // g : replace all instances
    //trace(r.replace(str,"xx")); // "aaabcbcbcxx"
   	 var trimed=StringTools.trim(str);
- 	return r.replace(trimed,' ');
+ 	  return r.replace(trimed,' ');
   }
   public static function endsWith(str:String, ends:String){
      if (ends == '') return true;
