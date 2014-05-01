@@ -7,7 +7,7 @@ import exp.ExportTypes;
 import haxe.EnumFlags;
 import exp.Behave;
 class ExportLayer implements Exportable{
-
+	public static var one=true;
 	public var behaviour:EnumFlags<Behave>;
 	public var type:ExportTypes;
 	public var orig(default,null):MSLayer;
@@ -47,6 +47,10 @@ class ExportLayer implements Exportable{
 		
 		x=orig.absoluteRect().rulerX();
 		y=orig.absoluteRect().rulerY();
+
+		log(orig.style().shadows());
+
+
 		width=orig.frame().width();
 		height=orig.frame().height();
 		relx=orig.frame().x();
