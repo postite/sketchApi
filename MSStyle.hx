@@ -15,7 +15,7 @@ extern class MSStyle{
 
  public function borders():SketchArray<MSStyleBorder>;
  public function fills():SketchArray<MSStyleFill>;
- public function shadows():MSStylePartCollection;
+ public function shadows():SketchArray<MSStyleShadow>;
  public function innerShadows():MSStylePartCollection;
 
  
