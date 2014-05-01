@@ -10,7 +10,7 @@ function isDefaultGlow():Bool;
 function blurRadius():Float;
 function color():MSColor;
 function offsetX():Float;
-function offsetY):Float;
+function offsetY():Float;
 function spread():Float;
 function setBlurRadius(arg:Float):Void;
 function setColor(arg:MSColor):Void;
