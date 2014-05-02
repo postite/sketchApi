@@ -7,6 +7,8 @@ extern class MSSlice
 	function name():String;
 	function includedLayerIDs():SketchArray<String>;
 	function layerIsIncluded(id:MSLayer):Bool;
+	function shouldTrim():Bool;
+	function setShouldTrim(b:Bool):Void;
 	inline static function sliceWithRect(rect:GKRect.CGRect,scale:Float):Dynamic
 	{
 		return untyped MSSlice.sliceWithRect_scale(rect,scale);
