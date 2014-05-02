@@ -25,12 +25,12 @@ class Config
 {
 	
 	public  static var defaults:Conf={
-	 	scale:3,
+	 	scale:1,
 	 	format:"png",
 	 	forceConfig:true,
-	 	allArtBoards:true,
-	 	allPages:true,
-	 	cleanUp:true,
+	 	allArtBoards:false,
+	 	allPages:false,
+	 	cleanUp:false,
 	 	forceSlices:false
 	 }
 	public var data:Conf;
