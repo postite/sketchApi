@@ -65,7 +65,7 @@ class Slice{
    	//_trace("here");
     var exportslice = slice.withFactor(factor);
     //_trace("here");
-    doc.saveArtboardOrSlice(exportslice,path);
+    doc.saveArtboardOrSlice(exportslice.slice,path);
     //_trace("here");
     if( invisible)layer.setIsVisible(false);
     try artboard.showHiddenLayers() catch( msg:Dynamic)_trace(msg);
