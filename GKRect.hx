@@ -25,6 +25,15 @@ public function height():Float;
 public function rulerX():Float; 
 public function rulerY():Float;
 
+public function setSize(value:CGSize):Void;
+public function setOrigin(value:Origin):Void;
+public function setX(value:Float):Void; //=origin.x
+public function setY(value:Float):Void; //=origin.y
+public function setWidth(value:Float):Void;
+public function setHeight(value:Float):Void;
+public function setRulerX(value:Float):Void; 
+public function setRulerY(value:Float):Void;
+
 
 //undocumented
 public function  rectWithRect(d:Dynamic):Dynamic;  /// ? //todo

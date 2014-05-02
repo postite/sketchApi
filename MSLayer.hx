@@ -119,8 +119,8 @@ public function isMemberOfClass(c:Class<Dynamic>):Bool;
 public function CSSAttributeString():String;//unquaoted
 function CSSAttributes():Dynamic; //quoted
 
-function children():SketchArray<Dynamic>;//(id)
-function ancestors():SketchArray<Dynamic>;//(id)
+function children():SketchArray<MSLayer>;//(id)
+function ancestors():SketchArray<MSLayer>;//(id)
 
 
 function multiplyBy(v:Float):Void;//(void)

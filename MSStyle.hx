@@ -4,11 +4,11 @@ typedef MSStylePartCollection = SketchArray<Dynamic> //Todo
 
 
 
-typedef  MSStyleShadow= Dynamic //Todo 
+
 typedef  MSStyleInnerShadow= Dynamic //Todo 
 typedef NSImage= Dynamic;
 typedef MSGradient=Dynamic;
-
+@:publicFields
 extern class MSStyle{
 
 //Represents all style attributes on a layer. Whatever kind of layer you have, each has an valid style object. Some layers will ignore unsupported attributes though (such as a text layer only supports one border even if style objets has more than one)
@@ -20,7 +20,7 @@ extern class MSStyle{
 
  
  public function hasTextStyle():Bool;
- 
+ function hasEnabledShadow():Bool;
  
 //Each returns an MSStylePartCollection that contains an array of each represented object. See MSStyleBorder, MSStyleFill, MSStyleShadow and MSStyleInnerShadow for details.
 

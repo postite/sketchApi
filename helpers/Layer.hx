@@ -4,6 +4,7 @@ import Global.*;
 using helpers.Layer;
 using helpers.Artboard;
 import exp.Config.Conf;
+using Lambda;
 class Layer{
 	public static var mapName:Map<Int,String>=new Map();
 	//public static var hiddenLayers:Map<Int,List<MSLayer>>= new Map();
@@ -119,8 +120,9 @@ class Layer{
     //var  rect = [copy rectByAccountingForStyleSize:[[copy absoluteRect] rect]];
    try  rect = copy.rectByAccountingForStyleSize(copy.absoluteRect().rect()) catch (msg:Dynamic)_trace(msg);
     //_trace("here");
+    
     var slice = MSSlice.sliceWithRect(rect ,factor);
-	_trace(copy);
+	
     try copy.removeFromParent() catch (msg:Dynamic) log(msg);
    // _trace("here");
     return slice;

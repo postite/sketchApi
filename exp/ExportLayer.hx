@@ -45,11 +45,14 @@ class ExportLayer implements Exportable{
 		if(orig!=null && behaviour.has(Exportable)){
 		visible =(behaviour.has(Behave.Visible))? true : false;
 		
+		
+
 		x=orig.absoluteRect().rulerX();
 		y=orig.absoluteRect().rulerY();
 
-		log(orig.style().shadows());
+		
 
+		
 
 		width=orig.frame().width();
 		height=orig.frame().height();
