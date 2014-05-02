@@ -1,17 +1,19 @@
 @:publicFields
-extern class MSSLiceMaker{
+extern class MSSliceMaker{
 static function bitmapImageRepForLayers(id:MSLayer,inRect:Dynamic):Dynamic{
 	return untyped MSSLiceMaker.bitmapRectForLayers_inRect(id,inRect);
 }
 static function shouldTrimBitmapForPasteboardLayers(id:Dynamic):Bool;
-static function bitmapRectForLayers(id:Dynamic):Dynamic;
-static function bitmapImageRepForLayers(id:Dynamic,trimmedRect:Dynamic):Dynamic{
-	return untyped MSSLiceMaker.bitmapImageRepForLayers_trimmedRect(id,trimmedRect);
-}
+
+//todo overload
+// static function bitmapRectForLayers(id:Dynamic):Dynamic;
+// static function bitmapImageRepForLayers(id:Dynamic,trimmedRect:Dynamic):Dynamic{
+// 	return untyped MSSLiceMaker.bitmapImageRepForLayers_trimmedRect(id,trimmedRect);
+// }
 
 //TODO overload it 
 //static function slicesFromExportableLayer:(id)arg1 sizes:(id)arg2;
-static function slicesFromExportableLayer(id:Dynamic):Dynamic;
+static function slicesFromExportableLayer(id:MSLayer):MSSlice;
 }
 
 
