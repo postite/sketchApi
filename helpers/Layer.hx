@@ -9,7 +9,16 @@ using Lambda;
 
 typedef ExportData={
   path:String,
-  slice:MSSlice
+  sliced:{slice:MSSlice,bounds:Bounds}
+}
+typedef Bounds={
+  x:Float,
+  y:Float,
+  relx:Float,
+  rely:Float,
+  width:Float,
+  height:Float
+
 }
 class Layer{
 	public static var mapName:Map<Int,String>=new Map();
@@ -77,15 +86,15 @@ class Layer{
     factor=config.scale;
 
    	//_trace("here");
-    var slice = layer.withFactor(factor);
+    var sliced = layer.withFactor(factor);
     //_trace("here");
-    doc.saveArtboardOrSlice(slice,path) ;
+    doc.saveArtboardOrSlice(sliced.slice,path) ;
     //_trace("here");
     if( invisible)layer.setIsVisible(false);
     try artboard.showHiddenLayers() catch( msg:Dynamic)_trace(msg);
-   	return {path:path,slice:slice};
+   	return {path:path,sliced:sliced};
   	}
-  	public static function exportSvg(layer:MSLayer,path:String,config:Conf):String
+  	public static function exportSvg(layer:MSLayer,path:String,config:Conf):ExportData
   	{
   		var factor=null;
   		path=path.cleanPath();
@@ -102,19 +111,19 @@ class Layer{
     
     factor=config.scale;
    	//_trace("here");
-    var slice = layer.withFactor(factor);
+    var sliced = layer.withFactor(factor);
     //_trace("here");
-    doc.saveArtboardOrSlice(slice,path);
+    doc.saveArtboardOrSlice(sliced.slice,path);
     //_trace("here");
     if( invisible)layer.setIsVisible(false);
     try artboard.showHiddenLayers() catch( msg:Dynamic)_trace(msg);
-   	return {path:path,slice:slice};
+   	return {path:path,sliced:sliced};
   	}
-  	public static function exportFlat(layer:MSLayer,path:String,factor:Float,config:Conf):String{
+  	public static function exportFlat(layer:MSLayer,path:String,factor:Float,config:Conf):ExportData{
   	return export(layer,path,factor,config);
   	}
 
-   public static function withFactor(layer:MSLayer,factor:Float):MSSlice{
+   public static function withFactor(layer:MSLayer,factor:Float):{slice:MSSlice,bounds:Bounds}{
     //var layerOrig = this.orig;
     var  copy = layer.duplicate();
     var  frame = copy.frame();
@@ -127,9 +136,15 @@ class Layer{
     //var rect=copy.frame().rect();
     var rect=copy.absoluteRect().rect() ;
     var slice = MSSlice.sliceWithRect(rect ,factor);
+    var bounds={x:copy.absoluteRect().rulerX(),
+      y:copy.absoluteRect().rulerY(),
+      width:copy.frame().width(),
+      height:copy.frame().height(),
+      relx:copy.frame().x(),
+      rely:copy.frame().y()}
 	 try copy.removeFromParent() catch (msg:Dynamic) log(msg);
     
    // _trace("here");
-    return slice;
+    return {slice:slice,bounds:bounds};
   }
 }
