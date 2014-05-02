@@ -118,12 +118,14 @@ class Layer{
     _trace("here");
     var rect=null;
     //var  rect = [copy rectByAccountingForStyleSize:[[copy absoluteRect] rect]];
-   try  rect = copy.rectByAccountingForStyleSize(copy.absoluteRect().rect()) catch (msg:Dynamic)_trace(msg);
+    //try  rect = copy.rectByAccountingForStyleSize(copy.absoluteRect().rect()) catch (msg:Dynamic)_trace(msg);
     //_trace("here");
-    
+    MSSliceTrimming.trimSlice(copy);
+    //var rect=copy.frame().rect();
+    var rect=copy.absoluteRect().rect() ;
     var slice = MSSlice.sliceWithRect(rect ,factor);
-	
-    try copy.removeFromParent() catch (msg:Dynamic) log(msg);
+	 try copy.removeFromParent() catch (msg:Dynamic) log(msg);
+    
    // _trace("here");
     return slice;
   }
