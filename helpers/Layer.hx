@@ -63,7 +63,7 @@ class Layer{
 		return  klass== MSTextLayer;
 	}
   
-	public static function export(layer:MSLayer,path:String,factor:Float,config:Conf):String{
+	public static function export(layer:MSLayer,path:String,factor:Float,config:Conf):ExportData{
    	
    	var invisible:Bool=false;
     var artboard = layer.parentArtboard();
@@ -83,7 +83,7 @@ class Layer{
     //_trace("here");
     if( invisible)layer.setIsVisible(false);
     try artboard.showHiddenLayers() catch( msg:Dynamic)_trace(msg);
-   	return path;
+   	return {path:path,slice:slice};
   	}
   	public static function exportSvg(layer:MSLayer,path:String,config:Conf):String
   	{
@@ -108,7 +108,7 @@ class Layer{
     //_trace("here");
     if( invisible)layer.setIsVisible(false);
     try artboard.showHiddenLayers() catch( msg:Dynamic)_trace(msg);
-   	return path;
+   	return {path:path,slice:slice};
   	}
   	public static function exportFlat(layer:MSLayer,path:String,factor:Float,config:Conf):String{
   	return export(layer,path,factor,config);
