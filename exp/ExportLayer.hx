@@ -6,6 +6,7 @@ using helpers.Document;
 import exp.ExportTypes;
 import haxe.EnumFlags;
 import exp.Behave;
+
 class ExportLayer implements Exportable{
 	public static var one=true;
 	public var behaviour:EnumFlags<Behave>;
@@ -22,6 +23,7 @@ class ExportLayer implements Exportable{
 	public var height(default,set):Float;
 	public var visible:Bool=true;
 	public var format:String="png";
+	var exportData:Null<helpers.Layer.ExportData>;
 	var config:exp.Config.Conf;
 	public function new(layer:MSLayerGroup){
 		config=exp.ExportFactory.config;
@@ -47,24 +49,14 @@ class ExportLayer implements Exportable{
 		
 		
 
-		x=orig.absoluteRect().rulerX();
-		y=orig.absoluteRect().rulerY();
-
 		
-
-		
-
-		width=orig.frame().width();
-		height=orig.frame().height();
-		relx=orig.frame().x();
-		rely=orig.frame().y();
 			try{
 				if(behaviour.has(Svg)){
 					_trace( "--------------svg style--------");
-					src=orig.exportSvg(doc.dir()+"view/images",config);
+					exportData=orig.exportSvg(doc.dir()+"view/images",config);
 					this.type=Svg;
 					format="svg";
-					src=relativeSrc(src);
+					src=relativeSrc(exportData.path);
 					return this;
 				}
 				if( behaviour.has(Scale))
@@ -74,22 +66,32 @@ class ExportLayer implements Exportable{
 				}
 				if (!behaviour.has(Flat)){
 					if (behaviour.has(Skip)) //just testing
-					src=orig.export(doc.dir()+"view/imuges",1,config);
+					exportData=orig.export(doc.dir()+"view/imuges",1,config);
 					else
-					src=orig.export(doc.dir()+"view/images",1,config);
+					exportData=orig.export(doc.dir()+"view/images",1,config);
 
 				}else{
 				_trace("-------------------------has flat");
-				src=orig.export(doc.dir()+"view/images",1,config);
+				exportData=orig.export(doc.dir()+"view/images",1,config);
 				this.type=Image;
 				}
-				src=relativeSrc(src);
-				_trace("sr="+src);
+				src=relativeSrc(exportData.path);
+				
 			}
 		
 			catch(err:Dynamic){
 			log("Error="+err);
 			}
+
+
+		x=exportData.sliced.bounds.x;
+		y=exportData.sliced.bounds.y;
+		width=exportData.sliced.bounds.width;
+		height=exportData.sliced.bounds.height;
+		relx=exportData.sliced.bounds.relx;
+		rely=exportData.sliced.bounds.rely;
+
+
 		return cast this;
 		}
 		return null;
