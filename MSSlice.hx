@@ -1,9 +1,12 @@
+import GKRect.CGRect;
 @:publicFields
 extern class MSSlice 
 {
 	
-
-	
+	function rect():CGRect;
+	function name():String;
+	function includedLayerIDs():SketchArray<String>;
+	function layerIsIncluded(id:MSLayer):Bool;
 	inline static function sliceWithRect(rect:GKRect.CGRect,scale:Float):Dynamic
 	{
 		return untyped MSSlice.sliceWithRect_scale(rect,scale);
