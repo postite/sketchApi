@@ -5,6 +5,12 @@ using helpers.Layer;
 using helpers.Artboard;
 import exp.Config.Conf;
 using Lambda;
+
+
+typedef ExportData={
+  path:String,
+  slice:MSSlice
+}
 class Layer{
 	public static var mapName:Map<Int,String>=new Map();
 	//public static var hiddenLayers:Map<Int,List<MSLayer>>= new Map();
@@ -67,10 +73,7 @@ class Layer{
     	invisible=true;
     	layer.setIsVisible(true);
     }
-    path = path +"/"+page.name()+"/"+artboard.name()+"/"+  layer.name().clean()+ '.png';
-    _trace( path +"factor="+Std.string(factor));
-   
-   
+    path = path +"/"+page.name()+"/"+artboard.name()+"/"+  layer.name().clean()+ "."+config.format;
     factor=config.scale;
 
    	//_trace("here");
