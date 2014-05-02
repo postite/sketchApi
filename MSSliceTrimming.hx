@@ -1,19 +1,24 @@
-typedef SLICE=Dynamic
+typedef SLICE=MSSlice
 
 @:publicFields
 extern class  MSSliceTrimming{
 
 static function simpleSafeRectForSlice(s:SLICE):GKRect.CGRect;
 static function safeRectForSlice(s:SLICE):GKRect.CGRect;
-inline static function basicSliceFromLayer(s:SLICE,page:MSPage):GKRect.CGRect{
+inline static function basicSliceFromLayer(s:MSLayer,page:MSPage):MSSlice{
 	return untyped MSSliceTrimming.basicSliceFromLayer_page(s,page);
 }
 
-inline static function trimmedRectForSlice(s:SLICE,onPage:MSPage):GKRect.CGRect{
+inline static function trimmedRectForSlice(s:MSSlice,onPage:MSPage):GKRect.CGRect{
 	return untyped MSSliceTrimming.trimmedRectForSlice_onPage(s,onPage);
 }
-inline static function trimSlice(s:SLICE,toFitLayers):GKRect.CGRect{
-	return MSSliceTrimming.trimSlice_toFitLayers(s,toFitLayers);
+
+
+//trim layer to fit border and shadows // MAGIC
+//!it actually resize layer
+//don't know what fitLayer type is ( not Bool not Int )
+inline static function trimSlice(s:MSLayer,?toFitLayers:Dynamic=null):GKRect.CGRect{
+	return untyped MSSliceTrimming.trimSlice_toFitLayers(s,toFitLayers);
 }
 
 }
