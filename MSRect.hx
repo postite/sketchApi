@@ -41,7 +41,7 @@ public function  proportions():Float; //ratio 0->1
 public function  GKRect():GKRect;
 //Returns a GKRect representation of the rectangle
 
-
+public function rect():GKRect.CGRect;
 
 //undocumented 
 public function setRect(rect:GKRect):Void;
