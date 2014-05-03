@@ -30,47 +30,102 @@ public function addSlice(s:Dynamic):Void;
 }
 
 /*
-@interface _MSPage : MSLayerGroup
+SKETCH 3
+#import "_MSPage.h"
+
+#import "MSRootLayer.h"
+
+@class MSArtboardGroup, MSBaseGrid, MSRulerData, NSArray;
+
+@interface MSPage : _MSPage <MSRootLayer>
 {
-    MSBaseGrid *_grid;
-    MSRulerData *_horizontalRulerData;
-    MSLayerContainer *_sliceContainer;
-    MSRulerData *_verticalRulerData;
-    double _zoomValue;
-    struct CGPoint _scrollOrigin;
+    long long ignoreLayerSelectionDidChangeNotificationsCounter;
+    BOOL _hasBlendedLayer;
+    BOOL _shouldSkipCalculatingLayerBlending;
+    id <MSBasicDelegate> _delegate;
+    id <MSPageDelegate> _pageDelegate;
+    MSArtboardGroup *_currentArtboard;
+    NSArray *_cachedArtboards;
+    NSArray *_cachedExportableLayers;
 }
 
-@property(nonatomic) double zoomValue; // @synthesize zoomValue=_zoomValue;
-@property(retain, nonatomic) MSRulerData *verticalRulerData; // @synthesize verticalRulerData=_verticalRulerData;
-@property(retain, nonatomic) MSLayerContainer *sliceContainer; // @synthesize sliceContainer=_sliceContainer;
-@property(nonatomic) struct CGPoint scrollOrigin; // @synthesize scrollOrigin=_scrollOrigin;
-@property(retain, nonatomic) MSRulerData *horizontalRulerData; // @synthesize horizontalRulerData=_horizontalRulerData;
-@property(copy, nonatomic) MSBaseGrid *grid; // @synthesize grid=_grid;
++ (id)page;
+@property(retain, nonatomic) NSArray *cachedExportableLayers; // @synthesize cachedExportableLayers=_cachedExportableLayers;
+@property(retain, nonatomic) NSArray *cachedArtboards; // @synthesize cachedArtboards=_cachedArtboards;
+@property(nonatomic) BOOL shouldSkipCalculatingLayerBlending; // @synthesize shouldSkipCalculatingLayerBlending=_shouldSkipCalculatingLayerBlending;
+@property(nonatomic) BOOL hasBlendedLayer; // @synthesize hasBlendedLayer=_hasBlendedLayer;
+@property(retain, nonatomic) MSArtboardGroup *currentArtboard; // @synthesize currentArtboard=_currentArtboard;
+@property(nonatomic) __weak id <MSPageDelegate> pageDelegate; // @synthesize pageDelegate=_pageDelegate;
+@property(nonatomic) __weak id <MSBasicDelegate> delegate; // @synthesize delegate=_delegate;
 - (void).cxx_destruct;
-- (void)copyPropertiesToObjectCopy:(id)arg1;
-- (void)setUndoManagerOnChildren:(id)arg1;
-- (void)setAsParentOnChildren;
-- (void)decodePropertiesCompatibleWithCoder:(id)arg1;
-- (void)decodePropertiesManuallyWithCoder:(id)arg1;
-- (void)decodePropertiesWithCoder:(id)arg1;
-- (void)encodePropertiesCompatibleWithCoder:(id)arg1;
-- (void)encodePropertiesManuallyWithCoder:(id)arg1;
-- (void)encodePropertiesWithCoder:(id)arg1;
-- (void)fillInEmptyObjects;
-- (BOOL)hasDefaultValues;
-- (void)initEmptyObject;
-- (void)setPrimitiveZoomValue:(double)arg1;
-- (double)primitiveZoomValue;
-- (void)setPrimitiveVerticalRulerData:(id)arg1;
-- (id)primitiveVerticalRulerData;
-- (void)setPrimitiveSliceContainer:(id)arg1;
-- (id)primitiveSliceContainer;
-- (void)setPrimitiveScrollOrigin:(struct CGPoint)arg1;
-- (struct CGPoint)primitiveScrollOrigin;
-- (void)setPrimitiveHorizontalRulerData:(id)arg1;
-- (id)primitiveHorizontalRulerData;
-- (void)setPrimitiveGrid:(id)arg1;
-- (id)primitiveGrid;
-- (void)enumerateProperties:(CDUnknownBlockType)arg1;
+- (BOOL)parentOrSelfIsSymbol;
+- (void)moveLayersToArtboards;
+- (double)defaultZoomValue;
+- (void)scheduleCalculateHasBlendedLayer;
+- (BOOL)isValidChild:(id)arg1;
+- (id)ancestorsOfLayer:(id)arg1 inGroup:(id)arg2;
+- (id)ancestorsOfLayer:(id)arg1;
+- (void)ignoreLayerSelectionDidChangeNotificationsInBlock:(CDUnknownBlockType)arg1;
+- (void)layerSelectionDidChange;
+- (void)dataArray:(id)arg1 willRemoveObject:(id)arg2;
+- (void)dataArray:(id)arg1 didAddObject:(id)arg2;
+- (void)changeLayerExpandedTypeToAutomaticIfCollapsed;
+@property(readonly, nonatomic) NSArray *artboards; // @dynamic artboards;
+- (void)setCurrentGrid:(id)arg1;
+- (id)currentGrid;
+- (id)parentRoot;
+- (id)currentRoot;
+- (id)ancestorTransforms;
+- (id)ancestors;
+- (id)parentPage;
+- (id)contentBoundsForLayer:(id)arg1;
+- (id)contentBounds;
+- (void)resizeRoot;
+- (id)destinationArtboardForLayer:(id)arg1 artboards:(id)arg2;
+- (void)addOrRemoveLayerFromArtboardIfNecessary:(id)arg1;
+- (void)tryToMoveLayer:(id)arg1 toArtboards:(id)arg2;
+- (void)tryToMoveLayerToArtboard:(id)arg1;
+- (id)exportableLayers;
+- (id)symbolLayersInGroup:(id)arg1;
+- (id)artboardForSlice:(id)arg1 inArtboards:(id)arg2;
+- (id)sliceLayerFromSlice:(id)arg1;
+- (void)prepareObjectCopy:(id)arg1;
+- (void)childDidChangeNotification:(id)arg1;
+@property(nonatomic) struct CGPoint rulerBase; // @dynamic rulerBase;
+- (void)refreshViewsWithMask:(unsigned long long)arg1;
+- (void)refreshOfType:(unsigned long long)arg1 rect:(struct CGRect)arg2;
+- (id)transform;
+- (void)setCachedPagesMenuPreview:(id)arg1;
+- (id)cachedPagesMenuPreview;
+- (void)sendMessageToRootObject:(unsigned long long)arg1;
+- (void)handleLightweightObjectChangeForKey:(id)arg1 sender:(id)arg2;
+- (void)setName:(id)arg1;
+- (void)refreshForPropertyChanged:(id)arg1;
+- (void)dealloc;
+- (id)defaultName;
+- (id)parentGroup;
+- (id)initWithFrame:(struct CGRect)arg1;
+- (void)objectDidInit;
+- (Class)rendererClass;
+- (void)migratePropertiesFromV21OrEarlierWithCoder:(id)arg1;
+- (id)artboardGroupFromArtboard:(id)arg1;
+- (void)migrateArtboardsToArtboardGroups:(id)arg1;
+- (id)moveSlicesToArtboards:(id)arg1;
+- (id)migrateLegacySlicesToSliceLayers:(id)arg1;
+- (void)decodeLegacyArtboards:(id)arg1;
+- (void)decodeLegacySlices:(id)arg1;
+- (unsigned long long)decodingConversionForProperty:(id)arg1;
+- (void)initLegacyWithCoder:(id)arg1;
+- (BOOL)intersectsSlice:(id)arg1;
+- (BOOL)shouldIncludeLayerInSlice:(id)arg1;
+- (void)appendBaseTranslation:(id)arg1 exporter:(id)arg2;
+- (struct CGPoint)layerOffsetWithExporter:(id)arg1;
 
-@end*/
+// Remaining properties
+@property(copy, nonatomic) MSBaseGrid *grid;
+@property(copy, nonatomic) MSRulerData *horizontalRulerData;
+@property(copy, nonatomic) MSRulerData *verticalRulerData;
+
+@end
+
+*/
