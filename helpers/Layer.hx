@@ -101,11 +101,11 @@ class Layer{
    	var invisible:Bool=false;
     var artboard = layer.parentArtboard();
     var page= layer.parentPage();
-    // artboard.hideOtherLayers(layer);
-    // if (!layer.isVisible()){
-    // 	invisible=true;
-    // 	layer.setIsVisible(true);
-    // }
+    artboard.hideOtherLayers(layer);
+    if (!layer.isVisible()){
+    	invisible=true;
+    	layer.setIsVisible(true);
+    }
     path = path +"/"+page.name()+"/"+ artboard.name()+"/"+ layer.name().clean()+ '.svg';
     //_trace( path +"factor="+Std.string(factor));
     
@@ -116,8 +116,8 @@ class Layer{
     
     doc.saveArtboardOrSlice(sliced.slice,path);
     //_trace("here");
-    // if( invisible)layer.setIsVisible(false);
-    // try artboard.showHiddenLayers() catch( msg:Dynamic)_trace(msg);
+     if( invisible)layer.setIsVisible(false);
+     try artboard.showHiddenLayers() catch( msg:Dynamic)_trace(msg);
    	return {path:path,sliced:sliced};
   	}
   	public static function exportFlat(layer:MSLayer,path:String,factor:Float,config:Conf):ExportData{
@@ -144,12 +144,11 @@ class Layer{
       relx:copy.frame().x(),
       rely:copy.frame().y()}
 
-      copy.frame().setX(-100000);
-      copy.frame().setY(-100000);
+      
     var rect=copy.rectByAccountingForStyleSize(copy.absoluteRect().rect()) ;
     var slice = MSSlice.sliceWithRect(rect ,factor);
     untyped doc.addLayer(copy);
-	   //try copy.removeFromParent() catch (msg:Dynamic) log(msg);
+	   try copy.removeFromParent() catch (msg:Dynamic) log(msg);
     
    // _trace("here");
     return {slice:slice,bounds:bounds};
