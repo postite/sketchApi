@@ -133,6 +133,7 @@ class Layer{
     //var  rect = [copy rectByAccountingForStyleSize:[[copy absoluteRect] rect]];
     //try  rect = copy.rectByAccountingForStyleSize(copy.absoluteRect().rect()) catch (msg:Dynamic)_trace(msg);
     //_trace("here");
+    MSSliceTrimming.safeRectForSlice(copy);
     MSSliceTrimming.trimSlice(copy);
     //var rect=copy.frame().rect();
     //var rect=copy.absoluteRect().rect() ;
@@ -145,9 +146,10 @@ class Layer{
       rely:copy.frame().y()}
 
       
-    var rect=copy.rectByAccountingForStyleSize(copy.absoluteRect().rect()) ;
+    //var rect=copy.rectByAccountingForStyleSize(copy.absoluteRect().rect()) ;
+    var rect=copy.absoluteRect().rect();
     var slice = MSSlice.sliceWithRect(rect ,factor);
-    untyped doc.addLayer(copy);
+    
 	   try copy.removeFromParent() catch (msg:Dynamic) log(msg);
     
    // _trace("here");
