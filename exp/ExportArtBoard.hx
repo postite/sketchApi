@@ -13,12 +13,12 @@ class ExportArtBoard extends ExportContainer implements Exportable
 	override public function export():Exportable
 	{
 		
-		this.x=2;
-		this.y=2;
-		this.relx=3;
-		this.rely=3;
-		this.width=100.1;
-		this.height=100;
+		this.x=0;
+		this.y=0;
+		this.relx=0;
+		this.rely=0;
+		this.width=orig.frame().width();
+		this.height=orig.frame().height();
 		return cast this;
 
 	}
