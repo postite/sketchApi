@@ -13,10 +13,12 @@ typedef TextProperties={
 }
 
 enum Alignement{
-	Left; //0
+	
 	Right;//1
 	Center; //2
 	Justify; //3
+	Left; //4
+
 }
 class ExportText extends ExportLayer implements Exportable
 {
@@ -35,7 +37,7 @@ class ExportText extends ExportLayer implements Exportable
 		var layer:MSTextLayer =cast orig;
 		TP= cast {};
 			TP.text=layer.stringValue();
-			
+			_trace( "textVAlue"+layer.stringValue());
 			TP.fontSize=layer.fontSize();
  			TP.fontPostscriptName=""+layer.fontPostscriptName();
  			// textColor={
@@ -58,10 +60,10 @@ class ExportText extends ExportLayer implements Exportable
       			
       		}
       		try{
-      		TP.textAlignment=Align(layer.textAlignment());
-      		TP.characterSpacing=layer.characterSpacing();
-      		TP.lineSpacing=layer.lineSpacing();
-      		TP.toObj=toObject;
+      		 TP.textAlignment=Align(layer.textAlignment());
+      		 TP.characterSpacing=layer.characterSpacing();
+      		 TP.lineSpacing=layer.lineSpacing();
+      		 TP.toObj=toObject;
 			text=TP;
 		untyped log(layer.font());
 		}
@@ -94,6 +96,8 @@ class ExportText extends ExportLayer implements Exportable
 
 	function Align(code:Int):String
 	{
-		return Type.createEnumIndex(Alignement,code).getName();
+		_trace("Align="+code);
+
+		return Type.createEnumIndex(Alignement,code+1).getName();
 	}
 }
