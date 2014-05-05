@@ -70,16 +70,18 @@ public static var one:Bool=false;
 		y=slice.absoluteRect().rulerY();
 		width=slice.frame().width();
 		height=slice.frame().height();
-		relx=slice.frame().x();
-		rely=slice.frame().y();
+		// relx=slice.frame().x();
+		// rely=slice.frame().y();
+		relx=slice.parentGroup().frame().x();
+		rely=slice.parentGroup().frame().y();
 
-
-		this.type=Image;
+		this.type=Slice;
 		//this.format=Type.createEnum (Format,Std.String(slice.exportOptions().sizes().firstObject().format().capitalize()));
 		this.format=Std.string(slice.exportOptions().sizes().firstObject().format());
-		src=slice.export(layer,doc.dir()+"view/images",sizes.firstObject().scale(),config);
-		src=relativeSrc(src);
-
+		exportData=slice.export(layer,doc.dir()+"view/images",sizes.firstObject().scale(),config);
+		src=relativeSrc(exportData.path);
+		// relx=x;
+		// rely=y;
 		return cast this;
 
 	}
