@@ -96,8 +96,8 @@ class ExportText extends ExportLayer implements Exportable
 
 	function Align(code:Int):String
 	{
-		_trace("Align="+code);
+		//_trace("Align="+code);
 
-		return Type.createEnumIndex(Alignement,code+1).getName();
+		return Type.createEnumIndex(Alignement,code).getName();
 	}
 }
