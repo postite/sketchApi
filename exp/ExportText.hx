@@ -7,14 +7,12 @@ typedef TextProperties={
 	fontPostscriptName:String,
 	textAlignment:Dynamic,
 	characterSpacing:Int,
-	lineSpacing:Int,
 	lineSpacing:Float,
 	alpha:Float,
 	toObj:Void->Dynamic
 }
-
+// switch to enum Abstract ?
 enum Alignement{
-	
 	WTF;
 	Right;//1
 	Center; //2
@@ -64,7 +62,7 @@ class ExportText extends ExportLayer implements Exportable
       		try{
       		 TP.textAlignment=Align(layer.textAlignment());
       		 TP.characterSpacing=layer.characterSpacing();
-      		 TP.lineSpacing=layer.lineSpacing();
+      		 TP.lineSpacing=layer.lineSpacing(); 
       		 TP.toObj=toObject;
 			text=TP;
 		untyped log(layer.font());
@@ -98,8 +96,8 @@ class ExportText extends ExportLayer implements Exportable
 
 	function Align(code:Int):String
 	{
-		//_trace("Align="+code);
-
+		_trace("Align="+code);
+		//return "left";
 		return Type.createEnumIndex(Alignement,code).getName();
 	}
 }
