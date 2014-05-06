@@ -29,7 +29,7 @@ class Slice{
 	//return path
 	//supports only one export size for now
 	//TODO add suffix
-	public static function export(slice:MSSliceLayer,orig:MSLayer,path:String,factor:Float,config:Conf):String{
+	public static function export(slice:MSSliceLayer,orig:MSLayer,path:String,factor:Float,config:Conf):ExportData{
 		//extract properties
 
 	
@@ -53,7 +53,7 @@ class Slice{
     	invisible=true;
     	layer.setIsVisible(true);
     }
-    path = path +"/"+page.name()+"/"+artboard.name()+"/"+  layer.name().clean()+ '.'+Std.string(options.format).toLowerCase();
+    path = config.imagesPath+page.name()+"/"+artboard.name()+"/"+  layer.name().clean()+ '.'+Std.string(options.format).toLowerCase();
     _trace( path +"factor="+Std.string(factor));
    	
    	//var factor= (options.scale!=null)? options.scale :1;
@@ -63,12 +63,12 @@ class Slice{
     factor=config.scale;
    	
    	//_trace("here");
-    var exportslice = slice.withFactor(factor);
+    var sliced = slice.withFactor(factor);
     //_trace("here");
-    doc.saveArtboardOrSlice(exportslice.slice,path);
+    doc.saveArtboardOrSlice(sliced.slice,path);
     //_trace("here");
     if( invisible)layer.setIsVisible(false);
     try artboard.showHiddenLayers() catch( msg:Dynamic)_trace(msg);
-   	return path;
+   	return {path:path,sliced:sliced};
 	}
 }
