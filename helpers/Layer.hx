@@ -137,6 +137,10 @@ class Layer{
     //try  rect = copy.rectByAccountingForStyleSize(copy.absoluteRect().rect()) catch (msg:Dynamic)_trace(msg);
     //_trace("here");
     MSSliceTrimming.safeRectForSlice(copy);
+    if( copy.parentOrSelfIsSymbol()&&copy.isGroup()){
+      _trace( "___________________________its a symbol ______________");
+    untyped copy.setIgnoreNextSymbolSyncChange(true);
+    }else{
     MSSliceTrimming.trimSlice(copy);
     //var rect=copy.frame().rect();
     //var rect=copy.absoluteRect().rect() ;
