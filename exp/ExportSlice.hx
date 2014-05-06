@@ -72,8 +72,13 @@ public static var one:Bool=false;
 		height=slice.frame().height();
 		// relx=slice.frame().x();
 		// rely=slice.frame().y();
+		if( slice.parentGroup().parentGroup()!=slice.parentArtboard()){
 		relx=slice.parentGroup().frame().x();
 		rely=slice.parentGroup().frame().y();
+		}else{
+			relx=x;
+			rely=y;
+		}
 
 		this.type=Slice;
 		//this.format=Type.createEnum (Format,Std.String(slice.exportOptions().sizes().firstObject().format().capitalize()));
