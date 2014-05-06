@@ -15,6 +15,7 @@ typedef TextProperties={
 
 enum Alignement{
 	
+	WTF;
 	Right;//1
 	Center; //2
 	Justify; //3
