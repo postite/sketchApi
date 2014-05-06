@@ -83,6 +83,9 @@ class Layer{
     	layer.setIsVisible(true);
     }
     path = path +"/"+page.name()+"/"+artboard.name()+"/"+  layer.name().clean()+ "."+config.format;
+   // path=config.imagesPath+"/"+  layer.name().clean()+ "."+config.format;
+    _trace( "°°°°°°°°°°°°°°°path="+path);
+    path = config.imagesPath +"/"+page.name()+"/"+artboard.name()+"/"+  layer.name().clean()+ "."+config.format;
     factor=config.scale;
 
    	//_trace("here");
