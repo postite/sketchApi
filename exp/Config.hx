@@ -9,6 +9,7 @@ using helpers.UI;
 
 typedef Conf={
 
+	 imagesPath:String,
 	 scale:Float,
 	 forceConfig:Bool,
 	 forceSlices:Bool,
@@ -24,7 +25,8 @@ class Config
 
 {
 	
-	public  static var defaults:Conf={
+	public static var defaults:Conf={
+		imagesPath:"/view/images",
 	 	scale:1,
 	 	format:"png",
 	 	forceConfig:true,
