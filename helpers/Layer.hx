@@ -82,7 +82,6 @@ class Layer{
     	invisible=true;
     	layer.setIsVisible(true);
     }
-    path = path +"/"+page.name()+"/"+artboard.name()+"/"+  layer.name().clean()+ "."+config.format;
    // path=config.imagesPath+"/"+  layer.name().clean()+ "."+config.format;
     _trace( "°°°°°°°°°°°°°°°path="+path);
     path = config.imagesPath +"/"+page.name()+"/"+artboard.name()+"/"+  layer.name().clean()+ "."+config.format;
@@ -142,6 +141,7 @@ class Layer{
     untyped copy.setIgnoreNextSymbolSyncChange(true);
     }else{
     MSSliceTrimming.trimSlice(copy);
+    }
     //var rect=copy.frame().rect();
     //var rect=copy.absoluteRect().rect() ;
     //var slice = MSSlice.sliceWithRect(rect ,factor);
