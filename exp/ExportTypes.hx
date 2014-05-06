@@ -7,4 +7,5 @@ enum ExportTypes{
 	Svg;
 	Container;
 	Slice;
+	//Symbol;
 }
