@@ -8,6 +8,7 @@ typedef TextProperties={
 	textAlignment:Dynamic,
 	characterSpacing:Int,
 	lineSpacing:Int,
+	lineSpacing:Float,
 	alpha:Float,
 	toObj:Void->Dynamic
 }
