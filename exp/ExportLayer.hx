@@ -104,7 +104,7 @@ class ExportLayer implements Exportable{
 
 	function relativeSrc(absolutePath:String):String
 	{
-		var relative= StringTools.replace(absolutePath,doc.dir()+"view/","");
+		var relative= StringTools.replace(absolutePath,config.imagesPath,"");
 		return relative;
 	}
 
