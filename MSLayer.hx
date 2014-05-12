@@ -97,6 +97,8 @@ public function rectByAccountingForStyleSize(rect:CGRect):CGRect;
 public function removeFromParent():Void;
 
 public function parentOrSelfIsSymbol():Bool;
+public function containsSymbols():Bool;
+
 // inline public function _class():String{
 //     return untyped __js__("_this.class()");
 // }
