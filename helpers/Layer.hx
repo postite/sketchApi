@@ -83,10 +83,10 @@ class Layer{
     	layer.setIsVisible(true);
     }
    // path=config.imagesPath+"/"+  layer.name().clean()+ "."+config.format;
-    _trace( "°°°°°°°°°°°°°°°path="+path);
-    path = config.imagesPath +"/"+page.name()+"/"+artboard.name()+"/"+  layer.name().clean()+ "."+config.format;
+   
+    path = config.imagesPath +page.name()+"/"+artboard.name()+"/"+  layer.name().clean()+ "."+config.format;
     factor=config.scale;
-
+     _trace( "°°°°°°°°°°°°°°°path="+path);
    	//_trace("here");
     var sliced = layer.withFactor(factor);
     //_trace("here");
