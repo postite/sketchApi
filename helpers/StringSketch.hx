@@ -107,7 +107,7 @@ return throw 'not yet implemented';
     var tagName=tags.matched(1);//h1
     return {name:name,tag:tag,tagName:tagName}
   }
-  return {name:textname,tag:"<p>",tagName:"p"};
+  return {name:textname,tag:"<span>",tagName:"span"};
 }
 
 }
