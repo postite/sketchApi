@@ -4,7 +4,7 @@ typedef SLICE=MSSlice
 extern class  MSSliceTrimming{
 
 static function simpleSafeRectForSlice(s:SLICE):GKRect.CGRect;
-static function safeRectForSlice(s:SLICE):GKRect.CGRect;
+static function safeRectForSlice(s:MSLayer):GKRect.CGRect;
 inline static function basicSliceFromLayer(s:MSLayer,page:MSPage):MSSlice{
 	return untyped MSSliceTrimming.basicSliceFromLayer_page(s,page);
 }
