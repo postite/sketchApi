@@ -23,6 +23,7 @@ class ExportLayer implements Exportable{
 	public var height(default,set):Float;
 	public var visible:Bool=true;
 	public var format:String="png";
+
 	var exportData:Null<helpers.Layer.ExportData>;
 	var config:exp.Config.Conf;
 	public function new(layer:MSLayerGroup){
@@ -127,6 +128,7 @@ class ExportLayer implements Exportable{
 			 height:height,
 			 src:src,
 			 imageType:format,
+			 
 			 text:
 			 	(text!=null) ? text.toObj() :null
 			 ,
