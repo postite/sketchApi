@@ -159,7 +159,7 @@ class Layer{
     
 	   try copy.removeFromParent() catch (msg:Dynamic) log(msg);
     
-   // _trace("here");
+    _trace("exported");
     return {slice:slice,bounds:bounds};
   }
 }
