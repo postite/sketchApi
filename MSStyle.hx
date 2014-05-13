@@ -1,12 +1,7 @@
 typedef MSStylePartCollection = SketchArray<Dynamic> //Todo
 
-
-
-
-
-
 typedef  MSStyleInnerShadow= Dynamic //Todo 
-typedef NSImage= Dynamic;
+
 typedef MSGradient=Dynamic;
 @:publicFields
 extern class MSStyle{
