@@ -1,7 +1,7 @@
 @:native('MSShapeGroup')
 extern class MSShapeGroup extends MSLayer{
 
-public function setHasClippingMask(b:Bool):Void;
+
 
 }
 
