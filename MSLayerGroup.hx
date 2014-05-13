@@ -22,7 +22,8 @@ public function isActualSymbol():Bool;
 
 
 //masks
-public function layerHasMask(arg:Dynamic):Bool;
+
+public static function layerHasMask(group:MSLayer):Bool;
 public function hasLayerWithMaskMode():Int;
 public function calculateHasLayerWithMaskMode():Void; ///?
 
