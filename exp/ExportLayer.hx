@@ -23,7 +23,8 @@ class ExportLayer implements Exportable{
 	public var height(default,set):Float;
 	public var visible:Bool=true;
 	public var format:String="png";
-
+	//public var masque:{x:Float,y:Float,width:Float,height:Float}=null;
+	public var masque:Dynamic=null;
 	var exportData:Null<helpers.Layer.ExportData>;
 	var config:exp.Config.Conf;
 	public function new(layer:MSLayerGroup){
@@ -63,6 +64,8 @@ class ExportLayer implements Exportable{
 				if( behaviour.has(Scale))
 					_trace("-------------------scale"+extractScaleFactor(name));
 				if(behaviour.has(Mask)){
+					this.type=Mask;
+					exportData=orig.export(doc.dir()+"view/images",1,config);
 					_trace("-------------------------has mask");
 				}
 				if (!behaviour.has(Flat)){
@@ -72,9 +75,11 @@ class ExportLayer implements Exportable{
 					exportData=orig.export(doc.dir()+"view/images",1,config);
 
 				}else{
+					if( !behaviour.has(Mask)){
 				_trace("-------------------------has flat");
 				exportData=orig.export(doc.dir()+"view/images",1,config);
 				this.type=Image;
+					}
 				}
 				src=relativeSrc(exportData.path);
 				
@@ -92,10 +97,13 @@ class ExportLayer implements Exportable{
 		relx=exportData.sliced.bounds.relx;
 		rely=exportData.sliced.bounds.rely;
 
-
+		afterExport();
 		return cast this;
 		}
 		return null;
+	}
+	function afterExport(){
+
 	}
 	///toFixed // 2digits..
 	inline function normalize(f:Float):Float{
@@ -105,7 +113,7 @@ class ExportLayer implements Exportable{
 
 	function relativeSrc(absolutePath:String):String
 	{
-		var relative= StringTools.replace(absolutePath,config.imagesPath,"");
+		var relative= StringTools.replace(absolutePath,doc.filePath(),"");
 		return relative;
 	}
 
@@ -128,7 +136,7 @@ class ExportLayer implements Exportable{
 			 height:height,
 			 src:src,
 			 imageType:format,
-			 
+			 layerMask:masque,
 			 text:
 			 	(text!=null) ? text.toObj() :null
 			 ,
