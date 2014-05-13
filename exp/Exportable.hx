@@ -12,6 +12,7 @@ interface Exportable{
 	public var rely(default,null):Float;
 	public var height(default,null):Float;
 	public var width(default,null):Float;
+	public var masque:Dynamic;
 	public var src:String;
 	public var type:exp.ExportTypes;
 	public function toObj():Dynamic;
