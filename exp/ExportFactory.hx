@@ -72,6 +72,13 @@ class ExportFactory
 			export.behaviour=flags;
 			return export;
 		}
+		if( flags.has(Behave.Mask)){
+			_trace ("behave mask");
+			export= new exp.ExportMask(cast origLayer);
+			flags.set(Flat);
+			export.behaviour=flags;
+			return export;
+		}
 
 		
 		_trace(klass );
@@ -139,6 +146,8 @@ class ExportFactory
 		 case "+": flags.set(Exportable);
 		 case "_":flags.set(Flat);flags.set(Exportable);
 		 case "°":flags.set(Skip);flags.set(Exportable);
+		 case "#":flags.set(Mask);flags.set(Exportable);
+		
 		 //case "_":flags.set(Flat);
 		 case '-': flags.unset(Exportable);
 		 case _:flags.set(Behave.Exportable);
@@ -157,10 +166,7 @@ class ExportFactory
 		 // 	flags.set(MAX);
 		 // }
 
-		 if (name.startsWith("m")){
-		 	//_trace("startwith mask");
-		 flags.set(Behave.Mask);
-		}
+		
 		if( name.endsWith("*2")){
 			//_trace("endsWith *n");
 			flags.set(Behave.Scale);
@@ -175,5 +181,9 @@ class ExportFactory
 	public static function endWith(phrase:String):String
 	{
 		return phrase.substr(-1);
+	}
+	public static function secondWith(phrase:String):String
+	{
+		return phrase.charAt(1);
 	}
 }
