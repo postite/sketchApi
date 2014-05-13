@@ -142,6 +142,7 @@ function layerSizeDidChange():Dynamic;//(void)
 //mask stuff
 function isPartOfClippingMask():Bool;//(BOOL)
 function hasClippingMask():Bool;
+function setHasClippingMask(b:Bool):Void;
 
 
 
