@@ -1,7 +1,8 @@
 package ns;
-@:native("NSImage")
+
 @:publicFields
-extern class{
+@:native("NSImage")
+extern class NSImage{
 	static function alloc():NSImage;
 	function initWithContentsOfFile(fileurl:String):NSImage; //tested
 }
