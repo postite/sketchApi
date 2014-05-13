@@ -25,10 +25,14 @@ return throw 'not yet implemented';
   }
   public static function clean(str:String):String{
    //return _.str.trim(str).replace(/\s+/g, ' ')
-  	 var r = ~/\s+/g; // g : replace all instances
+  	 var spaces = ~/\s+/g; // g : replace all instances
    //trace(r.replace(str,"xx")); // "aaabcbcbcxx"
   	 var trimed=StringTools.trim(str);
- 	  return r.replace(trimed,' ');
+ 	   str=spaces.replace(trimed,'');
+     var begin=~/^[°_#-]{1,}/g;
+      str= begin.replace(str,"");
+      Global._trace( "clean ="+str);
+      return str;
   }
   public static function endsWith(str:String, ends:String){
      if (ends == '') return true;
