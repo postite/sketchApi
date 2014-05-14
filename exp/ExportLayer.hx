@@ -23,6 +23,7 @@ class ExportLayer implements Exportable{
 	public var height(default,set):Float;
 	public var visible:Bool=true;
 	public var format:String="png";
+	public var rootSrc:String;
 	//public var masque:{x:Float,y:Float,width:Float,height:Float}=null;
 	public var masque:Dynamic=null;
 	var exportData:Null<helpers.Layer.ExportData>;
@@ -82,6 +83,7 @@ class ExportLayer implements Exportable{
 					}
 				}
 				src=exportData.name;
+				rootSrc=relativeSrc(exportData.path);
 				//src=relativeSrc(exportData.path);
 				
 			}
@@ -122,6 +124,7 @@ class ExportLayer implements Exportable{
 		_trace( relative);
 		return relative;
 	}
+
 
 	/// not sure
 	function extractScaleFactor(name:String):Float
