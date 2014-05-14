@@ -53,7 +53,10 @@ class Slice{
     	invisible=true;
     	layer.setIsVisible(true);
     }
-    path = config.imagesPath+page.name()+"/"+artboard.name()+"/"+layer.name().clean()+ '.'+Std.string(options.format).toLowerCase();
+    var cleanName=layer.name().clean();
+    var extension=Std.string(options.format).toLowerCase();
+    var file=cleanName+"."+extension;
+    path = config.imagesPath+page.name()+"/"+artboard.name()+"/"+file;
     _trace( path +"factor="+Std.string(factor));
    	
    	//var factor= (options.scale!=null)? options.scale :1;
@@ -69,6 +72,6 @@ class Slice{
     //_trace("here");
     if( invisible)layer.setIsVisible(false);
     try artboard.showHiddenLayers() catch( msg:Dynamic)_trace(msg);
-   	return {path:path,sliced:sliced};
+   	return {path:path,name:file,sliced:sliced};
 	}
 }

@@ -9,6 +9,7 @@ using Lambda;
 
 typedef ExportData={
   path:String,
+  name:String,
   sliced:{slice:MSSlice,bounds:Bounds}
 }
 typedef Bounds={
@@ -83,8 +84,11 @@ class Layer{
     	layer.setIsVisible(true);
     }
    // path=config.imagesPath+"/"+  layer.name().clean()+ "."+config.format;
-   
-    path = config.imagesPath +page.name()+"/"+artboard.name()+"/"+  layer.name().clean()+ "."+config.format;
+   var cleanName=layer.name().clean();
+    var extension=config.format;
+    var file=cleanName+"."+extension;
+    
+    path = config.imagesPath +page.name()+"/"+artboard.name()+"/"+  file;
     factor=config.scale;
      _trace( "°°°°°°°°°°°°°°°path="+path);
    	//_trace("here");
@@ -94,7 +98,7 @@ class Layer{
     //_trace("here");
     if( invisible)layer.setIsVisible(false);
     try artboard.showHiddenLayers() catch( msg:Dynamic)_trace(msg);
-   	return {path:path,sliced:sliced};
+   	return {path:path,name:file,sliced:sliced};
   	}
   	public static function exportSvg(layer:MSLayer,path:String,config:Conf):ExportData
   	{
@@ -108,7 +112,8 @@ class Layer{
     	invisible=true;
     	layer.setIsVisible(true);
     }
-    path = path +"/"+page.name()+"/"+ artboard.name()+"/"+ layer.name().clean()+ '.svg';
+    var cleanName=layer.name().clean();
+    path = path +"/"+page.name()+"/"+ artboard.name()+"/"+ cleanName+ '.svg';
     //_trace( path +"factor="+Std.string(factor));
     
     factor=config.scale;
@@ -120,7 +125,7 @@ class Layer{
     //_trace("here");
      if( invisible)layer.setIsVisible(false);
      try artboard.showHiddenLayers() catch( msg:Dynamic)_trace(msg);
-   	return {path:path,sliced:sliced};
+   	return {path:path,name:cleanName,sliced:sliced};
   	}
   	public static function exportFlat(layer:MSLayer,path:String,factor:Float,config:Conf):ExportData{
   	return export(layer,path,factor,config);

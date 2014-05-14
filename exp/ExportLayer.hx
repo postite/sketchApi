@@ -81,7 +81,8 @@ class ExportLayer implements Exportable{
 				this.type=Image;
 					}
 				}
-				src=relativeSrc(exportData.path);
+				src=exportData.name;
+				//src=relativeSrc(exportData.path);
 				
 			}
 		
@@ -113,7 +114,12 @@ class ExportLayer implements Exportable{
 
 	function relativeSrc(absolutePath:String):String
 	{
-		var relative= StringTools.replace(absolutePath,doc.filePath(),"");
+		_trace( absolutePath);
+		_trace( doc.dir());
+
+		//var relative= StringTools.replace(absolutePath,doc.dir(),"");
+		var relative= StringTools.replace(absolutePath,doc.dir(),"");
+		_trace( relative);
 		return relative;
 	}
 
