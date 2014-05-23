@@ -78,26 +78,31 @@ class Layer{
    	var invisible:Bool=false;
     var artboard = layer.parentArtboard();
     var page= layer.parentPage();
+    var cleanName=layer.name().clean();
+    var extension=config.format;
+    var file=cleanName+"."+extension;
+    
+    path = config.imagesPath +page.name()+"/"+artboard.name()+"/"+  file;
+    
     artboard.hideOtherLayers(layer);
     if (!layer.isVisible()){
     	invisible=true;
     	layer.setIsVisible(true);
     }
    // path=config.imagesPath+"/"+  layer.name().clean()+ "."+config.format;
-   var cleanName=layer.name().clean();
-    var extension=config.format;
-    var file=cleanName+"."+extension;
-    
-    path = config.imagesPath +page.name()+"/"+artboard.name()+"/"+  file;
+   
     factor=config.scale;
      _trace( "°°°°°°°°°°°°°°°path="+path);
    	//_trace("here");
     var sliced = layer.withFactor(factor);
+
     //_trace("here");
-    doc.saveArtboardOrSlice(sliced.slice,path) ;
+    doc.saveArtboardOrSlice(sliced.slice,path);
     //_trace("here");
     if( invisible)layer.setIsVisible(false);
     try artboard.showHiddenLayers() catch( msg:Dynamic)_trace(msg);
+
+   
    	return {path:path,name:file,sliced:sliced};
   	}
   	public static function exportSvg(layer:MSLayer,path:String,config:Conf):ExportData
@@ -107,6 +112,7 @@ class Layer{
    	var invisible:Bool=false;
     var artboard = layer.parentArtboard();
     var page= layer.parentPage();
+
     artboard.hideOtherLayers(layer);
     if (!layer.isVisible()){
     	invisible=true;
@@ -119,6 +125,7 @@ class Layer{
     factor=config.scale;
    	//_trace("here");
     var sliced = layer.withFactor(factor);
+   
     //_trace("here");
     
     doc.saveArtboardOrSlice(sliced.slice,path);
