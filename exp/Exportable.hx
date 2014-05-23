@@ -17,4 +17,5 @@ interface Exportable{
 	public var type:exp.ExportTypes;
 	public function toObj():Dynamic;
 	public function export():Exportable;
+	public var props:Dynamic;
 }
