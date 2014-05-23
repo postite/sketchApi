@@ -27,12 +27,18 @@ return throw 'not yet implemented';
    //return _.str.trim(str).replace(/\s+/g, ' ')
   	 var spaces = ~/\s+/g; // g : replace all instances
    //trace(r.replace(str,"xx")); // "aaabcbcbcxx"
+    str=removeSlashes(str);
   	 var trimed=StringTools.trim(str);
  	   str=spaces.replace(trimed,'');
      var begin=~/^[°_#-]{1,}/g;
       str= begin.replace(str,"");
       Global._trace( "clean ="+str);
       return str;
+  }
+  public static function removeSlashes(str:String):String{
+    var slashes=~/(\/)\w+/g;
+    var unslashed=slashes.replace(str,"");
+    return unslashed;
   }
   public static function endsWith(str:String, ends:String){
      if (ends == '') return true;
