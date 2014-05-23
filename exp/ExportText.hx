@@ -81,8 +81,8 @@ class ExportText extends ExportLayer implements Exportable
 		//return {slip:"popo"};
 		return {
 			
-			text:TP.text.toString(),
-			color:TP.color.toString(),
+			content:TP.text.toString(),
+			textColor:TP.color.toString(),
 			fontSize:TP.fontSize,
 			fontPostscriptName:TP.fontPostscriptName,
 			textAlignment:TP.textAlignment,
