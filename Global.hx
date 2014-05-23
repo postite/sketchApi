@@ -34,12 +34,12 @@ public function new()
 	dynamic public static  function _trace(m:Dynamic,?p:haxe.PosInfos)
 	{
 		
-		untyped __js__("log")(p.className+ " "+p.lineNumber+""+m);
+		//untyped __js__("log")(p.className+ " "+p.lineNumber+""+m);
 		
 	}
 
 	public static inline function log(m:Dynamic){
-		untyped __js__("log")(m);
+		//untyped __js__("log")(m);
 	}
 
 	public static inline function writeToFile(content:String,path:String,?atomically:Bool=false):Bool{
