@@ -6,6 +6,7 @@ using helpers.Document;
 import exp.ExportTypes;
 import haxe.EnumFlags;
 import exp.Behave;
+using helpers.StringSketch;
 
 class ExportLayer implements Exportable{
 	public static var one=true;
@@ -28,10 +29,12 @@ class ExportLayer implements Exportable{
 	public var masque:Dynamic=null;
 	var exportData:Null<helpers.Layer.ExportData>;
 	var config:exp.Config.Conf;
+	public var props:Dynamic;
+
 	public function new(layer:MSLayerGroup){
 		config=exp.ExportFactory.config;
 		
-		name=Std.string(layer.name()); // i don't get why i should Stringify this ( cause json cannot stringify NSString)
+		name=Std.string(layer.name()).clean(); // i don't get why i should Stringify this ( cause json cannot stringify NSString)
 
 		orig= layer;
 
@@ -146,6 +149,7 @@ class ExportLayer implements Exportable{
 			 src:src,
 			 imageType:format,
 			 layerMask:masque,
+			 props:(props!=null)?haxe.Json.stringify(props):null,
 			 text:
 			 	(text!=null) ? text.toObj() :null
 			 ,
