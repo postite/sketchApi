@@ -6,10 +6,16 @@ import haxe.EnumFlags;
 import exp.Behave;
 using helpers.UI;
 
+typedef Props={
+	key:String,
+	value:String,
+}
 
 
 class ExportFactory
 {
+	static var props:Dynamic;
+	static var flags:EnumFlags<Behave>;
 	public static var one=false;
 	public static var config:Config.Conf=Config.defaults;
 	//bon faut faire le ménage la dedans!
@@ -26,8 +32,10 @@ class ExportFactory
 
 		//Std.string(config).alert("config");
 
-		var flags=behaviour(origLayer);
+		 flags=behaviour(origLayer);
 		var export:Exportable=null;
+		 props=splitSlash(origLayer.name());
+		 _trace( "props="+props);
 		if (flags.has(Behave.Exportable)){
 
 
@@ -52,7 +60,7 @@ class ExportFactory
 
 		export= new exp.ExportSlice(cast lastLayerOf);
 			flags.set(Flat);
-			export.behaviour=flags;
+			assign(export);
 			return export;
 		}
 		}
@@ -62,21 +70,21 @@ class ExportFactory
 		if(klass==MSSliceLayer){
 		export=new exp.ExportSlice(cast origLayer);
 		flags.has(Behave.Sliced);
-		export.behaviour=flags;
+		assign(export);
 		return export;
 		}
 		if(flags.has(Behave.Sliced)){
 			_trace( "behave Sliced");
 			export= new exp.ExportSlice(cast origLayer);
 			flags.set(Flat);
-			export.behaviour=flags;
+			assign(export);
 			return export;
 		}
 		if( flags.has(Behave.Mask)){
 			_trace ("behave mask");
 			export= new exp.ExportMask(cast origLayer);
 			flags.set(Flat);
-			export.behaviour=flags;
+			assign(export);
 			return export;
 		}
 
@@ -84,22 +92,23 @@ class ExportFactory
 		_trace(klass );
 		if (klass == MSPage){
 			export= new exp.ExportPage(cast origLayer);
-			export.behaviour=flags;
+			assign(export);
 			return export;
 		}
 		if (klass== MSArtboardGroup){
 			export= new exp.ExportArtBoard(cast origLayer);
-			export.behaviour=flags;
+			assign(export);
+			
 			return export;
 		}
 		if(klass == MSTextLayer){
 			export= new exp.ExportText(cast origLayer);
-			export.behaviour=flags;
+			assign(export);
 			return export;
 		}
 		if(klass == MSShapeGroup || klass==MSBitmapLayer){
 			export= new exp.ExportImage(cast origLayer);
-			export.behaviour=flags;
+			assign(export);
 			return export;
 		}
 		
@@ -109,19 +118,24 @@ class ExportFactory
 		if(klass== MSLayerGroup  && !flags.has(Behave.Flat)){
 			export=  new exp.ExportContainer(cast origLayer);
 			onelog("ExportContainer");
-			export.behaviour=flags;
+			assign(export);
 			return export;
 		}
 
 		_trace("hact as regular layer");
 		
 		export= new exp.ExportImage(cast origLayer);
-		export.behaviour=flags;
+		assign(export);
 		return export;
 		}
 		return null;
 	}
 
+	static function assign(export:Exportable){
+		//assign additional props (name/key/value/key/value)
+		export.props=props;
+		export.behaviour=flags;
+	}
 
 	static function behaviour(orig:MSLayer):EnumFlags<Behave>
 	{
@@ -174,6 +188,27 @@ class ExportFactory
 		// _trace( "end");
 		 return flags;
 	}
+	public static function splitSlash(phrase:String):Dynamic{
+		var tab=phrase.split("/");
+		if( tab.length==0)return null;
+		 var props= {};
+		var count:Int=1;
+		while (count<tab.length){
+			var key=tab[count];
+			
+			Reflect.setField(props,key,tab[count+1]);
+			
+			//Reflect.setField(props,"one","two");
+			//props.setField(props,tab[count],tab[count+1]);
+			
+			count+=2;
+		}
+		
+		
+		return props;
+		
+		
+	}
 	public static function beginWith(phrase:String):String
 	{
 		return phrase.charAt(0);
@@ -186,4 +221,8 @@ class ExportFactory
 	{
 		return phrase.charAt(1);
 	}
+}
+
+class PropTool{
+
 }
