@@ -21,6 +21,7 @@ public function textColor():MSColor;
 //public function textColor():Color;
 
 public function stringValue():String;
+public function setStringValue(s:String):Void;
 
 //untested
 public function setFont(f:String):Void;
