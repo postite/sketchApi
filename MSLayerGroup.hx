@@ -1,6 +1,11 @@
 import MSLayer;
 extern class  MSLayerGroup extends MSLayer{
 
+inline  static public function create():MSLayerGroup{
+
+	return untyped __js__("[MSLayerGroup new]");
+}
+
 override public function layers():SketchArray<MSLayer>;
 //Returns an array of all layers in the group - not including any of their children. In this way you can see that a document is basically a tree structure of layers & groups.
 
@@ -10,7 +15,7 @@ public function allLayers():SketchArray<MSLayer>;
 public function resizeRoot():Dynamic;
 //Resizes the group to fit around all of its sub-layers.
 
-public function addLayer():Void;
+public function addLayer(id:MSLayer):Void;
 //Add a layer to this group
 
 public function removeLayer():Void;
