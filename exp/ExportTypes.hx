@@ -8,5 +8,6 @@ enum ExportTypes{
 	Container;
 	Slice;
 	Mask;
+	Zone;
 	//Symbol;
 }
