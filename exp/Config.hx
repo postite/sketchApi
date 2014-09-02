@@ -2,7 +2,7 @@ package exp;
 import Global.*;
 using helpers.Document;
 using helpers.UI;
-
+using StringTools;
 @:publicFields
 
 
@@ -50,6 +50,15 @@ class Config
 		}else{
 		create();
 		}
+	}
+
+	// /drawable(@dpi)/nomArtboard_image_comportement(bouton?)_state_
+	public function pathPattern(str:String):String
+	{
+
+		
+		return str;
+
 	}
 
 	public function create():Void
