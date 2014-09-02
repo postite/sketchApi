@@ -65,8 +65,6 @@ class ExportFactory
 		}
 		}
 
-		
-
 		if(klass==MSSliceLayer){
 		export=new exp.ExportSlice(cast origLayer);
 		flags.has(Behave.Sliced);
@@ -84,6 +82,11 @@ class ExportFactory
 			_trace ("behave mask");
 			export= new exp.ExportMask(cast origLayer);
 			flags.set(Flat);
+			assign(export);
+			return export;
+		}
+		if( flags.has(Behave.Zone)){
+			export = new exp.ExportZone(cast origLayer);
 			assign(export);
 			return export;
 		}
@@ -161,7 +164,7 @@ class ExportFactory
 		 case "_":flags.set(Flat);flags.set(Exportable);
 		 case "°":flags.set(Skip);flags.set(Exportable);
 		 case "#":flags.set(Mask);flags.set(Exportable);
-		
+		 case "|":flags.set(Zone);flags.set(Exportable);
 		 //case "_":flags.set(Flat);
 		 case '-': flags.unset(Exportable);
 		 case _:flags.set(Behave.Exportable);
