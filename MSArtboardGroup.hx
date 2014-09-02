@@ -13,6 +13,9 @@ public function verticalRulerData():MSRulerData;
 public function grid():MSBaseGrid;
 public function setgrid(d:MSBaseGrid):Void;
 
+public function setIncludeBackgroundColorInExport(b:Bool):Void;
+public function includeBackgroundColorInExport():Bool;
+
 //Both return the MSRulerData object used to store rulers for their respective axes. Note that this data is only used on the artboard itself.
 
 //override 
