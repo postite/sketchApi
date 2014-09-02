@@ -28,7 +28,7 @@ class ExportText extends ExportLayer implements Exportable
 	{
 		_trace( "hello text");
 		super(cast layer);
-		name=name+'____text';
+		//name=name+'____text';
 
 			
 		
