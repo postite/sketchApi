@@ -31,21 +31,28 @@ public function new()
 		
 		}
 	}
+	
 	dynamic public static  function _trace(m:Dynamic,?p:haxe.PosInfos)
 	{
-		
-		//untyped __js__("log")(p.className+ " "+p.lineNumber+""+m);
-		
+		#if debug
+		untyped __js__("log")(p.className+ " "+p.lineNumber+""+m);
+		#end
 	}
 
 	public static inline function log(m:Dynamic){
-		//untyped __js__("log")(m);
+		#if debug
+		untyped __js__("log")(m);
+		#end
 	}
-
+	
 	public static inline function writeToFile(content:String,path:String,?atomically:Bool=false):Bool{
 		
 		var nsContent=NSString.stringWithString(content);
-		return nsContent.writeToFile(path,atomically);
+		//var nsContent:NSString=untyped NSString.stringWithUTF8String("contént");
+		//var nsContent=untyped __js__("[NSString stringWithCString:[content cStringUsingEncoding:NSISOLatin1StringEncoding] encoding:NSUTF8StringEncoding]");
+
+		return nsContent.writeToFile(path,true,untyped NSUTF8StringEncoding,null);
+		//return untyped __js__('nsContent
 	}
 
 	 
