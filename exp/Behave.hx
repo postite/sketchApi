@@ -10,5 +10,6 @@ enum Behave{
 	Svg;
 	Skip;// skip parent but get childs
 	Sliced;
+	Zone;
 
 }
