@@ -45,6 +45,13 @@ class Layer{
    		return (isGroup && _isExportable) || force;
 // }
 	}
+  public static function hasBlending(layer:MSLayer):Bool{
+       _trace(untyped layer.style().hasBlending());
+       var blend=untyped layer.style().hasBlending();
+       var founded:Bool=false;
+       
+       return blend;
+  }
 	
 	public static function setMapName(layer:MSLayer,val:String):Void{
 		 try mapName.set(layer.hash(),val) catch(err:Dynamic)log(err);
@@ -84,7 +91,11 @@ class Layer{
     
     path = config.imagesPath +page.name()+"/"+artboard.name()+"/"+  file;
     
+    if(!layer.hasBlending())
     artboard.hideOtherLayers(layer);
+    else
+    artboard.hideLayersOnTop(layer);
+
     if (!layer.isVisible()){
     	invisible=true;
     	layer.setIsVisible(true);
@@ -100,8 +111,10 @@ class Layer{
     doc.saveArtboardOrSlice(sliced.slice,path);
     //_trace("here");
     if( invisible)layer.setIsVisible(false);
+    if(!layer.hasBlending())
     try artboard.showHiddenLayers() catch( msg:Dynamic)_trace(msg);
-
+    else
+    artboard.showHiddenOnTop(layer);
    
    	return {path:path,name:file,sliced:sliced};
   	}
