@@ -106,18 +106,45 @@ return throw 'not yet implemented';
 	return throw 'not yet implemented';
   }
 
-  public static function getTextTag(text:String):{name:String,tag:String,tagName:String} 
+  public static function getTextTag(text:String,?defaultTag:String="div"):{name:String,tag:String,tagName:String} 
 {
 
   var textname:String=Std.string(text); //<h1>pipo
-  var tags = ~/^<(a|blockquote|div|h1|h2|h3|h4|h5|h6|label|p|span)>/;
+
+  var tags = ~/^<(a|blockquote|div|h1|h2|h3|h4|h5|h6|label|p|span|section|T|linkit)>/;
    if( tags.match(textname)){ 
+   // UI.alert(textname,"contaner title");
     var name= tags.replace(textname, "");////pipo
     var tag= tags.matched(0);//<h1>
     var tagName=tags.matched(1);//h1
     return {name:name,tag:tag,tagName:tagName}
   }
-  return {name:textname,tag:"<span>",tagName:"span"};
+  return {name:textname,tag:'<$defaultTag>',tagName:'$defaultTag'};
+}
+public static function getClassOrId(text:String):{classes:List<String>,ids:List<String>,cleanName:String}
+{
+    var list:List<String>;
+    var textname:String=Std.string(text); //.pipo
+    var matchedClasses:List<String>= new List();
+    var matchedIds:List<String>= new List();
+    var returns={classes:matchedClasses,ids:matchedIds,cleanName:textname};
+    var classOrId=~/(\.)[a-z-A-Z]\w+|(#)[a-z-A-Z]\w+/g;
+      var clean=classOrId.map(textname, function(r){
+        var matched=r.matched(0);
+        switch (matched.substr(0,1)) {
+          case ".":
+          returns.classes.add(matched.substr(1));
+          case "#":
+          returns.ids.add(matched.substr(1));
+        }
+         
+         return "";
+        });
+
+      returns.cleanName=clean;
+      //UI.alert(Std.string(returns));
+    //}
+    return returns;
 }
 
 }
