@@ -22,11 +22,11 @@ typedef Path={
 @:publicFields
 extern class MSLayer{
 
+//untested
+	inline  static public function create():MSLayerGroup{
 
-	public function new()
-	{
-		
-	}
+    return untyped __js__("[MSLayer new]");
+}
 
 
 /**
@@ -123,7 +123,10 @@ function CSSAttributes():Dynamic; //quoted
 
 function children():SketchArray<MSLayer>;//(id)
 function ancestors():SketchArray<MSLayer>;//(id)
-
+//- (void)select:(BOOL)arg1 byExpandingSelection:(BOOL)arg2;
+inline function select(ok:Bool,byExpandingSelection:Bool):Void{
+    return untyped select_byExpandingSelection(ok,byExpandingSelection);
+}
 
 function multiplyBy(v:Float):Void;//(void)
 //exists but no comprendo
