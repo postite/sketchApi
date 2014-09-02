@@ -8,6 +8,7 @@ import haxe.EnumFlags;
 class Artboard{
 
 public static var one:Bool=false;
+public static var toggleincludeinExport:Bool=false; 
 private static var hiddenLayers:Map<Int,List<MSLayer>>= new Map();
   //private static var beaviours:Map<Int,EnumFlags<Behave>>=new Map();
 
@@ -97,6 +98,34 @@ private static var hiddenLayers:Map<Int,List<MSLayer>>= new Map();
 
     parents=null;
 	}
+
+  //for blending at start
+  //not finished (doesn't work for bitmap in groups).//TODO
+  public static function hideLayersOnTop(a:MSArtboardGroup,currentLayer:MSLayer):Void{
+
+
+      var founded:Bool=false;
+       for ( l in a.layers()){
+            
+            if(l==currentLayer)founded=true;
+            if(founded){
+            _trace(l.name()+"is ignored");
+            try l.setIsVisible(false) catch(msg:Dynamic)_trace("novis"+msg);
+            }else{
+              _trace(l.name()+"is going to be shown");
+            }
+            
+          }
+          a.setIncludeBackgroundColorInExport(true);
+          toggleincludeinExport=true;
+       
+  }
+  public static function showHiddenOnTop(a:MSArtboardGroup,currentLayer:MSLayer):Void{
+      if(toggleincludeinExport){
+        a.setIncludeBackgroundColorInExport(false);
+        toggleincludeinExport=false;
+      }
+  }
   private static function hideParentsSiblings(a:MSArtboardGroup,currentLayer:MSLayer,origLayer:MSLayer,withChilds:Bool):Void
   {
 
