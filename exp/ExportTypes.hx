@@ -9,5 +9,6 @@ enum ExportTypes{
 	Slice;
 	Mask;
 	Zone;
+	StyledText;
 	//Symbol;
 }
