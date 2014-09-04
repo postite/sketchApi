@@ -46,9 +46,9 @@ class Layer{
 // }
 	}
   public static function hasBlending(layer:MSLayer):Bool{
-       _trace(untyped layer.style().hasBlending());
+      
        var blend=untyped layer.style().hasBlending();
-       var founded:Bool=false;
+       
        
        return blend;
   }
