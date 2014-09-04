@@ -15,73 +15,85 @@ extern class MSStyle{
 
  
  public function hasTextStyle():Bool;
+ public function textStyle():MSTextStyle;
+ public function sharedObjectID():String;
+
+ 
  function hasEnabledShadow():Bool;
  
 //Each returns an MSStylePartCollection that contains an array of each represented object. See MSStyleBorder, MSStyleFill, MSStyleShadow and MSStyleInnerShadow for details.
 
 public function contextSettings():MSGraphicsContextSettings;
 //Contais and MSGraphicsContextSettings object that holds the opacity and blending mode of its layer
+
+
 }
 
 /*
-@interface _MSStyle : MSModelObject
+#import "_MSStyle.h"
+
+#import "MSSharedObjectInstance.h"
+#import "MSStylePartDelegate.h"
+#import "NSCoding.h"
+#import "NSCopying.h"
+
+@class MSStyleBorder, MSStyleFill, MSStyleShadow, NSString;
+
+@interface MSStyle : _MSStyle <NSCoding, MSStylePartDelegate, MSSharedObjectInstance, NSCopying>
 {
-    MSStyleBlur *_blur;
-    MSStyleBorderOptions *_borderOptions;
-    MSBorderStyleCollection *_borders;
-    MSStyleColorControls *_colorControls;
-    MSGraphicsContextSettings *_contextSettings;
-    MSFillStyleCollection *_fills;
-    MSInnerShadowStyleCollection *_innerShadows;
-    long long _miterLimit;
-    MSStyleReflection *_reflection;
-    MSShadowStyleCollection *_shadows;
+    id <MSStyleDelegate> _delegate;
 }
 
-@property(retain, nonatomic) MSShadowStyleCollection *shadows; // @synthesize shadows=_shadows;
-@property(retain, nonatomic) MSStyleReflection *reflection; // @synthesize reflection=_reflection;
-@property(nonatomic) long long miterLimit; // @synthesize miterLimit=_miterLimit;
-@property(retain, nonatomic) MSInnerShadowStyleCollection *innerShadows; // @synthesize innerShadows=_innerShadows;
-@property(retain, nonatomic) MSFillStyleCollection *fills; // @synthesize fills=_fills;
-@property(retain, nonatomic) MSGraphicsContextSettings *contextSettings; // @synthesize contextSettings=_contextSettings;
-@property(retain, nonatomic) MSStyleColorControls *colorControls; // @synthesize colorControls=_colorControls;
-@property(retain, nonatomic) MSBorderStyleCollection *borders; // @synthesize borders=_borders;
-@property(retain, nonatomic) MSStyleBorderOptions *borderOptions; // @synthesize borderOptions=_borderOptions;
-@property(retain, nonatomic) MSStyleBlur *blur; // @synthesize blur=_blur;
++ (id)layerStyles;
+@property(nonatomic) __weak id <MSStyleDelegate> delegate; // @synthesize delegate=_delegate;
 - (void).cxx_destruct;
-- (void)copyPropertiesToObjectCopy:(id)arg1;
-- (void)setUndoManagerOnChildren:(id)arg1;
-- (void)setAsParentOnChildren;
-- (void)decodePropertiesCompatibleWithCoder:(id)arg1;
-- (void)decodePropertiesManuallyWithCoder:(id)arg1;
-- (void)decodePropertiesWithCoder:(id)arg1;
-- (void)encodePropertiesCompatibleWithCoder:(id)arg1;
-- (void)encodePropertiesManuallyWithCoder:(id)arg1;
-- (void)encodePropertiesWithCoder:(id)arg1;
-- (void)fillInEmptyObjects;
-- (BOOL)hasDefaultValues;
-- (void)initEmptyObject;
-- (void)setPrimitiveShadows:(id)arg1;
-- (id)primitiveShadows;
-- (void)setPrimitiveReflection:(id)arg1;
-- (id)primitiveReflection;
-- (void)setPrimitiveMiterLimit:(long long)arg1;
-- (long long)primitiveMiterLimit;
-- (void)setPrimitiveInnerShadows:(id)arg1;
-- (id)primitiveInnerShadows;
-- (void)setPrimitiveFills:(id)arg1;
-- (id)primitiveFills;
-- (void)setPrimitiveContextSettings:(id)arg1;
-- (id)primitiveContextSettings;
-- (void)setPrimitiveColorControls:(id)arg1;
-- (id)primitiveColorControls;
-- (void)setPrimitiveBorders:(id)arg1;
-- (id)primitiveBorders;
-- (void)setPrimitiveBorderOptions:(id)arg1;
-- (id)primitiveBorderOptions;
-- (void)setPrimitiveBlur:(id)arg1;
-- (id)primitiveBlur;
-- (void)enumerateProperties:(CDUnknownBlockType)arg1;
+- (double)thickestOuterStroke;
+- (double)thickestInnerStroke;
+- (BOOL)hasTextStyle;
+- (unsigned long long)type;
+- (id)parentStyle;
+- (id)parentLayer;
+- (BOOL)hasActiveBackgroundBlur;
+- (BOOL)supportsAdvancedBorderSettings;
+- (void)multiplyBy:(double)arg1;
+- (void)prepareObjectCopy:(id)arg1;
+- (id)outlineStrokePath:(id)arg1;
+- (id)renderBitmapEffects:(id)arg1;
+- (BOOL)hasBitmapStylesEnabled;
+- (void)handleLightweightObjectChangeForKey:(id)arg1 sender:(id)arg2;
+- (void)setTextStyle:(id)arg1;
+- (void)layerStyleDidChange;
+- (void)setNilValueForKey:(id)arg1;
+- (BOOL)hasBlending;
+- (id)firstEnabledInnerShadow;
+- (id)firstEnabledShadow;
+- (id)enabledStyleParts:(id)arg1;
+- (id)enabledInnerShadows;
+- (id)enabledShadows;
+- (id)enabledBorders;
+- (id)enabledFills;
+- (BOOL)hasEnabledBorder;
+- (BOOL)hasEnabledFill;
+- (BOOL)hasEnabledShadow;
+@property(readonly, nonatomic) MSStyleShadow *innerShadow; // @dynamic innerShadow;
+@property(readonly, nonatomic) MSStyleShadow *shadow; // @dynamic shadow;
+@property(retain, nonatomic) MSStyleFill *fill;
+@property(retain, nonatomic) MSStyleBorder *border;
+- (void)readInnerShadowsFromCoder:(id)arg1;
+- (void)initFromPreAKWithCoder:(id)arg1;
+- (void)initLegacyWithCoder:(id)arg1;
+- (unsigned long long)maxLevels;
+- (void)addSVGFilterAttributes:(id)arg1 exporter:(id)arg2;
+- (id)filtersForBlur:(id)arg1 exporter:(id)arg2;
+- (id)filtersForShadow:(id)arg1 exporter:(id)arg2 isInner:(BOOL)arg3 index:(unsigned long long)arg4;
+- (void)addSVGAttributes:(id)arg1 forExporter:(id)arg2 level:(unsigned long long)arg3 defaultNone:(BOOL)arg4;
+- (id)itemFromCollection:(id)arg1 atLevel:(unsigned long long)arg2;
+
+// Remaining properties
+@property(retain, nonatomic) NSString *sharedObjectID;
+
+@end
+
 
 @end*/
 

@@ -27,6 +27,7 @@ public function setStringValue(s:String):Void;
 public function setFont(f:String):Void;
 public function setFontPostscriptName(f:String):Void;
 
+
 }
 
 /*
