@@ -126,6 +126,7 @@ class ExportLayer implements Exportable{
 		var relative= StringTools.replace(absolutePath,doc.dir(),"");
 		_trace( relative);
 		return relative;
+		
 	}
 
 
