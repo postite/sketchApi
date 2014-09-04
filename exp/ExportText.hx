@@ -23,7 +23,7 @@ enum Alignement{
 class ExportText extends ExportLayer implements Exportable
 {
 
-	var TP:TextProperties;
+	public var TP:TextProperties;
 	public function new(layer:MSTextLayer)
 	{
 		_trace( "hello text");
@@ -34,10 +34,13 @@ class ExportText extends ExportLayer implements Exportable
 		
 	}
 	override public function export():Exportable{
+		//super.export();
 		var layer:MSTextLayer =cast orig;
 		TP= cast {};
-			TP.text=layer.stringValue();
-			_trace( "textVAlue"+layer.stringValue());
+		_trace( "textVAlue"+layer.stringValue());
+			TP.text=splitP(layer.stringValue());
+			//TP.text=layer.stringValue();
+			
 			TP.fontSize=layer.fontSize();
  			TP.fontPostscriptName=""+layer.fontPostscriptName();
  			// textColor={
@@ -72,6 +75,8 @@ class ExportText extends ExportLayer implements Exportable
 		}
 		this.type=Text;
 		_trace(" font stuff");
+		 
+		// not clean metrics ! 
 		return super.export();
 	} 
 	
@@ -99,5 +104,18 @@ class ExportText extends ExportLayer implements Exportable
 		_trace("Align="+code);
 		//return "left";
 		return Type.createEnumIndex(Alignement,code).getName();
+	}
+
+	function splitP(text:String):String{
+		var z:String="";
+		//var t=~/\n/gm.map(text,function(r){return "</p><p>";});
+		
+		if(~/\n/g.match(text)){
+		var t=~/\n\n/g.replace(text,"</p><p>");
+		var z=~/\n/g.replace(t,"<br/>");
+		z="<p>"+z+"</p>";
+		return z;
+		}
+		return text;
 	}
 }
