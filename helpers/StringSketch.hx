@@ -1,5 +1,15 @@
 package helpers;
 
+typedef Tag={
+  name:String,
+  tag:String,
+  tagName:String
+}
+typedef ClassOrId={
+  classes:List<String>,
+  ids:List<String>,
+  cleanName:String
+}
 //stolen from https://github.com/malkomalko/sketch-android-kit
 class StringSketch{
 
@@ -106,7 +116,7 @@ return throw 'not yet implemented';
 	return throw 'not yet implemented';
   }
 
-  public static function getTextTag(text:String,?defaultTag:String="div"):{name:String,tag:String,tagName:String} 
+  public static function getTextTag(text:String,?defaultTag:String="div"):Tag 
 {
 
   var textname:String=Std.string(text); //<h1>pipo
@@ -121,7 +131,7 @@ return throw 'not yet implemented';
   }
   return {name:textname,tag:'<$defaultTag>',tagName:'$defaultTag'};
 }
-public static function getClassOrId(text:String):{classes:List<String>,ids:List<String>,cleanName:String}
+public static function getClassOrId(text:String):ClassOrId
 {
     var list:List<String>;
     var textname:String=Std.string(text); //.pipo
