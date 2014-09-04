@@ -105,6 +105,9 @@ class ExportFactory
 			return export;
 		}
 		if(klass == MSTextLayer){
+			if(origLayer.style().sharedObjectID()!=null)
+			export=new exp.ExportStyledText(cast origLayer);
+			else
 			export= new exp.ExportText(cast origLayer);
 			assign(export);
 			return export;
