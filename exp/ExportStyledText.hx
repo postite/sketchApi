@@ -12,7 +12,7 @@ class ExportStyledText extends ExportText{
 	{
 		init();
 		super( cast origLayer);
-
+		this.type=StyledText;
 		
 	}
 	function  init():Void
@@ -41,14 +41,16 @@ class ExportStyledText extends ExportText{
 	{
 		super.export();
 		css.set(this.styleName(),this.TP);
-		this.type=StyledText;
+		
 		return this;
 	}
 	public static function generateCss():String
 	{
+
 		var cssString="";
+		if( css!=null){
 		for (style in css.keys()){
-			_trace( "key="+style);
+			
 			var texteProps=css.get(style);
 		//var lineHeight=(this.height>= texteProps.lineSpacing*1.5)? texteProps.lineSpacing : node.height;
 		var css='font-size:${texteProps.fontSize}px;\n';
@@ -59,6 +61,7 @@ class ExportStyledText extends ExportText{
 								
 		cssString+='.$style{\n$css\n}\n';
 			
+		}
 		}
 		return cssString;
 
