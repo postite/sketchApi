@@ -21,6 +21,7 @@ class ExportContainer extends ExportLayer implements Exportable
 		// 		}
 		// 	}
 		//}
+
 		super(layer);
 		this.type=Container;
 		}
@@ -28,7 +29,7 @@ class ExportContainer extends ExportLayer implements Exportable
 	}
 	override function export():Exportable
 	{
-		
+	
 	if(orig!=null && behaviour.has(Exportable)){
 		visible =(behaviour.has(Behave.Visible))? true : false;
 		
