@@ -20,7 +20,7 @@ enum Alignement{
 	Left; //4
 
 }
-class ExportText extends ExportLayer implements Exportable
+class ExportText extends ExportContainer implements Exportable
 {
 
 	public var TP:TextProperties;
@@ -28,6 +28,7 @@ class ExportText extends ExportLayer implements Exportable
 	{
 		_trace( "hello text");
 		super(cast layer);
+		this.type=Text;
 		//name=name+'____text';
 
 			
@@ -73,7 +74,7 @@ class ExportText extends ExportLayer implements Exportable
 		catch( msg:Dynamic){
 			_trace( "font problem"+msg);
 		}
-		this.type=Text;
+		
 		_trace(" font stuff");
 		 
 		// not clean metrics ! 
