@@ -23,7 +23,7 @@ typedef Path={
 extern class MSLayer{
 
 //untested
-	inline  static public function create():MSLayerGroup{
+	inline  static public function create():MSLayer{
 
     return untyped __js__("[MSLayer new]");
 }
@@ -45,6 +45,8 @@ public function style():MSStyle;
 public function name():String; // not a realString ? doesnt work well with subfr for ex:
 public function setName(name:String):Void;
 
+//return 29C9F461-7C9D-4D5F-A99D-6CBE82A0E8F7 like (stored for symbol for ex)
+public function originalObjectID():String; 
 //Returns true if the layer is visible - that is, not hidden
 public function isVisible():Bool;
 public function setIsVisible(t:Bool):Void;
