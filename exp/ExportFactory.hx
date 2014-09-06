@@ -35,7 +35,8 @@ class ExportFactory
 		 flags=behaviour(origLayer);
 		var export:Exportable=null;
 		 props=splitSlash(origLayer.name());
-		 _trace( "props="+props);
+		// _trace( "props="+props);
+
 		if (flags.has(Behave.Exportable)){
 
 
@@ -118,10 +119,14 @@ class ExportFactory
 			return export;
 		}
 		
+		
 
 		
 
 		if(klass== MSLayerGroup  && !flags.has(Behave.Flat)){
+			if(origLayer.isSymbol())
+			export=new exp.ExportSymbol(cast origLayer);
+			else
 			export=  new exp.ExportContainer(cast origLayer);
 			onelog("ExportContainer");
 			assign(export);
