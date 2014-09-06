@@ -79,6 +79,11 @@ class Layer{
 		var  klass = l._class();
 		return  klass== MSTextLayer;
 	}
+  public static function isSymbol(l:MSLayer):Bool
+  {
+    return l.parentOrSelfIsSymbol(); 
+  }
+  
   
 	public static function export(layer:MSLayer,path:String,factor:Float,config:Conf):ExportData{
    	
