@@ -10,5 +10,6 @@ enum ExportTypes{
 	Mask;
 	Zone;
 	StyledText;
+	Symbol;
 	//Symbol;
 }
