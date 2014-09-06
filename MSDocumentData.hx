@@ -1,7 +1,8 @@
 @:publicFields
 extern class MSDocumentData
 {
-	public function layerTextStyles():MSSharedLayerContainer;
+	public function layerTextStyles():MSSharedLayerContainer.MSSharedLayerTextStyleContainer;
+	public function layerSymbols():MSSharedLayerContainer;
     
 
 }
