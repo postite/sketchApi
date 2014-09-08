@@ -19,7 +19,7 @@ class ExportStyledText extends ExportText{
 	{
 
 		if(styles==null){
-			createMocks();
+
 			styles=new Map();
 			css=new Map();
 			var datastylesOb=dataContainer.objects();
@@ -47,7 +47,7 @@ class ExportStyledText extends ExportText{
 		super.export();
 		css.set(this.styleName(),this.TP);
 		if(cast (this.orig).stringValue()==this.styleName()+"Mock"){
-			helpers.UI.alert("Mock");
+			//helpers.UI.alert("Mock");
 			 doc.documentData().layerTextStyles().removeSharedStyle(dataContainer.sharedStyleWithID(this.orig.style().sharedObjectID()));	
 			this.orig.removeFromParent();
 			this.type=Mock;
@@ -95,7 +95,7 @@ class ExportStyledText extends ExportText{
 				
 				var text:MSTextLayer=untyped selection.firstObject().addLayerOfType("text");
 				text.setStringValue(style.name()+"Mock");
-				text.setIsVisible(false);
+				
 				//log( datastyles.registerInstance_withSharedStyle(untyped text.sharedObjectID(),style));
 				 untyped text.style().setTextStyle(style.style().textStyle());
 				var newStyle=  dataContainer.addSharedStyleWithName(style.name(),text.style());
