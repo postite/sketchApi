@@ -25,6 +25,7 @@ extern class SketchArray<T> implements ArrayAccess<T>{
         // function toString() : String;
         // function unshift( x : T ) : Void;
         function firstObject():T;
+        
         inline function get_length():Int
         {
            

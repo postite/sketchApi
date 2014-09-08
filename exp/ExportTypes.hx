@@ -11,5 +11,6 @@ enum ExportTypes{
 	Zone;
 	StyledText;
 	Symbol;
+	Mock;
 	//Symbol;
 }

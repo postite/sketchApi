@@ -22,12 +22,6 @@ typedef Path={
 @:publicFields
 extern class MSLayer{
 
-//untested
-	inline  static public function create():MSLayer{
-
-    return untyped __js__("[MSLayer new]");
-}
-
 
 /**
      * Determines size and position on the canvas.

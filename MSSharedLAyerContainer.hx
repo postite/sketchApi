@@ -11,7 +11,11 @@ extern class MSSharedLayerContainer{
 
 extern class MSSharedLayerTextStyleContainer {
 public function objects():SketchArray<MSSharedLayerStyle>;
-	
+public inline function addSharedStyleWithName(styleName:String,style:MSStyle):MSSharedLayerStyle{
+	return untyped this.addSharedStyleWithName_firstInstance(styleName,style);
+}
+public function removeSharedStyle(style:MSSharedLayerStyle):Void;
+public function sharedStyleWithID(id:String):MSSharedLayerStyle;//sharedObjectID
 }
 extern class  MSSharedLayer{
 	//undoc 
