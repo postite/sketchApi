@@ -101,25 +101,55 @@ private static var hiddenLayers:Map<Int,List<MSLayer>>= new Map();
 
   //for blending at start
   //not finished (doesn't work for bitmap in groups).//TODO
-  public static function hideLayersOnTop(a:MSArtboardGroup,currentLayer:MSLayer):Void{
+
+  public static function hideLayersOnTop(a:MSArtboardGroup,current:MSLayer):Void{
 
 
-      var founded:Bool=false;
-       for ( l in a.layers()){
-            
-            if(l==currentLayer)founded=true;
-            if(founded){
-            _trace(l.name()+"is ignored");
-            try l.setIsVisible(false) catch(msg:Dynamic)_trace("novis"+msg);
-            }else{
-              _trace(l.name()+"is going to be shown");
-            }
-            
-          }
-          a.setIncludeBackgroundColorInExport(true);
-          toggleincludeinExport=true;
-       
+
+    var parent=current.parentGroup();
+    if( parent.isPage())return;
+    var clone=parent.layers().iterator().haxeArray();
+    clone.reverse();
+    for ( p in clone ){
+      if(p!=current){
+        p.setIsVisible(false);
+        
+      }else{
+        hideLayersOnTop(a,parent);
+        break;
+      }
+    }
+    a.setIncludeBackgroundColorInExport(true);
+    toggleincludeinExport=true;
+  
   }
+//   public static function hideLayersOnTop(a:MSArtboardGroup,currentLayer:MSLayer):Void{
+
+//     var parents:Array<MSLayer>=[];
+//    var node:MSLayer=currentLayer.parentGroup();
+  
+// while (node !=a.parentGroup() ){
+//       var founded:Bool=false;
+//        for ( l in node.layers()){
+            
+//             if(l==currentLayer)founded=true;
+//             if(founded){
+//             _trace(l.name()+"is ignored");
+//             try l.setIsVisible(false) catch(msg:Dynamic)_trace("novis"+msg);
+//             }else{
+//               _trace(l.name()+"is going to be shown");
+//             }
+            
+//           }
+//           currentLayer.setIsVisible(true);
+          
+//           node=node.parentGroup();
+//       }
+//       a.setIncludeBackgroundColorInExport(true);
+//           toggleincludeinExport=true;
+//       helpers.UI.alert('has blending'+currentLayer.name());
+       
+//   }
   public static function showHiddenOnTop(a:MSArtboardGroup,currentLayer:MSLayer):Void{
       if(toggleincludeinExport){
         a.setIncludeBackgroundColorInExport(false);
