@@ -9,7 +9,7 @@ inline  static public function create():MSLayerGroup{
 override public function layers():SketchArray<MSLayer>;
 //Returns an array of all layers in the group - not including any of their children. In this way you can see that a document is basically a tree structure of layers & groups.
 
-public function allLayers():SketchArray<MSLayer>;
+//public function allLayers():SketchArray<MSLayer>;
 //Returns an array of all layers in the group, including those in any sub-groups that have click-through enabled. Basically this array contains all layers that are directly selectable from within this group.
 
 public function resizeRoot():Dynamic;
