@@ -47,8 +47,9 @@ class Layer{
 	}
   public static function hasBlending(layer:MSLayer):Bool{
       
-       var blend=untyped layer.style().hasBlending();
-       
+
+       var blend:Bool=untyped layer.style().hasBlending();
+       //helpers.UI.alert(Std.string(blend));
        
        return blend;
   }
@@ -64,6 +65,10 @@ class Layer{
 	{
 		return untyped __js__("layer.class()");
 	}
+  public static function isPage(l:MSLayer):Bool{
+    var  klass = l._class();
+    return  klass== MSPage;
+  }
   public static function isArtBoard(l:MSLayer):Bool{
     var  klass = l._class();
     return  klass== MSArtboardGroup;
