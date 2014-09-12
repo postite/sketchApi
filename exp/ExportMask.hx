@@ -26,10 +26,8 @@ public function new(layer:MSLayerGroup)
 
 		var group:MSLayerGroup = ( this.orig._class()==MSLayerGroup)? cast this.orig :null;
 		if( orig.isGroup()){
-		_trace("layerhasmask="+ MSLayerGroup.layerHasMask(group) );
-		_trace( "hasLayerWithMaskMode="+ group.hasLayerWithMaskMode());
-		_trace("isPartOfClippingMask=" +group.isPartOfClippingMask() );
-		_trace( "hasLayerWithMaskMode="+ group.hasLayerWithMaskMode());
+		
+	
 
 			if( group.hasLayerWithMaskMode()==2){
 				clipped=new List();
@@ -42,10 +40,7 @@ public function new(layer:MSLayerGroup)
 						_trace("zorb");
 						_trace( "hasLayerWithMaskMode="+ untyped ch.hasLayerWithMaskMode());
 						try{
-		_trace("layerhasmask="+ MSLayerGroup.layerHasMask(ch) );
-		_trace( "hasLayerWithMaskMode="+ untyped ch.hasLayerWithMaskMode());
-		_trace("isPartOfClippingMask=" +untyped ch.isPartOfClippingMask() );
-		_trace( "hasLayerWithMaskMode="+ untyped ch.hasLayerWithMaskMode());
+		
 						//_trace( untyped ch.clippingMask());
 						_trace( untyped ch.isMasked());
 						}catch(msg:Dynamic){
@@ -77,12 +72,12 @@ public function new(layer:MSLayerGroup)
 		for ( masked in clipped){
 			bounds=masked.absoluteRect();
 		}
-		_trace("bound");
+		
 		log( bounds);
 		return bounds;
 	}
 	override function afterExport(){
-		_trace( "afterExport");
+		
 		if( clip!=null){
 		clip.setHasClippingMask(true);
 		clip.setIsVisible(true);

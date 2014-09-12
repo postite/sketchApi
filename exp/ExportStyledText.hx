@@ -22,13 +22,15 @@ class ExportStyledText extends ExportText{
 
 			styles=new Map();
 			css=new Map();
+			if(dataContainer!=null){
 			var datastylesOb=dataContainer.objects();
-			log(" initit");
+			
 			for ( style in datastylesOb){
 				styles.set(style.style().sharedObjectID(),style.name());
 				css.set(style.name(),cast {});
 			}
-			log( "after loop");
+			}
+			
 			
 
 		}

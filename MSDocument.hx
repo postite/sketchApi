@@ -1,8 +1,11 @@
 typedef MSSimpleGrid=Dynamic
 // surely some other properties //todo
-extern class SketchFile{
-	public function path():String;
+@:enum abstract Asktype(Int){
+    var chaine=0;
+    var combo= 1;
+    var explorer=2;
 }
+
 @:publicFields
 extern class MSDocument{
 
@@ -30,7 +33,7 @@ public function pages():SketchArray<MSPage>;
 
 
 //type: 0:String, 1:combo<Int> 2:explorer 
-public inline function askForUserInput(msg:String,?ofType:Int=0,?initialValue:Dynamic):Dynamic{
+public inline function askForUserInput(msg:String,?ofType:Asktype=chaine,?initialValue:Dynamic):Dynamic{
 	return untyped doc.askForUserInput_ofType_initialValue(msg,ofType,initialValue);
 } //TODo no comprendo !
 
@@ -45,7 +48,7 @@ public inline function saveArtboardOrSlice(bounds:MSSlice,path:String):Void{
 public function  currentView():MSContentDrawView;
 //Returns an MSContentDrawView subclass that represents the visible Canvas.
 
-public function addBlankPage(p:MSPage):Void;
+public function addBlankPage():MSPage;
 //Adds a new MSPage object to the document, inserting it below the current page, copying its grid and ruler position too. Available as of beta 184 / version 2.2.5
 
 public function removePage(p:MSPage):Void;
@@ -53,7 +56,7 @@ public function removePage(p:MSPage):Void;
 
 //out of official api
 //undocumented
-function fileURL():MSDocument.SketchFile;
+function fileURL():ns.NSURL;
 function saveDocument(t:Dynamic):Void; /// don't know which param
 function displayName():String;
 function setCurrentPage(p:MSPage):Void;

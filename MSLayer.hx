@@ -22,6 +22,10 @@ typedef Path={
 @:publicFields
 extern class MSLayer{
 
+public function x1():Float;
+public function x2():Float; 
+public function y1():Float;
+public function y2():Float; 
 
 /**
      * Determines size and position on the canvas.
@@ -120,8 +124,10 @@ function CSSAttributes():Dynamic; //quoted
 function children():SketchArray<MSLayer>;//(id)
 function ancestors():SketchArray<MSLayer>;//(id)
 //- (void)select:(BOOL)arg1 byExpandingSelection:(BOOL)arg2;
-inline function select(ok:Bool,byExpandingSelection:Bool):Void{
-    return untyped select_byExpandingSelection(ok,byExpandingSelection);
+//flat style does'nt work
+inline function select(ok:Bool,_byExpandingSelection:Bool):Void{
+     //untyped __js__ ('[this select:ok byExpandingSelection:_byExpandingSelection]');
+     untyped this.select_byExpandingSelection(ok,_byExpandingSelection);
 }
 
 function multiplyBy(v:Float):Void;//(void)

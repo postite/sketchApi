@@ -32,6 +32,7 @@ class ExportLayer implements Exportable{
 	public var props:Dynamic;
 
 	public function new(layer:MSLayerGroup){
+		_trace("export"+layer );
 		config=exp.ExportFactory.config;
 		
 		name=Std.string(layer.name()).clean(); // i don't get why i should Stringify this ( cause json cannot stringify NSString)
@@ -49,7 +50,7 @@ class ExportLayer implements Exportable{
 	function set_height(f:Float):Float return height=normalize(f);
 	
 	public function export():Exportable{
-		_trace( "export");
+	
 		if(orig!=null && behaviour.has(Exportable)){
 		visible =(behaviour.has(Behave.Visible))? true : false;
 		
@@ -58,34 +59,35 @@ class ExportLayer implements Exportable{
 		
 			try{
 				if(behaviour.has(Svg)){
-					_trace( "--------------svg style--------");
-					exportData=orig.exportSvg(doc.dir()+"view/images",config);
+					
+					exportData=orig.exportSvg(config.imagesPath,config);
 					this.type=Svg;
 					format="svg";
 					src=relativeSrc(exportData.path);
 					return this;
 				}
 				if( behaviour.has(Scale))
-					_trace("-------------------scale"+extractScaleFactor(name));
+					
 				if(behaviour.has(Mask)){
 					this.type=Mask;
-					exportData=orig.export(doc.dir()+"view/images",1,config);
-					_trace("-------------------------has mask");
+					exportData=orig.export(config.imagesPath,1,config);
+					
 				}
 				if (!behaviour.has(Flat)){
 					if (behaviour.has(Skip)) //just testing
 					exportData=orig.export(doc.dir()+"view/imuges",1,config);
 					else
-					exportData=orig.export(doc.dir()+"view/images",1,config);
+					exportData=orig.export(config.imagesPath,1,config);
 
 				}else{
 					if( !behaviour.has(Mask)){
-				_trace("-------------------------has flat");
-				exportData=orig.export(doc.dir()+"view/images",1,config);
+				
+				exportData=orig.export(config.imagesPath,1,config);
 				this.type=Image;
 					}
 				}
-				src=exportData.name;
+				//src=exportData.name;
+				src=config.imagesPathOut+exportData.name;
 				rootSrc=relativeSrc(exportData.path);
 				//src=relativeSrc(exportData.path);
 				
@@ -119,12 +121,11 @@ class ExportLayer implements Exportable{
 
 	function relativeSrc(absolutePath:String):String
 	{
-		_trace( absolutePath);
-		_trace( doc.dir());
+		
 
 		//var relative= StringTools.replace(absolutePath,doc.dir(),"");
 		var relative= StringTools.replace(absolutePath,doc.dir(),"");
-		_trace( relative);
+		
 		return relative;
 		
 	}

@@ -26,7 +26,7 @@ class ExportText extends ExportContainer implements Exportable
 	public var TP:TextProperties;
 	public function new(layer:MSTextLayer)
 	{
-		_trace( "hello text");
+	
 		super(cast layer);
 		this.type=Text;
 		//name=name+'____text';
@@ -36,9 +36,10 @@ class ExportText extends ExportContainer implements Exportable
 	}
 	override public function export():Exportable{
 		//super.export();
+		
 		var layer:MSTextLayer =cast orig;
 		TP= cast {};
-		_trace( "textVAlue"+layer.stringValue());
+		
 			TP.text=splitP(layer.stringValue());
 			//TP.text=layer.stringValue();
 			
@@ -49,11 +50,11 @@ class ExportText extends ExportContainer implements Exportable
  			//  b=Math.round(layer.textColor().blue()*255);
  			//  g=Math.round(layer.textColor().green()*255)
  			//  };
- 			_trace("pif");
+ 			
  			try{
  				//if text has layer fill over textProperties 
  				// there is a bug when fill exists but not checked > fill override native textColor
- 			_trace("try" );
+ 			
  			TP.color=layer.style().fills().firstObject().color().hexValue();
  			TP.alpha=layer.style().fills().firstObject().color().alpha();
       		}
@@ -75,7 +76,7 @@ class ExportText extends ExportContainer implements Exportable
 			_trace( "font problem"+msg);
 		}
 		
-		_trace(" font stuff");
+		
 		 
 		// not clean metrics ! 
 		return super.export();
@@ -102,7 +103,7 @@ class ExportText extends ExportContainer implements Exportable
 
 	function Align(code:Int):String
 	{
-		_trace("Align="+code);
+		
 		//return "left";
 		return Type.createEnumIndex(Alignement,code).getName();
 	}

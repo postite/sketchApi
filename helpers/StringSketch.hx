@@ -42,7 +42,7 @@ return throw 'not yet implemented';
  	   str=spaces.replace(trimed,'');
      var begin=~/^[°_#-]{1,}/g;
       str= begin.replace(str,"");
-      Global._trace( "clean ="+str);
+     
       return str;
   }
   public static function removeSlashes(str:String):String{

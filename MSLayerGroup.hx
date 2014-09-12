@@ -6,6 +6,8 @@ inline  static public function create():MSLayerGroup{
 	return untyped __js__("[MSLayerGroup new]");
 }
 
+
+
 override public function layers():SketchArray<MSLayer>;
 //Returns an array of all layers in the group - not including any of their children. In this way you can see that a document is basically a tree structure of layers & groups.
 
@@ -21,7 +23,7 @@ public function addLayer(id:MSLayer):Void;
 public function removeLayer():Void;
 //Remove a layer from this group
 
-public function addLayerOfType():Void;
+public function addLayerOfType(type:String):MSLayer;
 //Adds a completely new layer to the group, at the groups 0,0 origin. This method takes one argument; a string which indicates the kind of layer. Currently the only supported values are: "rectangle" and "text". This method returns the new layer which you can then manipulate/style using the other scripting methods
 public function isActualSymbol():Bool;
 

@@ -4,13 +4,14 @@ import Global.*;
 using helpers.Layer;
 using helpers.Artboard;
 import exp.Config.Conf;
+using helpers.Document;
 using Lambda;
 
 
 typedef ExportData={
   path:String,
   name:String,
-  sliced:{slice:MSSlice,bounds:Bounds}
+  sliced:{slice:Dynamic,bounds:Bounds}
 }
 typedef Bounds={
   x:Float,
@@ -90,7 +91,7 @@ class Layer{
   }
   
   
-	public static function export(layer:MSLayer,path:String,factor:Float,config:Conf):ExportData{
+	public static function old_export(layer:MSLayer,path:String,factor:Float,config:Conf):ExportData{
    	
    	var invisible:Bool=false;
     var artboard = layer.parentArtboard();
@@ -113,7 +114,7 @@ class Layer{
    // path=config.imagesPath+"/"+  layer.name().clean()+ "."+config.format;
    
     factor=config.scale;
-     _trace( "°°°°°°°°°°°°°°°path="+path);
+    
    	//_trace("here");
     var sliced = layer.withFactor(factor);
 
@@ -128,6 +129,51 @@ class Layer{
    
    	return {path:path,name:file,sliced:sliced};
   	}
+
+    public static function export(layer:MSLayer,path:String,factor:Float,config:Conf):ExportData
+    {
+    var invisible:Bool=false;
+    var artboard = layer.parentArtboard();
+    var page= layer.parentPage();
+    var cleanName=layer.name().clean();
+    var extension=config.format;
+    var file=cleanName+"."+extension;
+    
+    path = path+  file;
+    
+    //path=path+file;
+    // try{
+    // if(!layer.hasBlending())
+    // artboard.hideOtherLayers(layer);
+    //  else
+    //  artboard.hideLayersOnTop(layer);
+    // }catch(msg:Dynamic){
+    //   log("blending wtf");
+    // }
+    if (!layer.isVisible()){
+      invisible=true;
+      layer.setIsVisible(true);
+    }
+   // path=config.imagesPath+"/"+  layer.name().clean()+ "."+config.format;
+   
+    factor=config.scale;
+     
+    //_trace("here");
+    var sliced = layer.framerExport(path);
+
+    //_trace("here");
+   // doc.saveArtboardOrSlice(sliced.slice,path);
+    //_trace("here");
+    // try{
+    // if( invisible)layer.setIsVisible(false);
+    // // if(!layer.hasBlending())
+    // try artboard.showHiddenLayers() catch( msg:Dynamic)_trace(msg);
+    // // else
+    // // artboard.showHiddenOnTop(layer);
+    // }catch(msg:Dynamic){log("blending again !");}
+   
+    return {path:path,name:file,sliced:sliced};
+    }
   	public static function exportSvg(layer:MSLayer,path:String,config:Conf):ExportData
   	{
   		var factor=null;
@@ -142,7 +188,7 @@ class Layer{
     	layer.setIsVisible(true);
     }
     var cleanName=layer.name().clean();
-    path = path +"/"+page.name()+"/"+ artboard.name()+"/"+ cleanName+ '.svg';
+    
     //_trace( path +"factor="+Std.string(factor));
     
     factor=config.scale;
@@ -161,6 +207,54 @@ class Layer{
   	return export(layer,path,factor,config);
   	}
 
+    //should replace withfactor
+    public static function framerExport(view:MSLayer,filename:String):{slice:Dynamic,bounds:Bounds}
+    {
+      var  clone = view.duplicate();
+      //var  frame = clone.frame();
+
+      
+      // Actual writing of asset
+  // TODO: maybe use Exportable Layers?
+  //var filename = this.asset_path();
+  //var slice = [[MSSliceMaker slicesFromExportableLayer:view inRect:rect] firstObject];
+ MSSliceTrimming.safeRectForSlice(clone);
+ if( clone.parentOrSelfIsSymbol()&&clone.isGroup()){
+      
+    untyped clone.setIgnoreNextSymbolSyncChange(true);
+    }else{
+    MSSliceTrimming.trimSlice(clone);
+    }
+  
+  var rect =clone.absoluteRect().rect();
+  var slice = MSSliceMaker.slicesFromExportableLayer(view,rect).firstObject();
+  
+  //slice.page = [[doc currentPage] copyLightweight];
+  log(slice);
+  slice.setPage( doc.currentPage().copyLightweight());
+  slice.setFormat("png");
+  var bounds={x:clone.absoluteRect().rulerX(),
+      y:clone.absoluteRect().rulerY(),
+      width:clone.frame().width(),
+      height:clone.frame().height(),
+      relx:clone.frame().x(),
+      rely:clone.frame().y()};
+try clone.removeFromParent() catch (msg:Dynamic) log(msg);
+  
+  //var imageData = [MSSliceExporter dataForRequest:slice];
+  var imageData = MSSliceExporter.dataForRequest(slice);
+ // [imageData writeToFile:filename atomically:true];
+  
+  
+
+  var good=imageData.writeToFile(filename,true);
+  if(!good)helpers.UI.alert("not saved "+filename);
+  return {slice:view,bounds:bounds};
+    }
+
+
+
+
    public static function withFactor(layer:MSLayer,factor:Float):{slice:MSSlice,bounds:Bounds}{
     //var layerOrig = this.orig;
     var  copy = layer.duplicate();
@@ -172,7 +266,7 @@ class Layer{
     //_trace("here");
     MSSliceTrimming.safeRectForSlice(copy);
     if( copy.parentOrSelfIsSymbol()&&copy.isGroup()){
-      _trace( "___________________________its a symbol ______________");
+     
     untyped copy.setIgnoreNextSymbolSyncChange(true);
     }else{
     MSSliceTrimming.trimSlice(copy);
@@ -194,7 +288,7 @@ class Layer{
     
 	   try copy.removeFromParent() catch (msg:Dynamic) log(msg);
     
-    _trace("exported");
+    
     return {slice:slice,bounds:bounds};
   }
 }

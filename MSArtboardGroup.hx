@@ -1,6 +1,11 @@
 extern class MSArtboardGroup extends MSLayerGroup{
 //Since Sketch 2.2, an Artboard is just special kind of layer. MSSliceLayer has - like MSLayer - a Frame property that is an MSRect which determines its position in the canvas.
 
+
+inline  static public function create():MSArtboardGroup{
+
+	return untyped __js__("[MSArtboardGroup new]");
+}
 //public function layers():SketchArray<MSLayer>;
 //To see which layers are inside the Artboard, use the layers property.
 

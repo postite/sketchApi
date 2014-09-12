@@ -43,7 +43,7 @@ class Slice{
 
 	//var layer:MSLayer=firstOption.parentLayer();
 	var layer=orig;
-	onelog("layer"+layer.name());
+	
 
 	var invisible:Bool=false;
     var artboard = layer.parentArtboard();
@@ -57,7 +57,7 @@ class Slice{
     var extension=Std.string(options.format).toLowerCase();
     var file=cleanName+"."+extension;
     path = config.imagesPath+page.name()+"/"+artboard.name()+"/"+file;
-    _trace( path +"factor="+Std.string(factor));
+   
    	
    	//var factor= (options.scale!=null)? options.scale :1;
    	if (config.forceSlices)

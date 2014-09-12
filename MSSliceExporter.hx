@@ -1,6 +1,5 @@
-typedef SLICE=Dynamic
-@publicFields
-extern class MSSLiceExporter{
+@:publicFields
+extern class MSSliceExporter{
 
 
 //make it overload 
@@ -9,7 +8,15 @@ extern class MSSLiceExporter{
 // }
 // static inline function dataForSlice(s:SLICE,format:Dynamic,colorSpace:Dynamic)
 // static inline function dataForSlice(s:SLICE:(id)arg1 format:(id)arg2;
-
+static inline function dataForSlice(s:MSSliceTrimming.SLICE,format:Dynamic):ns.NSString{
+	return untyped MSSliceExporter.dataForSlice_format(s,format);
+}
+static inline function dataForRequest(arg1:Dynamic):ns.NSString.NSData{
+	return untyped MSSliceExporter.dataForRequest(arg1);
+ }
+ //static inline function dataForRequest(arg1:Dynamic, ?colorSpace:Dynamic=null, ?honorSaveForWeb:Bool=true):Dynamic{
+// 	return untyped MSSliceExporter.dataForRequest_colorSpace_honorSaveForWeb(arg1,colorSpace,honoSaveForWeb);
+// }
 }
 
 

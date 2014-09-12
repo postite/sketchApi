@@ -6,7 +6,8 @@ extern class SketchArray<T> implements ArrayAccess<T>{
         
          }
 
-         
+         public function array():Dynamic;
+         public function objectAtIndex(i:Int):T;
 
 
        
@@ -29,7 +30,7 @@ extern class SketchArray<T> implements ArrayAccess<T>{
         inline function get_length():Int
         {
            
-        	return (untyped this).length();
+        	return (untyped this).count();
         }
         // inline function insert( pos : Int, x : T ) : Void {
         //         (untyped this).splice(pos,0,x);
@@ -59,7 +60,10 @@ class NativeArrayIterator<T>
   public var array(default, null):SketchArray<T>;
   public var i:Int;
   inline public function new(ar:SketchArray<T>) {
-    this.array = ar;
+    try
+    this.array =  ar.array()
+    catch(msg:Dynamic)
+    this.array=ar;
     this.i = 0;
   }
 

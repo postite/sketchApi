@@ -27,6 +27,15 @@ public function setCurrentArtboard(art:MSArtboardGroup):Void;
 override public function name():String;
 
 public function addSlice(s:Dynamic):Void;
+
+
+
+
+/* NEXT */
+
+public function copyLightweight():Dynamic;
+
+
 }
 
 /*

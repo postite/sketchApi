@@ -1,0 +1,5 @@
+
+-main  BigCopyPlug
+-neko BigCopyPlug.n
+--next
+tests/sketchTest-build.hxml

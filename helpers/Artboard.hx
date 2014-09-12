@@ -27,21 +27,21 @@ private static var hiddenLayers:Map<Int,List<MSLayer>>= new Map();
 
   //filtre et retourne les groupes dans l'artboard
  public static function groups(a:MSArtboardGroup):Array<Exportable>{
-  _trace( "groups");
+
  var hxLayers= a.layers().iterator().haxeArray();
  var grouped:List<MSLayerGroup>= cast  Lambda.filter(hxLayers,function(layer:MSLayer){
  		return layer.isGroup();
  	});
- _trace( "grouped="+grouped);
+ 
   var exportables=grouped.map(genExportable).array();
-  _trace( "exportables"+exportables);
+
   return exportables;
 	}
 
 
   //génere ExportableLayers
   private static function genExportable(layerGroup:MSLayerGroup):Exportable{
-    _trace("genExportable");
+  
 
     return exp.ExportFactory.create(layerGroup);
     
@@ -53,7 +53,7 @@ private static var hiddenLayers:Map<Int,List<MSLayer>>= new Map();
   //cache les autres layers
 	public static function hideOtherLayers(a:MSArtboardGroup,currentLayer:MSLayer,withChilds:Bool=true)
 	{
-   onelog( "------------hideOthers-----------for "+currentLayer.name());
+   
 	 var parents:Array<MSLayer>=[];
    var node:MSLayer=currentLayer.parentGroup();
    while (node!=a){
@@ -173,7 +173,7 @@ private static var hiddenLayers:Map<Int,List<MSLayer>>= new Map();
       for ( child in currentLayer.parentGroup().layers()){
        // _trace("_1234 childname"+ child.name());
             if( child!=currentLayer){
-           onelog("hide"+ child.name());
+        
             if(child.isVisible())
             hideParentsSiblings(a,child,origLayer,withChilds);
             setHiddenLayers(a,child);
@@ -184,7 +184,7 @@ private static var hiddenLayers:Map<Int,List<MSLayer>>= new Map();
   }
   
   private  static function showHiddenLayers(a:MSArtboardGroup){
-    onelog("--------------show---------------");
+    
      for (hidden in getHiddenLayers(a)){
         hidden.setIsVisible(true);
      }
